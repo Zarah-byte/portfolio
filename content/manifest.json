@@ -1,0 +1,18 @@
+{
+  "_comment": "Static hosting can't list a directory, so new content is registered here. To add a project: create content/work/<slug>.md, then add \"<slug>\" below. Order on the site follows each file's `order` frontmatter, not this list.",
+  "work": [
+    "iris",
+    "nura",
+    "genie",
+    "micdrop",
+    "tasks"
+  ],
+  "play": [
+    "type-specimens",
+    "motion-sketches",
+    "palette-machine",
+    "karachi-nyc",
+    "icon-a-day",
+    "grid-studies"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Zarah Yaqub",
+  "alias": "Zarah by Design",
+  "role": "Brand & Product Designer",
+  "location": "New York City",
+  "from": "Karachi, Pakistan",
+  "email": "zarahyaqubdesign@gmail.com",
+  "tagline": "Solving problems using technology and building ideas from the ground up.",
+  "bioLead": "Brand & Product Designer passionate about solving problems using technology and building ideas from the ground up.",
+  "nav": [
+    { "label": "Work", "route": "work" },
+    { "label": "Play", "route": "play" },
+    { "label": "About", "route": "about" }
+  ],
+  "socials": [
+    { "label": "Email", "href": "mailto:zarahyaqubdesign@gmail.com", "icon": "mail" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/zarahyaqub/", "icon": "linkedin" },
+    { "label": "GitHub", "href": "https://github.com/zarahyaqub", "icon": "github" }
+  ],
+  "marquee": [
+    "Brand Design",
+    "Product Design",
+    "Design Systems",
+    "Prototyping",
+    "Karachi → NYC",
+    "From the ground up"
+  ]
+}
