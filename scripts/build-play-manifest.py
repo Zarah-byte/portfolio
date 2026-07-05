@@ -157,14 +157,14 @@ def item_from_markdown(path: Path) -> dict | None:
 
     poster = meta.get("poster")
     if poster:
-        item["poster"] = f"/content/play/{poster}"
+        item["poster"] = f"content/play/{poster}"
 
     return item
 
 
 def item_from_media(path: Path) -> dict:
     ext = path.suffix.lower()
-    web_path = f"/content/play/{path.name}"
+    web_path = f"content/play/{path.name}"
     meta, body = load_sidecar(path.stem)
 
     if ext in VIDEO_EXT:

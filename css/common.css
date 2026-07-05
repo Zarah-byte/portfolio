@@ -1,6 +1,6 @@
 /* Design tokens — mirror content/design-tokens.md exactly when editing */
 
-@import url("/css/cursor.css");
+@import url("cursor.css");
 
 :root {
 	/* Colors — dark editorial theme */

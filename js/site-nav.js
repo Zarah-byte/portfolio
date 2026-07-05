@@ -2,14 +2,15 @@
 	'use strict';
 
 	const PAGES = [
-		{ id: 'work', label: 'Work', href: '/index.html' },
-		{ id: 'play', label: 'Play', href: '/play.html' },
-		{ id: 'about', label: 'About', href: '/about.html' },
+		{ id: 'work', label: 'Work', href: 'index.html' },
+		{ id: 'play', label: 'Play', href: 'play.html' },
+		{ id: 'about', label: 'About', href: 'about.html' },
 	];
 
 	const RESUME_ARROW = '<svg class="resume-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
 
 	function buildNav(current) {
+		const prefix = window.sitePrefix ? window.sitePrefix() : '';
 		const nav = document.createElement('nav');
 		nav.className = 'nav-bar';
 		nav.setAttribute('aria-label', 'Site');
@@ -36,7 +37,7 @@
 		PAGES.forEach((page) => {
 			const li = document.createElement('li');
 			const a = document.createElement('a');
-			a.href = page.href;
+			a.href = prefix + page.href;
 			a.textContent = page.label;
 			if (page.id === current) a.setAttribute('aria-current', 'page');
 			li.append(a);

@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	const MANIFEST_URL = '/content/play/manifest.json';
+	const MANIFEST_URL = `${window.sitePrefix ? window.sitePrefix() : ''}content/play/manifest.json`;
 	const EXPAND_MS = 500;
 	const COPY_DELAY_MS = 120;
 
