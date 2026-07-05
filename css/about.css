@@ -1,0 +1,65 @@
+/* About page */
+
+.page-about .about-content {
+	padding: 0 var(--space-lg) var(--space-3xl);
+}
+
+.page-about .about-prose {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	max-width: 42rem;
+}
+
+.page-about .about-prose p {
+	font-size: clamp(0.9375rem, 0.85rem + 0.35vw, 1.0625rem);
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--ink);
+	max-width: none;
+}
+
+.page-about .about-prose em {
+	font-style: normal;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+.page-about .about-prose a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+.page-about .about-prose a:hover {
+	opacity: 0.55;
+}
+
+.page-about .about-meta {
+	margin-top: var(--space-xl);
+	padding-top: var(--space-lg);
+	border-top: 1px solid var(--rule);
+	max-width: 42rem;
+}
+
+.page-about .about-meta__heading {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: 700;
+	margin-bottom: var(--space-xs);
+	color: var(--ink);
+}
+
+.page-about .about-meta p {
+	font-size: var(--text-sm);
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+@media (max-width: 768px) {
+	.page-about .about-content {
+		padding-inline: var(--space-md);
+	}
+}

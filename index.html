@@ -1,41 +1,111 @@
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zarah Yaqub · Brand & Product Designer</title>
-    <meta
-      name="description"
-      content="Zarah Yaqub (aka Zarah by Design) — a Brand & Product Designer based in New York City."
-    />
-    <meta name="author" content="Zarah Yaqub" />
-    <meta property="og:title" content="Zarah Yaqub · Brand & Product Designer" />
-    <meta property="og:type" content="website" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Zarah Yaqub | Work</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <script>
-      // Progressive-enhancement flag; flipped before paint so reveal styles
-      // only hide content when JS can actually reveal it.
-      document.documentElement.classList.remove("no-js");
-    </script>
-  </head>
-  <body>
-    <!-- Everything below is rendered by app.js from content/*.md + site.json. -->
-    <div class="shell" id="shell">
-      <noscript>
-        <p style="padding: 2rem">
-          This portfolio uses JavaScript to assemble pages from Markdown files.
-          Please enable JavaScript, or view the Markdown directly in
-          <code>/content</code>.
-        </p>
-      </noscript>
-    </div>
-    <script type="module" src="app.js"></script>
-  </body>
+	<!-- styles -->
+	<link href="/css/reset.css" rel="stylesheet">
+	<link href="/css/common.css" rel="stylesheet">
+	<link href="/css/layout.css" rel="stylesheet">
+	<link href="/css/home.css" rel="stylesheet">
+
+	<!-- fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="page-home">
+	<div class="layout">
+		<div data-site-sidebar></div>
+
+		<div class="main-column">
+			<div data-site-nav="work"></div>
+
+			<main class="projects">
+				<h1 class="visually-hidden">Selected Work</h1>
+
+				<ul class="work-list">
+					<li>
+						<article class="card">
+							<a href="/projects/iris.html" class="card-link">
+								<figure class="card-media">
+									<ul class="tags">
+										<li class="tag tag-year">2025</li>
+										<li class="tag">Competition Winner</li>
+										<li class="tag">AI</li>
+									</ul>
+									<iframe class="card-img card-video" src="https://player.vimeo.com/video/1190751732?background=1&amp;loop=1&amp;autoplay=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Iris cover"></iframe>
+								</figure>
+								<figcaption class="card-caption">
+									<h2 class="card-title">Iris</h2>
+									<p class="card-desc">Wearable intelligence shaped in 24 hours</p>
+								</figcaption>
+							</a>
+						</article>
+					</li>
+
+					<li>
+						<article class="card">
+							<a href="/projects/micdrop.html" class="card-link">
+								<figure class="card-media">
+									<ul class="tags">
+										<li class="tag tag-year">2025</li>
+										<li class="tag">Print</li>
+									</ul>
+									<img src="/assets/media/covers/Micdrop cover.png" alt="Micdrop Magazine cover" class="card-img">
+								</figure>
+								<figcaption class="card-caption">
+									<h2 class="card-title">Micdrop Magazine</h2>
+									<p class="card-desc">A South Asian music magazine celebrating South Asian talent and artistry</p>
+								</figcaption>
+							</a>
+						</article>
+					</li>
+
+					<li>
+						<article class="card">
+							<a href="/projects/tasks.html" class="card-link">
+								<figure class="card-media">
+									<ul class="tags">
+										<li class="tag tag-year">2025</li>
+										<li class="tag">Feature</li>
+									</ul>
+									<iframe class="card-img card-video" src="https://player.vimeo.com/video/1184451152?background=1&amp;loop=1&amp;autoplay=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Google Tasks cover"></iframe>
+								</figure>
+								<figcaption class="card-caption">
+									<h2 class="card-title">Google Tasks</h2>
+									<p class="card-desc">Reimagining functionality for everyday task management</p>
+								</figcaption>
+							</a>
+						</article>
+					</li>
+
+					<li>
+						<article class="card">
+							<a href="/projects/nura.html" class="card-link">
+								<figure class="card-media">
+									<ul class="tags">
+										<li class="tag tag-year">2024</li>
+										<li class="tag">Healthcare</li>
+									</ul>
+									<img src="/assets/media/covers/nura cover.jpg" alt="Nura cover" class="card-img">
+								</figure>
+								<figcaption class="card-caption">
+									<h2 class="card-title">Nura</h2>
+									<p class="card-desc">Designing to ease the burden of dementia caregiving</p>
+								</figcaption>
+							</a>
+						</article>
+					</li>
+				</ul>
+			</main>
+		</div>
+	</div>
+
+	<script src="/js/site-sidebar.js" defer></script>
+	<script src="/js/site-nav.js" defer></script>
+	<script src="/js/cursor.js" defer></script>
+</body>
 </html>

@@ -1,0 +1,103 @@
+/* Project detail pages */
+
+.page-project .project-content {
+	padding: var(--space-sm) var(--space-lg) var(--space-3xl);
+	max-width: 56rem;
+}
+
+.page-project .project-title {
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 4vw, 3rem);
+	font-weight: 700;
+	line-height: 0.95;
+	letter-spacing: -0.02em;
+	text-transform: uppercase;
+	color: var(--ink);
+}
+
+.page-project .project-meta {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--space-md);
+	margin-top: var(--space-md);
+	padding-top: var(--space-md);
+	padding-bottom: var(--space-lg);
+	border-top: 1px solid var(--rule);
+	border-bottom: 1px solid var(--rule);
+}
+
+.page-project .project-meta__label {
+	display: block;
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+	margin-bottom: 0.35em;
+}
+
+.page-project .project-meta__value {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	line-height: 1.35;
+	color: var(--ink);
+}
+
+.page-project .project-intro {
+	margin-top: var(--space-lg);
+	font-size: clamp(0.9375rem, 0.85rem + 0.35vw, 1.0625rem);
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--ink);
+	max-width: none;
+}
+
+.page-project .project-note {
+	margin-top: var(--space-sm);
+	font-size: var(--text-sm);
+	font-style: italic;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+.page-project .project-media {
+	margin-top: var(--space-xl);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	background: var(--surface);
+}
+
+.page-project .project-media img,
+.page-project .project-media video {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.page-project .project-media .project-video {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 0;
+}
+
+.page-project .project-caption {
+	margin-top: var(--space-xs);
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+@media (max-width: 768px) {
+	.page-project .project-content {
+		padding-inline: var(--space-md);
+	}
+
+	.page-project .project-meta {
+		grid-template-columns: 1fr;
+		gap: var(--space-sm);
+	}
+}

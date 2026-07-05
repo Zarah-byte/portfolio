@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "id": "Genie",
+      "type": "image",
+      "src": "/content/play/Genie.png",
+      "modalSrc": "/content/play/Genie.png",
+      "alt": "",
+      "title": "Genie interface exploration",
+      "date": "2026",
+      "tag": "UI Study",
+      "description": "Visual exploration for a generative interface concept built around search and discovery."
+    }
+  ]
+}
