@@ -116,10 +116,10 @@ body.play-modal-open {
 }
 
 .play-modal {
-	--modal-bg: #EFEFEF;
-	--modal-ink: #0A0A0A;
-	--modal-muted: #666666;
-	--modal-rule: #D8D8D8;
+	--modal-bg: var(--bg);
+	--modal-ink: var(--ink);
+	--modal-muted: var(--ink-muted);
+	--modal-rule: var(--rule);
 
 	position: fixed;
 	inset: 0;
@@ -137,7 +137,7 @@ body.play-modal-open {
 	position: absolute;
 	inset: 0;
 	border: 0;
-	background: rgb(0 0 0 / 0.72);
+	background: rgb(0 0 0 / 0.45);
 	backdrop-filter: blur(12px);
 	cursor: pointer;
 	opacity: 0;
@@ -309,7 +309,7 @@ body.play-modal-open {
 	place-items: center;
 	min-height: 0;
 	padding: var(--space-sm);
-	background: #E4E4E4;
+	background: var(--surface);
 	border-radius: calc(var(--radius-lg) - var(--space-sm));
 	overflow: hidden;
 }
@@ -329,7 +329,7 @@ body.play-modal-open {
 .play-modal__video {
 	min-height: min(60vh, 560px);
 	border: 0;
-	background: #000;
+	background: var(--ink);
 }
 
 .play-modal__proxy {
@@ -337,7 +337,7 @@ body.play-modal-open {
 	z-index: 101;
 	overflow: hidden;
 	pointer-events: none;
-	background: #E4E4E4;
+	background: var(--surface);
 	will-change: top, left, width, height, border-radius;
 }
 

@@ -3,18 +3,18 @@
 @import url("cursor.css");
 
 :root {
-	/* Colors — dark editorial theme */
-	--bg: #0A0A0A;        /* near-black page background */
-	--sidebar-bg: #000000; /* sidebar column */
-	--surface: #1C1C1C;   /* project card fill and media placeholder */
-	--ink: #F0F0F0;       /* primary text */
-	--ink-muted: #8A8A8A; /* descriptions, inactive nav */
-	--rule: #2A2A2A;      /* vertical divider, hairlines */
+	/* Colors — light editorial theme */
+	--bg: #FFFFFF;        /* page background */
+	--sidebar-bg: #FFFFFF; /* sidebar column */
+	--surface: #F2F2F2;   /* project card fill and media placeholder */
+	--ink: #0A0A0A;       /* primary text */
+	--ink-muted: #666666; /* descriptions, inactive nav */
+	--rule: #E5E5E5;      /* vertical divider, hairlines */
 	--chip-bg: #FFFFFF;   /* tag chip background */
-	--chip-ink: #1A1A1A;  /* tag chip text */
-	--chip-rule: #1A1A1A; /* tag chip border */
-	--accent: #F0F0F0;    /* links resolve to ink in this design */
-	--thumb-bg: #161616;  /* card frame behind gallery media */
+	--chip-ink: #0A0A0A;  /* tag chip text */
+	--chip-rule: #D8D8D8; /* tag chip border */
+	--accent: #0A0A0A;    /* links resolve to ink in this design */
+	--thumb-bg: #F2F2F2;  /* card frame behind gallery media */
 
 	/* Fonts */
 	--font-display: "Khand", system-ui, sans-serif;
@@ -67,6 +67,10 @@
 	--duration-base: 250ms;
 	--duration-slow: 500ms;
 	--ease-base: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+	color-scheme: light;
 }
 
 body {

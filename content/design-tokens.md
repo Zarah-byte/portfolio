@@ -8,33 +8,35 @@ Tokens are kebab-case and used in CSS as `var(--token-name)`.
 
 ## Colors
 
-Dark editorial theme: near-black page, elevated dark project cards, light primary text, white monospace tag chips.
+Light editorial theme: white page, soft gray surfaces, near-black primary text, outlined white tag chips.
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | `#0A0A0A` | Near-black page background |
-| `--surface` | `#1C1C1C` | Project card fill and media placeholder |
-| `--ink` | `#F0F0F0` | Primary text |
-| `--ink-muted` | `#8A8A8A` | Secondary text — descriptions, inactive nav |
-| `--rule` | `#2A2A2A` | Vertical divider, hairlines |
+| `--bg` | `#FFFFFF` | Page background |
+| `--sidebar-bg` | `#FFFFFF` | Sidebar column |
+| `--surface` | `#F2F2F2` | Project card fill and media placeholder |
+| `--ink` | `#0A0A0A` | Primary text |
+| `--ink-muted` | `#666666` | Secondary text — descriptions, inactive nav |
+| `--rule` | `#E5E5E5` | Vertical divider, hairlines |
 | `--chip-bg` | `#FFFFFF` | Tag chip background |
-| `--chip-ink` | `#1A1A1A` | Tag chip text |
-| `--chip-rule` | `#1A1A1A` | Tag chip border |
-| `--accent` | `#F0F0F0` | Links (resolve to ink in this design) |
-| `--thumb-bg` | `#161616` | Gallery card frame behind media |
+| `--chip-ink` | `#0A0A0A` | Tag chip text |
+| `--chip-rule` | `#D8D8D8` | Tag chip border |
+| `--accent` | `#0A0A0A` | Links (resolve to ink in this design) |
+| `--thumb-bg` | `#F2F2F2` | Gallery card frame behind media |
 
 ```css
 :root {
-	--bg: #0A0A0A;
-	--surface: #1C1C1C;
-	--ink: #F0F0F0;
-	--ink-muted: #8A8A8A;
-	--rule: #2A2A2A;
+	--bg: #FFFFFF;
+	--sidebar-bg: #FFFFFF;
+	--surface: #F2F2F2;
+	--ink: #0A0A0A;
+	--ink-muted: #666666;
+	--rule: #E5E5E5;
 	--chip-bg: #FFFFFF;
-	--chip-ink: #1A1A1A;
-	--chip-rule: #1A1A1A;
-	--accent: #F0F0F0;
-	--thumb-bg: #161616;
+	--chip-ink: #0A0A0A;
+	--chip-rule: #D8D8D8;
+	--accent: #0A0A0A;
+	--thumb-bg: #F2F2F2;
 }
 ```
 
@@ -226,4 +228,4 @@ Use tokens instead of hardcoded values everywhere — e.g. `padding: var(--space
 ## Other
 
 - Border radius preference: rounded — `1.5rem` cards, pill chips, `0.375rem` squared year label.
-- Notes (tone, references, things to avoid): dark editorial layout; monospace for structural labels; Khand display face carries the personality; tag chips stay light for contrast on dark cards.
+- Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; Khand display face carries the personality; tag chips stay white with subtle borders for contrast on project media.
