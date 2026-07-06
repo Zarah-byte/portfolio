@@ -25,15 +25,24 @@
 	--pc-radius-sm: 0.5rem;
 	--pc-radius-lg: 1rem;
 
+	--pc-frame: 87.5rem; /* 1400px — matches the Figma design frame */
+
 	--pc-max: none;
 	--pc-text: 42rem;
-	--pc-body: 1.25rem;
+	--pc-body: 1.125rem;
 	--pc-caption: 0.875rem;
 	--pc-section-gap: clamp(5rem, 10vw, 9rem);
-	--pc-label-col: clamp(10rem, 13vw, 15rem);
-	--pc-gutter: clamp(2rem, 5vw, 5rem);
+	--pc-label-col: clamp(11rem, 30vw, 26rem);
+	--pc-gutter: clamp(1.5rem, 3vw, 2.5rem);
 	--pc-gallery-gap: clamp(0.375rem, 1vw, 0.5rem);
 	--pc-media-pad: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Cap the shell to the Figma frame so the header and content share one
+   centered column (≈1320px of content inside ~40px side margins). */
+.page-project .shell {
+	max-width: var(--pc-frame);
+	padding-inline: clamp(1rem, 3vw, 2.5rem);
 }
 
 /* ---- Content column ------------------------------------------------------ */
@@ -67,7 +76,7 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: var(--text-display);
+	font-size: clamp(4rem, 1rem + 21vw, 19rem);
 	line-height: 0.9;
 	letter-spacing: var(--tracking-tighter);
 	color: var(--pc-ink);
@@ -119,7 +128,7 @@
 
 .page-project .project-meta__row {
 	display: grid;
-	grid-template-columns: 5.5rem 1fr;
+	grid-template-columns: 7rem 1fr;
 	gap: var(--space-md);
 	padding: 0;
 	border-top: 0;
@@ -157,7 +166,7 @@
 }
 
 .page-project .project-meta__person + .project-meta__person {
-	margin-left: -0.7rem;
+	margin-left: -0.5rem;
 }
 
 .page-project .project-meta__person:nth-child(1) { z-index: 1; }
@@ -172,8 +181,8 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	inline-size: 2.5rem;
-	block-size: 2.5rem;
+	inline-size: 1.875rem;
+	block-size: 1.875rem;
 	padding: 0;
 	border: 2px solid var(--bg);
 	border-radius: 50%;
@@ -291,22 +300,19 @@
 	margin: 0 0 var(--pc-section-gap);
 	padding: 0;
 	background: transparent;
-	border-radius: 0;
-	width: 100vw;
-	max-width: 100vw;
-	margin-inline: calc(50% - 50vw);
+	border-radius: var(--pc-radius-sm);
 }
 
 .page-project .project-hero .project-media {
 	margin: 0;
-	border-radius: 0;
+	border-radius: var(--pc-radius-sm);
 	overflow: hidden;
 	background: transparent;
 	padding: 0;
 }
 
 .page-project .project-hero .project-media .project-video {
-	border-radius: 0;
+	border-radius: var(--pc-radius-sm);
 }
 
 .page-project .project-caption {
@@ -333,12 +339,9 @@
 }
 
 .page-project .project-section--alt {
-	margin-inline: calc(50% - 50vw);
-	padding: var(--pc-section-gap) var(--page-padding);
-	width: 100vw;
-	max-width: 100vw;
+	padding: var(--pc-section-gap) var(--pc-media-pad);
 	background: var(--pc-surface);
-	border-radius: 0;
+	border-radius: var(--pc-radius);
 }
 
 .page-project .project-section__head {
@@ -349,8 +352,8 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: clamp(1.0625rem, 1.1vw, 1.25rem);
-	line-height: 1.35;
+	font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+	line-height: 1.15;
 	letter-spacing: -0.02em;
 	color: var(--pc-ink);
 }
@@ -377,12 +380,6 @@
 	border-radius: var(--pc-radius);
 }
 
-.page-project .project-section__bleed {
-	width: 100vw;
-	max-width: 100vw;
-	margin-inline: calc(50% - 50vw);
-}
-
 .page-project .project-section__bleed > .project-media,
 .page-project .project-section__bleed > .project-gallery {
 	margin-top: clamp(2rem, 4vw, 3.5rem);
@@ -392,7 +389,7 @@
 .page-project .project-section__bleed .project-media .project-video,
 .page-project .project-section__bleed .project-media img,
 .page-project .project-section__bleed .project-media video {
-	border-radius: 0;
+	border-radius: var(--pc-radius-sm);
 }
 
 .page-project .project-section__body p {
@@ -653,7 +650,7 @@
 
 @media (min-width: 768px) {
 	.page-project .project-masthead__row {
-		grid-template-columns: minmax(0, 1.62fr) minmax(14rem, 1fr);
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		gap: clamp(2rem, 5vw, 5rem);
 		align-items: start;
 	}
@@ -679,7 +676,7 @@
 
 	.page-project .project-section__head h2 {
 		position: static;
-		max-width: 11ch;
+		max-width: 14ch;
 	}
 
 	.page-project .project-section__body p {

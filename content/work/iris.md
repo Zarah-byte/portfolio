@@ -65,6 +65,8 @@ And because the real world doesn't have a controlled background, Iris reads it. 
 [image:../assets/media/iris/design-system-01.jpg Glasses interface flush]
 [image:../assets/media/iris/design-system-02.jpg System status flush]
 
+[image:../assets/media/iris/design-system-transition.gif Interface transition flush]
+
 ## Impact
 
 Iris is a bet on intentional design — and on a shift that's already underway. Moving from reactive, chat-based AI to something longitudinal, something that lives with you, is the next big category of intelligent interfaces. We built Iris to help define what that looks like.
