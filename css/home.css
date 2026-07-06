@@ -1,8 +1,67 @@
-/* Homepage — project card feed */
+/* Homepage — editorial header + hero above a single-column feed of large,
+   image-led project cards (tags overlaid on the media, inline caption below).
+   Mobile-first; all rules scoped under .page-home so nothing leaks elsewhere. */
 
-.page-home .projects {
-	padding: var(--space-sm) var(--space-lg) var(--space-3xl);
+.page-home {
+	/* Home-scoped font choices (Fira Code is the web fallback we load) */
+	--font-sans: "Manrope", system-ui, sans-serif;
+	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+	--font-display: var(--font-sans);
+	--font-body: var(--font-sans);
+
+	font-family: var(--font-body);
+	color: var(--ink);
+	background: var(--bg);
 }
+
+/* ---- Hero ---------------------------------------------------------------- */
+
+/* Two-column body — sticky intro rail on the left, work feed on the right;
+   collapses to a single column on small screens. */
+
+.page-home .home-body {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-lg);
+	margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.page-home .hero-intro {
+	max-width: 40ch;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: -0.005em;
+	color: var(--ink-muted);
+
+	& strong {
+		font-weight: 700;
+		color: var(--ink);
+	}
+}
+
+@media (min-width: 768px) {
+	.page-home .home-body {
+		grid-template-columns: minmax(0, 14rem) 1fr;
+		gap: 0;
+		align-items: start;
+	}
+
+	.page-home .home-intro {
+		position: sticky;
+		top: clamp(1.5rem, 4vw, 3rem);
+		padding-right: clamp(1.5rem, 2.5vw, 2.5rem);
+	}
+
+	.page-home .work {
+		border-left: 1px solid var(--rule);
+		padding-left: clamp(1.5rem, 2.5vw, 2.5rem);
+	}
+}
+
+/* ---- Work feed ----------------------------------------------------------- */
 
 .page-home .work-list {
 	display: grid;
@@ -14,26 +73,25 @@
 .page-home .card-link {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-sm);
+	gap: var(--space-md);
 	text-decoration: none;
 }
 
 .page-home .card-media {
 	position: relative;
 	aspect-ratio: 16 / 9;
-	border-radius: var(--radius-lg);
 	overflow: hidden;
-	background: var(--surface);
 	margin: 0;
+	border-radius: var(--radius-lg);
+	background: transparent;
 }
 
 .page-home .card-img {
 	display: block;
-	position: relative;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	background: var(--surface);
+	background: transparent;
 	transition: transform var(--duration-base) var(--ease-base);
 }
 
@@ -43,7 +101,7 @@
 }
 
 .page-home .card-link:hover .card-img {
-	transform: scale(1.04);
+	transform: scale(1.03);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -56,12 +114,7 @@
 	}
 }
 
-.page-home .card-img::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: var(--surface);
-}
+/* Tags overlaid on the media, top-left */
 
 .page-home .tags {
 	position: absolute;
@@ -70,38 +123,44 @@
 	left: var(--space-md);
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--space-sm);
+	gap: var(--space-xs);
 	list-style: none;
 }
 
 .page-home .tag {
-	background: var(--chip-bg);
-	color: var(--chip-ink);
-	border: 1px solid var(--chip-rule);
+	display: inline-flex;
+	align-items: center;
+	height: 1.875rem;
+	padding: 0 0.75rem;
 	font-family: var(--font-mono);
-	text-transform: uppercase;
-	font-size: clamp(0.6875rem, 0.6rem + 0.4vw, 0.9375rem);
-	letter-spacing: var(--tracking-wide);
+	font-size: var(--text-2xs);
 	line-height: 1;
-	padding: 0.55em 1em;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--chip-ink);
+	background: var(--chip-bg);
+	border: 1px solid var(--chip-rule);
 	border-radius: var(--radius-full);
+	white-space: nowrap;
 }
 
 .page-home .tag-year {
 	border-radius: var(--radius-sm);
 }
 
+/* Inline caption below the media: "Title — description" */
+
 .page-home .card-caption {
 	font-family: var(--font-body);
-	font-size: var(--text-md);
-	line-height: 1.35;
+	font-size: var(--text-base);
+	line-height: 1.45;
 }
 
 .page-home .card-title {
 	display: inline;
 	font-family: var(--font-body);
 	font-size: inherit;
-	font-weight: 400;
+	font-weight: 700;
 	letter-spacing: var(--tracking-normal);
 	line-height: inherit;
 	color: var(--ink);
@@ -109,15 +168,10 @@
 
 .page-home .card-desc {
 	display: inline;
+	margin: 0;
 	color: var(--ink-muted);
 }
 
 .page-home .card-desc::before {
 	content: " ";
-}
-
-@media (max-width: 768px) {
-	.page-home .projects {
-		padding-inline: var(--space-md);
-	}
 }

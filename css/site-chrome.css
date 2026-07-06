@@ -1,0 +1,112 @@
+/* Shared site shell + header — used on homepage and project case-study pages. */
+
+.shell {
+	width: 100%;
+	max-width: 130rem;
+	margin-inline: auto;
+	padding: var(--space-md) clamp(1rem, 2vw, 2rem) var(--space-3xl);
+}
+
+.site-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-sm) var(--space-md);
+	padding-block: var(--space-xs);
+}
+
+.wordmark {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	font-family: "Manrope", system-ui, sans-serif;
+	font-weight: 700;
+	font-size: var(--text-md);
+	letter-spacing: var(--tracking-tight);
+	color: var(--ink);
+	text-decoration: none;
+}
+
+.wordmark-star {
+	display: inline-flex;
+	width: 1.35rem;
+	height: 1.35rem;
+	flex-shrink: 0;
+	color: var(--ink);
+}
+
+.wordmark-star svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+	transform-origin: center;
+	animation: wordmark-star-spin 0.8s var(--ease-base) both;
+}
+
+@keyframes wordmark-star-spin {
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wordmark-star svg {
+		animation: none;
+	}
+}
+
+.site-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-xs);
+	list-style: none;
+}
+
+.site-nav a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	min-height: 2.75rem;
+	padding: 0 1.1rem;
+	font-family: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+	font-size: var(--text-sm);
+	letter-spacing: 0.02em;
+	color: var(--ink-muted);
+	background: var(--chip-bg);
+	border: 1px solid var(--chip-rule);
+	border-radius: var(--radius-full);
+	text-decoration: none;
+	transition: color var(--duration-fast) var(--ease-base),
+		border-color var(--duration-fast) var(--ease-base);
+}
+
+.site-nav a:hover {
+	color: var(--ink);
+	border-color: var(--ink);
+}
+
+.site-nav a[aria-current="page"] {
+	color: var(--ink);
+}
+
+.resume-arrow {
+	width: 0.85em;
+	height: 0.85em;
+	flex-shrink: 0;
+	transition: transform var(--duration-fast) var(--ease-base);
+}
+
+.nav-resume:hover .resume-arrow {
+	transform: translate(1px, -1px);
+}
+
+@media (min-width: 900px) {
+	.site-header {
+		padding-block: var(--space-md);
+	}
+
+	.wordmark {
+		font-size: var(--text-xl);
+	}
+}

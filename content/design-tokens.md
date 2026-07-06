@@ -51,12 +51,14 @@ Loaded from **Google Fonts** via `<link>` tags in each page's `<head>` (no self-
 | Display (wordmark, headings, project titles) | Khand (300–700, condensed) | `--font-display` |
 | Body (paragraphs, descriptions, UI) | Geist (100–900) | `--font-body` |
 | Mono (nav, tag chips, labels) | Geist Mono (100–900) | `--font-mono` |
+| Editorial sans (homepage) | Manrope (200–800) | `--font-sans` |
 
 ```css
 :root {
 	--font-display: "Khand", system-ui, sans-serif;
 	--font-body: "Geist", system-ui, sans-serif;
 	--font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	--font-sans: "Manrope", system-ui, sans-serif;
 }
 ```
 
@@ -68,24 +70,38 @@ Font `<link>` tags (place in every page `<head>`):
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 ```
 
+**Homepage override.** `index.html` (`.page-home`) uses a more editorial pairing: it scopes
+`--font-display` and `--font-body` to `--font-sans` (Manrope) and sets `--font-mono` to
+`"SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace` — mono is reserved for the
+nav pills, tag chips, section labels, and the "view project" link. Manrope + Fira Code are
+loaded via a home-only Google Fonts `<link>`; other pages keep Khand / Geist / Geist Mono.
+
+```html
+<!-- index.html only -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+```
+
 ---
 
 ## Type Scale
 
 Base font size `16px`. Comprehensive named scale on a ~1.25 ratio; larger steps use `clamp()` so type scales smoothly across viewport widths.
 
-| Token | Value | ≈ px | Role |
-|---|---|---|---|
-| `--text-2xs` | `0.6875rem` | 11 | Tag chips |
-| `--text-xs` | `0.75rem` | 12 | Nav, meta labels (mono) |
-| `--text-sm` | `0.875rem` | 14 | Small print, social links |
-| `--text-base` | `1rem` | 16 | Body copy |
-| `--text-md` | `1.125rem` | 18 | Card captions, lead text |
-| `--text-lg` | `clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem)` | 20–24 | Sub-headings (h4) |
-| `--text-xl` | `clamp(1.5rem, 1.3rem + 0.8vw, 2rem)` | 24–32 | Section headings (h3) |
-| `--text-2xl` | `clamp(2rem, 1.6rem + 1.6vw, 3rem)` | 32–48 | Major headings (h2) |
-| `--text-3xl` | `clamp(2.5rem, 1.9rem + 2.6vw, 4rem)` | 40–64 | Wordmark, page titles (h1) |
-| `--text-4xl` | `clamp(3.25rem, 2.2rem + 4vw, 5.5rem)` | 52–88 | Display / hero |
+| Token | Value | ≈ px | Role | Leading | Tracking |
+|---|---|---|---|---|---|
+| `--text-2xs` | `0.6875rem` | 11 | Micro labels, chips (mono) | 1 | wide |
+| `--text-xs` | `0.75rem` | 12 | Nav, meta labels (mono) | 1 | wide |
+| `--text-sm` | `0.875rem` | 14 | Captions, fine print | body | normal |
+| `--text-base` | `1rem` | 16 | UI body | body | normal |
+| `--text-md` | `1.125rem` | 18 | Lead, card captions | snug | snug |
+| `--text-lg` | `clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem)` | 20–24 | Large body (h4) | snug | snug |
+| `--text-xl` | `clamp(1.5rem, 1.33rem + 0.85vw, 2rem)` | 24–32 | Sub-headings (h3) | heading | tight |
+| `--text-2xl` | `clamp(2rem, 1.65rem + 1.75vw, 3rem)` | 32–48 | Section titles (h2) | heading | tighter |
+| `--text-3xl` | `clamp(2.5rem, 1.95rem + 2.75vw, 4rem)` | 40–64 | Wordmark, page titles (h1) | heading | tighter |
+| `--text-4xl` | `clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem)` | 52–88 | Hero statement | tight | tighter |
+| `--text-display` | `clamp(3.5rem, 1rem + 12vw, 11rem)` | 56–176 | Oversized editorial titles (project mastheads) | tight | tighter |
+
+The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body contrast** so a page's title reads as the clear focal point. As type grows, **tracking tightens** (large display needs negative tracking to stop looking loose) and **leading shrinks** (big lines don't need 1.5); small text does the opposite — normal tracking, generous leading for legibility.
 
 ```css
 :root {
@@ -94,11 +110,12 @@ Base font size `16px`. Comprehensive named scale on a ~1.25 ratio; larger steps 
 	--text-sm: 0.875rem;
 	--text-base: 1rem;
 	--text-md: 1.125rem;
-	--text-lg: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
-	--text-xl: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
-	--text-2xl: clamp(2rem, 1.6rem + 1.6vw, 3rem);
-	--text-3xl: clamp(2.5rem, 1.9rem + 2.6vw, 4rem);
-	--text-4xl: clamp(3.25rem, 2.2rem + 4vw, 5.5rem);
+	--text-lg: clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem);
+	--text-xl: clamp(1.5rem, 1.33rem + 0.85vw, 2rem);
+	--text-2xl: clamp(2rem, 1.65rem + 1.75vw, 3rem);
+	--text-3xl: clamp(2.5rem, 1.95rem + 2.75vw, 4rem);
+	--text-4xl: clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem);
+	--text-display: clamp(3.5rem, 1rem + 12vw, 11rem);
 }
 ```
 
@@ -120,15 +137,23 @@ Base font size `16px`. Comprehensive named scale on a ~1.25 ratio; larger steps 
 
 ```css
 :root {
-	--leading-tight: 0.92;   /* stacked wordmark */
-	--leading-heading: 1.05;
-	--leading-body: 1.55;
+	/* Line height — tighter as type grows */
+	--leading-none: 1;          /* mono chips / labels */
+	--leading-tight: 0.92;      /* display / stacked wordmark */
+	--leading-heading: 1.05;    /* headings */
+	--leading-snug: 1.25;       /* subheads, lead paragraphs */
+	--leading-body: 1.55;       /* body copy */
 
-	--tracking-tight: -0.03em; /* display / headings */
+	/* Letter spacing — tighter as type grows, wide for mono labels */
+	--tracking-tighter: -0.04em;  /* display / giant titles */
+	--tracking-tight: -0.03em;    /* headings */
+	--tracking-snug: -0.015em;    /* large body, lead, UI */
 	--tracking-normal: 0;
-	--tracking-wide: 0.08em;   /* mono labels & chips */
+	--tracking-wide: 0.08em;      /* mono labels & chips */
 }
 ```
+
+Applied globally: `h1, h2` ride `--tracking-tighter`; `h3, h4` use `--tracking-tight`; `h5, h6` ease off to `--tracking-snug`. Project mastheads use `--text-display` + `--tracking-tighter` for the giant editorial title.
 
 ---
 

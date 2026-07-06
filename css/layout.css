@@ -1,25 +1,23 @@
-/* Shared two-column layout — sidebar + main column */
+/* Shared single-column layout — sidebar header stacked above main column */
 
 .layout {
-	display: grid;
-	grid-template-columns: minmax(220px, 260px) 1fr;
-	max-width: none;
-	margin-inline: 0;
+	display: block;
+	width: 100%;
+	max-width: 72rem;
+	margin-inline: auto;
 	padding: 0;
 	min-height: 100vh;
-	align-items: start;
 }
 
 .sidebar {
-	position: sticky;
-	top: 0;
-	height: 100vh;
-	overflow-y: auto;
+	position: static;
+	height: auto;
+	overflow: visible;
 	display: flex;
 	flex-direction: column;
-	padding: var(--space-md) var(--space-md) var(--space-lg);
+	padding: var(--space-md) var(--space-lg) var(--space-lg);
 	background: var(--sidebar-bg);
-	border-right: 1px solid var(--rule);
+	border-bottom: 1px solid var(--rule);
 }
 
 .side-header {
@@ -150,7 +148,6 @@
 	min-width: 0;
 	padding: 0;
 	background: var(--bg);
-	min-height: 100vh;
 }
 
 .nav-bar {
@@ -219,16 +216,8 @@
 }
 
 @media (max-width: 768px) {
-	.layout {
-		grid-template-columns: 1fr;
-	}
-
 	.sidebar {
-		position: static;
-		height: auto;
-		overflow: visible;
-		border-right: none;
-		border-bottom: 1px solid var(--rule);
+		padding-inline: var(--space-md);
 	}
 
 	.side-footer {

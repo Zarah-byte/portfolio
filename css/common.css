@@ -20,26 +20,36 @@
 	--font-display: "Khand", system-ui, sans-serif;
 	--font-body: "Geist", system-ui, sans-serif;
 	--font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	--font-sans: "Manrope", system-ui, sans-serif; /* editorial sans — used on the homepage */
 
-	/* Type scale — base 16px, fluid via clamp() on larger steps */
-	--text-2xs: 0.6875rem; /* 11px — tag chips */
-	--text-xs: 0.75rem;    /* 12px — nav, meta labels */
-	--text-sm: 0.875rem;   /* 14px */
-	--text-base: 1rem;     /* 16px — body */
-	--text-md: 1.125rem;   /* 18px — card caption */
-	--text-lg: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
-	--text-xl: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
-	--text-2xl: clamp(2rem, 1.6rem + 1.6vw, 3rem);
-	--text-3xl: clamp(2.5rem, 1.9rem + 2.6vw, 4rem);   /* wordmark */
-	--text-4xl: clamp(3.25rem, 2.2rem + 4vw, 5.5rem);
+	/* Type scale — 16px base on a ~1.2–1.25 modular ratio; larger steps scale
+	   fluidly via clamp(). Tracking tightens and leading shrinks as size grows
+	   — see the role map in content/design-tokens.md. */
+	--text-2xs: 0.6875rem; /* 11px — micro labels, chips */
+	--text-xs: 0.75rem;    /* 12px — mono nav / meta labels */
+	--text-sm: 0.875rem;   /* 14px — captions, fine print */
+	--text-base: 1rem;     /* 16px — UI body */
+	--text-md: 1.125rem;   /* 18px — lead, card captions */
+	--text-lg: clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem);  /* 20 → 24 — large body */
+	--text-xl: clamp(1.5rem, 1.33rem + 0.85vw, 2rem);     /* 24 → 32 — subheads */
+	--text-2xl: clamp(2rem, 1.65rem + 1.75vw, 3rem);      /* 32 → 48 — section titles */
+	--text-3xl: clamp(2.5rem, 1.95rem + 2.75vw, 4rem);    /* 40 → 64 — page titles */
+	--text-4xl: clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem);  /* 52 → 88 — hero */
+	--text-display: clamp(3.5rem, 1rem + 12vw, 11rem);    /* 56 → 176 — oversized editorial titles */
 
-	/* Line height & letter spacing */
-	--leading-tight: 0.92;
-	--leading-heading: 1.05;
-	--leading-body: 1.55;
-	--tracking-tight: -0.03em;
+	/* Line height — tighter as type grows */
+	--leading-none: 1;
+	--leading-tight: 0.92;    /* display / stacked wordmark */
+	--leading-heading: 1.05;  /* headings */
+	--leading-snug: 1.25;     /* subheads, lead paragraphs */
+	--leading-body: 1.55;     /* body copy */
+
+	/* Letter spacing — tighter as type grows, wide for mono labels */
+	--tracking-tighter: -0.04em;  /* display / giant titles */
+	--tracking-tight: -0.03em;    /* headings */
+	--tracking-snug: -0.015em;    /* large body, lead, UI */
 	--tracking-normal: 0;
-	--tracking-wide: 0.08em;
+	--tracking-wide: 0.08em;      /* mono labels, chips */
 
 	/* Spacing */
 	--space-2xs: 0.25rem;
@@ -89,6 +99,10 @@ h1, h2, h3, h4, h5, h6 {
 	letter-spacing: var(--tracking-tight);
 	font-weight: 700;
 }
+
+/* Larger headings ride tighter; small headings ease off for legibility */
+h1, h2 { letter-spacing: var(--tracking-tighter); }
+h5, h6 { letter-spacing: var(--tracking-snug); }
 
 h1 { font-size: var(--text-3xl); }
 h2 { font-size: var(--text-2xl); }
