@@ -198,7 +198,7 @@
 .page-project .project-meta__person-tooltip {
 	position: absolute;
 	left: 50%;
-	top: calc(100% + 0.65rem);
+	bottom: calc(100% + 0.65rem);
 	z-index: 6;
 	display: flex;
 	flex-direction: column;
@@ -212,7 +212,7 @@
 	background: var(--bg);
 	box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
 	text-align: center;
-	transform: translateX(-50%) translateY(-0.2rem);
+	transform: translateX(-50%) translateY(0.2rem);
 	opacity: 0;
 	pointer-events: none;
 	transition:
@@ -224,10 +224,10 @@
 	content: "";
 	position: absolute;
 	left: 50%;
-	bottom: 100%;
+	top: 100%;
 	transform: translateX(-50%);
 	border: 5px solid transparent;
-	border-bottom-color: var(--bg);
+	border-top-color: var(--bg);
 }
 
 .page-project .project-meta__person-tooltip-name {
@@ -401,6 +401,20 @@
 	font-size: var(--pc-body);
 	line-height: 1.55;
 	color: var(--pc-muted);
+}
+
+.page-project .project-section__body .project-list {
+	margin: 0;
+	padding-left: 1.25em;
+	max-width: var(--pc-text);
+	font-size: var(--pc-body);
+	line-height: 1.55;
+	color: var(--pc-muted);
+	list-style: decimal;
+}
+
+.page-project .project-section__body .project-list li + li {
+	margin-top: 0.35em;
 }
 
 .page-project .project-section__body .project-gallery {

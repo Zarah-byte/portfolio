@@ -38,6 +38,7 @@ IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; clipboard-write; encry
 
 VIMEO_TAG_RE = re.compile(r"^\[vimeo:(\d+)(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
+ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -113,6 +114,17 @@ def paragraphs_to_html(text: str, *, indent: str = "\t\t\t\t") -> str:
     if not parts:
         return ""
     return "\n".join(f"{indent}<p>{html.escape(part)}</p>" for part in parts)
+
+
+def ordered_list_to_html(items: list[str], *, indent: str = "\t\t\t\t") -> str:
+    if not items:
+        return ""
+    lines = [f"{indent}<ol class=\"project-list\">"]
+    for item in items:
+        cleaned = ORDERED_ITEM_RE.sub("", item, count=1).strip()
+        lines.append(f"{indent}\t<li>{html.escape(cleaned)}</li>")
+    lines.append(f"{indent}</ol>")
+    return "\n".join(lines)
 
 
 def vimeo_embed_block(
@@ -231,6 +243,7 @@ def wrap_gallery(media: list[str], *, indent: str = "\t\t\t\t") -> str:
 def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, str]]:
     blocks: list[tuple[str, str]] = []
     paragraph_lines: list[str] = []
+    ordered_lines: list[str] = []
     media_run: list[str] = []
 
     def flush_media() -> None:
@@ -240,10 +253,21 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         blocks.append(("bleed", wrap_gallery(media_run)))
         media_run = []
 
+    def flush_ordered_list() -> None:
+        nonlocal ordered_lines
+        if not ordered_lines:
+            return
+        flush_media()
+        html_block = ordered_list_to_html(ordered_lines)
+        if html_block:
+            blocks.append(("prose", html_block))
+        ordered_lines = []
+
     def flush_paragraphs() -> None:
         nonlocal paragraph_lines
         if not paragraph_lines:
             return
+        flush_ordered_list()
         flush_media()
         html_block = paragraphs_to_html("\n".join(paragraph_lines))
         if html_block:
@@ -254,7 +278,16 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         stripped = line.strip()
         if not stripped:
             flush_paragraphs()
+            flush_ordered_list()
+            flush_media()
             continue
+
+        if ORDERED_ITEM_RE.match(stripped):
+            flush_paragraphs()
+            ordered_lines.append(stripped)
+            continue
+
+        flush_ordered_list()
 
         parsed = parse_vimeo_tag(stripped, section_title)
         if parsed:
@@ -280,6 +313,7 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         paragraph_lines.append(stripped)
 
     flush_paragraphs()
+    flush_ordered_list()
     flush_media()
     return blocks
 

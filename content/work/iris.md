@@ -22,21 +22,19 @@ Iris was built at the Parsons x University of Arizona 24-hour AI Hackathon, host
 
 ## Problem Space
 
-Current AI tools are largely reactive, make you go to them relying on prompting and do not understand the full context of the issues you want them to solve.
+We began by auditing current AI tools and understanding the wearables space:
 
-Users rely on multiple tools to solve a singular problem as Apps often only solve one problem at a time.
+1. Current AI tools are largely reactive, make you go to them relying on prompting and do not understand the full context of the issues you want them to solve.
+2. Users rely on multiple tools to solve a singular problem; as Apps often only solve one problem at a time.
+3. Wearables get AI out of the screen and into the world, which is exciting — but they're still running on shallow intelligence and interfaces that aren't there yet. The form factor is solved. The thinking layer isn't.
 
-Wearables get AI out of the screen and into the world, which is exciting — but they're still running on shallow intelligence and interfaces that aren't there yet. The form factor is solved. The thinking layer isn't.
+[image:../assets/media/iris/problem.jpg Problem space flush]
 
 ## Solution
 
 We imagined something different — Iris. An agentic AI platform for smart glasses that doesn't wait for a prompt. It learns how you live, reads the moment, and shows up before you ask. Not a chatbot on your face — a discrete personal agent that builds context over time, asks the right questions, and shapes itself around you.
 
 Because your phone isn't always in your hand — but your eyes are always open. Smart glasses give AI continuous access to what you're seeing, without pulling you out of the moment. No tapping, no waking a screen. Just presence.
-
-## Key Features
-
-Iris reflects a bigger shift — one where you stop navigating software and software starts navigating for you. No screens, no menus, no buttons. Just agents working in the background while you stay in the moment. To show what that actually looks like, we built out a few everyday scenarios.
 
 ## Living With Iris
 
@@ -46,7 +44,7 @@ He's at the airport — moving fast, already mentally checked out. Iris finds th
 
 [vimeo:1182454088 Airport 01]
 
-[vimeo:1182454079 Airport 02 3x2]
+[vimeo:1182454079 Airport 02]
 
 At the gym, Iris shifts with him. It tracks his reps, sets, and progress in real time — and when he's ready for the next movement, it points him to the right machine. No app to open, no screen to check. Iris just keeps up.
 
@@ -64,14 +62,19 @@ The design system itself is intentionally stripped back. Simple shapes, bold col
 
 And because the real world doesn't have a controlled background, Iris reads it. It analyzes what's in your field of view and dynamically adjusts opacity and contrast on the fly — so whatever it shows you, you can always see it clearly.
 
+[image:../assets/media/iris/design-system-01.jpg Glasses interface flush]
+[image:../assets/media/iris/design-system-02.jpg System status flush]
+
 ## Impact
 
 Iris is a bet on intentional design — and on a shift that's already underway. Moving from reactive, chat-based AI to something longitudinal, something that lives with you, is the next big category of intelligent interfaces. We built Iris to help define what that looks like.
 
-## What We Learned
+## Reflection
 
 Strong vision beats strong visuals. The best ideas we had didn't come from refining the interface — they came from stepping back and questioning the whole model. That's the lesson we're taking forward.
 
 ## Outcome
 
 Iris took first place at the AI & Startup Design Hackathon hosted by Designpreneurs — a 24-hour sprint bringing together students from Parsons School of Design and the University of Arizona. What started as a single question about the future became a product we're genuinely proud of.
+
+Special thanks to my team!

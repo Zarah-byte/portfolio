@@ -6,6 +6,24 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8759"],
       "port": 8759
+    },
+    {
+      "name": "portfolio-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8771"],
+      "port": 8771
+    },
+    {
+      "name": "portfolio-verify",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8783"],
+      "port": 8783
+    },
+    {
+      "name": "portfolio-check",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8795"],
+      "port": 8795
     }
   ]
 }
