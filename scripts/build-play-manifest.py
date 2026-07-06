@@ -100,9 +100,9 @@ def youtube_embed(vid: str, *, background: bool) -> str:
     if background:
         return (
             f"https://www.youtube.com/embed/{vid}"
-            f"?autoplay=1&mute=1&loop=1&playlist={vid}&controls=0&modestbranding=1"
+            f"?autoplay=1&mute=1&loop=1&playlist={vid}&controls=0&modestbranding=1&rel=0"
         )
-    return f"https://www.youtube.com/embed/{vid}?autoplay=1&modestbranding=1"
+    return f"https://www.youtube.com/embed/{vid}?autoplay=1&modestbranding=1&rel=0"
 
 
 def normalize_video_url(url: str) -> tuple[str, str, str | None]:

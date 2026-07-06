@@ -203,7 +203,6 @@
 	function createFileVideo(src, { controls = false, className = '' } = {}) {
 		const video = document.createElement('video');
 		video.src = src;
-		video.loop = true;
 		video.muted = true;
 		video.playsInline = true;
 		video.preload = 'metadata';
@@ -213,15 +212,18 @@
 			video.autoplay = true;
 		} else {
 			video.autoplay = true;
+			video.loop = true;
 		}
 		return video;
 	}
 
-	function createEmbed(src, title, className) {
+	function createEmbed(src, title, className, { allowAutoplay = true } = {}) {
 		const iframe = document.createElement('iframe');
 		iframe.src = src;
 		iframe.className = className || 'play-card__embed';
-		iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+		iframe.allow = allowAutoplay
+			? 'autoplay; fullscreen; picture-in-picture'
+			: 'fullscreen; picture-in-picture';
 		iframe.referrerPolicy = 'strict-origin-when-cross-origin';
 		iframe.loading = 'lazy';
 		iframe.title = title || 'Play gallery video';
@@ -240,7 +242,12 @@
 		if (item.type === 'video') {
 			const src = modal ? item.modalSrc || item.src : item.src;
 			if (item.kind === 'embed') {
-				return createEmbed(src, item.title || item.id, modal ? 'play-modal__embed' : 'play-card__embed');
+				return createEmbed(
+					src,
+					item.title || item.id,
+					modal ? 'play-modal__embed' : 'play-card__embed',
+					{ allowAutoplay: !modal },
+				);
 			}
 			return createFileVideo(src, {
 				controls: modal,
