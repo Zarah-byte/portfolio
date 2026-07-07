@@ -3,6 +3,9 @@
 .page-play .play-gallery {
 	columns: 1;
 	column-gap: var(--space-md);
+	width: 100%;
+	max-width: var(--frame-width);
+	margin-inline: auto;
 	padding-block: var(--space-sm) 0;
 }
 
@@ -117,7 +120,9 @@ body.play-modal-open {
 
 	position: fixed;
 	inset: 0;
-	z-index: 100;
+	/* Above the site-menu toggle (z-index 201 on mobile) so the floating "+"
+	   never overlaps the open modal. */
+	z-index: 300;
 	display: grid;
 	place-items: center;
 	padding: var(--space-md);
