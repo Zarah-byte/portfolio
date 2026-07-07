@@ -36,7 +36,7 @@
 	color: var(--ink);
 }
 
-/* Hand-drawn waving hand, inline after the greeting — gives a quick wave on load */
+/* Hand-drawn waving hand, inline after the greeting — waves only on hover. */
 .page-home .hero-wave {
 	display: inline-block;
 	width: 0.95em;
@@ -44,13 +44,24 @@
 	vertical-align: -0.12em;
 	margin-left: 0.12em;
 	transform-origin: 72% 82%;
-	animation: hero-wave 1.8s var(--ease-base) 0.4s 2;
 }
 
-@keyframes hero-wave {
-	0%, 55%, 100% { transform: rotate(0deg); }
-	12%, 32%, 52% { transform: rotate(15deg); }
-	22%, 42% { transform: rotate(-9deg); }
+/* ease-in-out curve so each swing decelerates at its peak like a real
+   pendulum — applied per keyframe segment, it reads smooth, not jerky. */
+.page-home .hero-wave:hover {
+	animation: hero-wave-hover 0.9s cubic-bezier(0.45, 0, 0.55, 1) 0s 1;
+}
+
+/* Playful wave with smoothly decaying amplitude — swings settle gently
+   back to rest rather than snapping. No scale change. */
+@keyframes hero-wave-hover {
+	0%   { transform: rotate(0deg); }
+	18%  { transform: rotate(14deg); }
+	36%  { transform: rotate(-11deg); }
+	54%  { transform: rotate(8deg); }
+	72%  { transform: rotate(-5deg); }
+	86%  { transform: rotate(2deg); }
+	100% { transform: rotate(0deg); }
 }
 
 /* Inline outlined pill at the end of the intro — jumps to the work feed */
@@ -75,9 +86,21 @@
 		color var(--duration-fast) var(--ease-base);
 }
 
+/* Lucide arrow sits on a 24-grid with built-in padding, so the drawn glyph
+   is ~0.58 of its box; sizing the box to 1.2em makes the arrow read at the
+   text's cap height.
+   Stroke is declared here (not via SVG attributes) because the global reset
+   runs `all: unset` on the <svg> element, wiping its fill/stroke attributes;
+   the child paths inherit these CSS values instead. */
 .page-home .scroll-cue__arrow {
-	width: 1.05em;
-	height: 1.05em;
+	width: 1.2em;
+	height: 1.2em;
+	flex-shrink: 0;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
 	transition: transform var(--duration-base) var(--ease-base);
 }
 
@@ -91,7 +114,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.page-home .hero-wave {
+	.page-home .hero-wave,
+	.page-home .hero-wave:hover {
 		animation: none;
 	}
 
