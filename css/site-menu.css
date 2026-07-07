@@ -117,31 +117,6 @@
 	transform: rotate(135deg); /* extra spin into the × for a playful feel */
 }
 
-/* Backdrop — dims page content when the menu is open. */
-.site-menu__backdrop {
-	position: fixed;
-	inset: 0;
-	z-index: 199;
-	padding: 0;
-	border: 0;
-	background: rgb(0 0 0 / 0.35);
-	cursor: pointer;
-	opacity: 0;
-	transition: opacity 0.2s ease;
-}
-
-.site-menu__backdrop.is-open {
-	opacity: 1;
-}
-
-.site-menu__backdrop[hidden] {
-	display: none;
-}
-
-body.site-menu-open {
-	overflow: hidden;
-}
-
 /* ---- Dropdown panel ------------------------------------------------------ */
 
 .site-menu__panel {
@@ -339,7 +314,6 @@ body.site-menu-open {
 @media (prefers-reduced-motion: reduce) {
 	.site-menu__toggle-icon,
 	.site-menu__panel,
-	.site-menu__backdrop,
 	.site-menu__panel.is-open .site-menu__link,
 	.site-menu__panel.is-open .site-menu__link-sub,
 	.site-menu__panel.is-open .site-menu__socials {

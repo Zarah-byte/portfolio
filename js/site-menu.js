@@ -96,13 +96,6 @@
 		});
 
 		panel.append(primary, secondary, socials);
-
-		const backdrop = document.createElement('button');
-		backdrop.type = 'button';
-		backdrop.className = 'site-menu__backdrop';
-		backdrop.hidden = true;
-		backdrop.setAttribute('aria-label', 'Close menu');
-
 		trigger.append(toggle, panel);
 		header.append(trigger);
 
@@ -110,20 +103,17 @@
 		let onDocClick = null;
 
 		const open = () => {
-			backdrop.hidden = false;
 			panel.hidden = false;
 			void panel.offsetWidth; // reflow so the transition runs
-			backdrop.classList.add('is-open');
 			panel.classList.add('is-open');
 			toggle.classList.add('is-open');
 			toggle.setAttribute('aria-expanded', 'true');
 			toggle.setAttribute('aria-label', 'Close menu');
-			document.body.classList.add('site-menu-open');
 			const first = panel.querySelector('a');
 			if (first) first.focus();
 
 			onDocClick = (event) => {
-				if (!trigger.contains(event.target) && event.target !== backdrop) close(false);
+				if (!trigger.contains(event.target)) close(false);
 			};
 			// Defer so the opening click doesn't immediately close it.
 			setTimeout(() => document.addEventListener('click', onDocClick), 0);
@@ -131,29 +121,21 @@
 
 		const close = (returnFocus) => {
 			if (!panel.classList.contains('is-open')) return;
-			backdrop.classList.remove('is-open');
 			panel.classList.remove('is-open');
 			toggle.classList.remove('is-open');
 			toggle.setAttribute('aria-expanded', 'false');
 			toggle.setAttribute('aria-label', 'Open menu');
-			document.body.classList.remove('site-menu-open');
 			if (onDocClick) {
 				document.removeEventListener('click', onDocClick);
 				onDocClick = null;
 			}
 			const onEnd = () => {
 				panel.hidden = true;
-				backdrop.hidden = true;
 				panel.removeEventListener('transitionend', onEnd);
 			};
 			panel.addEventListener('transitionend', onEnd);
 			// Fallback in case transitionend doesn't fire (e.g. reduced motion).
-			setTimeout(() => {
-				if (!panel.classList.contains('is-open')) {
-					panel.hidden = true;
-					backdrop.hidden = true;
-				}
-			}, 400);
+			setTimeout(() => { if (!panel.classList.contains('is-open')) panel.hidden = true; }, 400);
 			if (returnFocus) toggle.focus();
 		};
 
@@ -162,8 +144,6 @@
 			else open();
 		});
 
-		backdrop.addEventListener('click', () => close(true));
-
 		panel.addEventListener('click', (event) => {
 			if (event.target.closest('a')) close(false);
 		});
@@ -171,8 +151,6 @@
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape' && panel.classList.contains('is-open')) close(true);
 		});
-
-		document.body.append(backdrop);
 
 		return header;
 	}
