@@ -7,46 +7,57 @@
 
 	<link href="css/reset.css" rel="stylesheet">
 	<link href="css/common.css" rel="stylesheet">
-	<link href="css/layout.css" rel="stylesheet">
+	<link href="css/site-chrome.css" rel="stylesheet">
+	<link href="css/site-menu.css" rel="stylesheet">
 	<link href="css/about.css" rel="stylesheet">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 <body class="page-about">
-	<div class="layout">
-		<div data-site-sidebar></div>
+	<div class="shell">
+		<div data-site-menu="about"></div>
 
-		<div class="main-column">
-			<div data-site-nav="about"></div>
+		<main class="about-content">
+			<h1 class="visually-hidden">Bio</h1>
 
-			<main class="about-content">
-				<h1 class="visually-hidden">Bio</h1>
+			<div class="about-layout">
+				<div class="about-main">
+					<div class="about-prose">
+						<p>Hi there — I'm Zarah, a brand and product designer passionate about building inclusive, human-centered work. Originally from <strong data-hover-image="assets/media/about/karachi-pakistan.svg">Karachi, Pakistan</strong>, I now call <strong data-hover-image="assets/media/about/new-york-city.svg">New York City</strong> home.</p>
 
-				<div class="about-prose">
-					<p>Hi there — I'm Zarah, a brand and product designer passionate about building inclusive, human-centered work. Originally from <em>Karachi, Pakistan</em>, I now call <em>New York City</em> home.</p>
+						<p>My practice spans branding, product design, and visual systems — from identity and packaging to interfaces and digital experiences. I'm drawn to work that sits at the intersection of culture, accessibility, and craft, and I care deeply about designing for people who are often left out of the conversation.</p>
 
-					<p>My practice spans branding, product design, and visual systems — from identity and packaging to interfaces and digital experiences. I'm drawn to work that sits at the intersection of culture, accessibility, and craft, and I care deeply about designing for people who are often left out of the conversation.</p>
+						<p>I recently completed my <strong data-hover-image="assets/media/about/mps-communication-design.svg">MPS Communication Design</strong> degree from <strong data-hover-image="assets/media/about/parsons.svg">The Parsons School of Design</strong> (Class of 2026), building on a BA (Hons) in Communication &amp; Design from Habib University (Class of 2025). Recent recognition includes first place at the Designpreneurs <strong data-hover-image="assets/media/about/hackathon.svg">Hackathon</strong> 2026 and participation in FigBuild 2026.</p>
 
-					<p>I'm currently pursuing an MPS in Communication Design at Parsons School of Design (Class of 2026), building on a BA (Hons) in Communication &amp; Design from Habib University (Class of 2025). Recent recognition includes first place at the Designpreneurs Hackathon 2026 and participation in FigBuild 2026.</p>
+						<p>Outside of design you can find me <strong data-hover-image="assets/media/about/pop-up-hopping.svg">pop-up hopping</strong> across New York, <strong data-hover-image="assets/media/about/crafting.svg">crafting</strong> or curled up on my couch <strong data-hover-image="assets/media/about/binging-tv-shows.svg">binging TV shows</strong>.</p>
 
-					<p>My email is <a href="mailto:zarahyaqubdesign@gmail.com">zarahyaqubdesign@gmail.com</a> if you want to work together, say hey, or just talk design.</p>
+						<p>My email is <a href="mailto:zarahyaqubdesign@gmail.com">zarahyaqubdesign@gmail.com</a> if you want to work together, say hey, or just talk design!</p>
+					</div>
+
+					<section class="about-meta">
+						<h2 class="about-meta__heading">About this Site</h2>
+						<p>Site design — Zarah Yaqub</p>
+						<p>Site dev — Zarah Yaqub, Claude Code, Cursor AI</p>
+						<p>Typography — Manrope, Fira Code</p>
+					</section>
 				</div>
 
-				<section class="about-meta">
-					<h2 class="about-meta__heading">About this site</h2>
-					<p>Site design — Zarah Yaqub</p>
-					<p>Site dev — Zarah Yaqub, Claude Code, Cursor AI</p>
-					<p>Typography — Khand, Geist, Geist Mono</p>
-				</section>
-			</main>
-		</div>
+				<figure class="about-figure">
+					<img class="about-photo" src="assets/media/about/portrait.jpg" alt="Portrait of Zarah Yaqub" width="577" height="865">
+				</figure>
+			</div>
+		</main>
+
+		<footer class="about-footer">
+			<p>© 2026 Zarah Yaqub</p>
+		</footer>
 	</div>
 
 	<script src="js/site-base.js" defer></script>
-	<script src="js/site-sidebar.js" defer></script>
-	<script src="js/site-nav.js" defer></script>
+	<script src="js/site-menu.js" defer></script>
 	<script src="js/cursor.js" defer></script>
+	<script src="js/about-hover.js" defer></script>
 </body>
 </html>

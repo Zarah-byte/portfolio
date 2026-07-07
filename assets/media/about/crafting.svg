@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Crafting placeholder">
+  <rect width="400" height="300" fill="#F2F2F2"/>
+  <rect x="8" y="8" width="384" height="284" fill="none" stroke="#D8D8D8" stroke-width="2" stroke-dasharray="8 8"/>
+  <text x="200" y="140" text-anchor="middle" font-family="Manrope, system-ui, sans-serif" font-size="18" font-weight="700" fill="#0A0A0A">Crafting</text>
+  <text x="200" y="170" text-anchor="middle" font-family="Manrope, system-ui, sans-serif" font-size="13" font-weight="400" fill="#888">placeholder illustration</text>
+</svg>
