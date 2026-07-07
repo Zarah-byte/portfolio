@@ -100,21 +100,7 @@
 	font-weight: 400;
 }
 
-/* ---- Footer -------------------------------------------------------------- */
-
-.page-about .about-footer {
-	display: flex;
-	justify-content: center;
-	padding-top: clamp(1.5rem, 3vw, 2.25rem); /* → 36px */
-	padding-bottom: var(--space-md);
-}
-
-.page-about .about-footer p {
-	font-family: var(--font-sans);
-	font-size: 0.9375rem; /* 15px */
-	color: var(--ink-muted);
-	max-width: none;
-}
+/* Footer — shared .site-footer component (see css/site-chrome.css). */
 
 /* ---- Cursor-following image reveal --------------------------------------- */
 

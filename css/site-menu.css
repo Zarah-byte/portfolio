@@ -7,7 +7,7 @@
 	justify-content: space-between;
 	gap: var(--space-md);
 	width: 100%;
-	max-width: var(--pc-frame, 87.5rem);
+	max-width: var(--frame-width);
 	margin-inline: auto;
 	padding-block: clamp(1.25rem, 2vw, 2.5rem);
 }

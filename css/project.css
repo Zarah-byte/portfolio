@@ -16,7 +16,7 @@
 
 	/* Local tokens — inspiration-aligned, scoped to project pages */
 	--pc-ink: var(--ink);
-	--pc-muted: rgb(0 0 0 / 0.6);
+	--pc-muted: var(--ink-muted);
 	--pc-rule: rgb(0 0 0 / 0.05);
 	--pc-border: rgb(0 0 0 / 0.05);
 	--pc-surface: rgb(0 0 0 / 0.03);
@@ -26,7 +26,7 @@
 	--pc-radius-lg: 1rem;
 	--pc-media-radius: clamp(1.5rem, 1rem + 3vw, 3rem); /* 24 → 48px — matches Figma media corners */
 
-	--pc-frame: 87.5rem; /* 1400px — matches the Figma design frame */
+	--pc-frame: var(--frame-width); /* 1400px — matches the Figma design frame */
 
 	--pc-max: none;
 	--pc-text: 42rem;
@@ -641,23 +641,12 @@
 	max-width: 34ch;
 }
 
-/* ---- Footer -------------------------------------------------------------- */
+/* ---- Footer --------------------------------------------------------------
+   Uses the shared .site-footer component (css/site-chrome.css); only the extra
+   top separation from the related-projects section is scoped here. */
 
-.page-project .project-footer {
+.page-project .site-footer {
 	margin-top: calc(var(--pc-section-gap) / 2);
-	padding-block: 0.625rem 1.5rem; /* 10px above, 24px below */
-	text-align: center;
-}
-
-.page-project .project-footer p {
-	margin: 0 auto;
-	max-width: none;
-	font-family: var(--font-display);
-	font-size: 0.9375rem; /* 15px */
-	font-weight: 400;
-	letter-spacing: -0.01em;
-	text-transform: none;
-	color: #777;
 }
 
 /* ---- Phone --------------------------------------------------------------- */

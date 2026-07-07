@@ -63,6 +63,7 @@
 
 	/* Layout */
 	--content-width: 1440px;
+	--frame-width: 87.5rem; /* 1400px — shared content frame; header and page content align to this */
 	--text-width: 720px;
 	--page-padding: clamp(1rem, 3vw, 3rem);
 	--bp-sm: 640px;

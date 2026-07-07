@@ -110,3 +110,19 @@
 		font-size: var(--text-xl);
 	}
 }
+
+/* Shared footer — centered copyright line. Matches the about/project footers
+   so every page type carries the same closing chrome. */
+.site-footer {
+	display: flex;
+	justify-content: center;
+	padding-top: clamp(1.5rem, 3vw, 2.25rem);
+	padding-bottom: var(--space-md);
+}
+
+.site-footer p {
+	font-family: var(--font-sans);
+	font-size: 0.9375rem; /* 15px */
+	color: var(--ink-muted);
+	max-width: none;
+}
