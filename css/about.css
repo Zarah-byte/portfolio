@@ -105,8 +105,8 @@
 .page-about .about-footer {
 	display: flex;
 	justify-content: center;
-	padding-top: clamp(3rem, 6vw, 4.625rem); /* → 74px */
-	padding-bottom: var(--space-lg);
+	padding-top: clamp(1.5rem, 3vw, 2.25rem); /* → 36px */
+	padding-bottom: var(--space-md);
 }
 
 .page-about .about-footer p {

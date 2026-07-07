@@ -10,52 +10,132 @@
 
 /* ---- Hero ---------------------------------------------------------------- */
 
-/* Two-column body — sticky intro rail on the left, work feed on the right;
-   collapses to a single column on small screens. */
+/* Single-column body — a full-width editorial hero statement above the
+   "Select Works" section header and the stacked work feed. */
 
 .page-home .home-body {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: var(--space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
 	margin-top: clamp(1.5rem, 4vw, 3rem);
 }
 
 .page-home .hero-intro {
-	max-width: 40ch;
+	max-width: 58rem;
 	margin: 0;
-	font-family: var(--font-body);
-	font-size: 1rem;
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4375rem);
 	font-weight: 400;
-	line-height: 1.5;
-	letter-spacing: -0.005em;
+	line-height: 1.45;
+	letter-spacing: var(--tracking-tighter);
 	color: var(--ink-muted);
+}
 
-	& strong {
-		font-weight: 700;
-		color: var(--ink);
+.page-home .hero-intro strong {
+	font-weight: 700;
+	color: var(--ink);
+}
+
+/* Hand-drawn waving hand, inline after the greeting — gives a quick wave on load */
+.page-home .hero-wave {
+	display: inline-block;
+	width: 0.95em;
+	height: 0.95em;
+	vertical-align: -0.12em;
+	margin-left: 0.12em;
+	transform-origin: 72% 82%;
+	animation: hero-wave 1.8s var(--ease-base) 0.4s 2;
+}
+
+@keyframes hero-wave {
+	0%, 55%, 100% { transform: rotate(0deg); }
+	12%, 32%, 52% { transform: rotate(15deg); }
+	22%, 42% { transform: rotate(-9deg); }
+}
+
+/* Inline outlined pill at the end of the intro — jumps to the work feed */
+.page-home .scroll-cue {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-left: 0.35rem;
+	padding: 0.6rem 1.1rem;
+	font-family: var(--font-body);
+	font-size: 1.0625rem;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: var(--tracking-snug);
+	color: var(--ink);
+	white-space: nowrap;
+	vertical-align: middle;
+	border: 1px solid var(--ink);
+	border-radius: var(--radius-full);
+	text-decoration: none;
+	transition: background-color var(--duration-fast) var(--ease-base),
+		color var(--duration-fast) var(--ease-base);
+}
+
+.page-home .scroll-cue__arrow {
+	width: 1.05em;
+	height: 1.05em;
+	transition: transform var(--duration-base) var(--ease-base);
+}
+
+.page-home .scroll-cue:hover {
+	background-color: var(--ink);
+	color: var(--bg);
+}
+
+.page-home .scroll-cue:hover .scroll-cue__arrow {
+	transform: translateY(0.15em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-home .hero-wave {
+		animation: none;
+	}
+
+	.page-home .scroll-cue__arrow {
+		transition: none;
+	}
+
+	.page-home .scroll-cue:hover .scroll-cue__arrow {
+		transform: none;
 	}
 }
 
-@media (min-width: 768px) {
-	.page-home .home-body {
-		grid-template-columns: minmax(0, 14rem) 1fr;
-		gap: 0;
-		align-items: start;
-	}
-
-	.page-home .home-intro {
-		position: sticky;
-		top: clamp(1.5rem, 4vw, 3rem);
-		padding-right: clamp(1.5rem, 2.5vw, 2.5rem);
-	}
-
-	.page-home .work {
-		border-left: 1px solid var(--rule);
-		padding-left: clamp(1.5rem, 2.5vw, 2.5rem);
-	}
+/* Anchor target sits a little below the top edge when jumped to */
+.page-home #work {
+	scroll-margin-top: var(--space-xl);
 }
 
 /* ---- Work feed ----------------------------------------------------------- */
+
+/* Section header — title left, year range right */
+
+.page-home .work-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-md);
+	margin-bottom: var(--space-lg);
+}
+
+.page-home .work-title {
+	font-family: var(--font-display);
+	font-size: var(--text-xl);
+	font-weight: 700;
+	letter-spacing: var(--tracking-tight);
+	color: var(--ink);
+}
+
+.page-home .work-range {
+	flex-shrink: 0;
+	font-family: var(--font-mono);
+	font-size: var(--text-sm);
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+}
 
 .page-home .work-list {
 	display: grid;

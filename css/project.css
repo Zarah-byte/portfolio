@@ -644,8 +644,8 @@
 /* ---- Footer -------------------------------------------------------------- */
 
 .page-project .project-footer {
-	margin-top: var(--pc-section-gap);
-	padding-block: 0.625rem 3.125rem; /* 10px above, 50px below the line — matches Figma */
+	margin-top: calc(var(--pc-section-gap) / 2);
+	padding-block: 0.625rem 1.5rem; /* 10px above, 24px below */
 	text-align: center;
 }
 
