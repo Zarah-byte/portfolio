@@ -174,8 +174,8 @@ body.play-modal-open {
 	z-index: 2;
 	display: grid;
 	place-items: center;
-	width: 2rem;
-	height: 2rem;
+	width: 2.75rem;
+	height: 2.75rem;
 	border: 0;
 	border-radius: var(--radius-full);
 	background: transparent;
@@ -348,6 +348,16 @@ body.play-modal-open {
 .play-modal__proxy iframe {
 	border: 0;
 	pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+	.play-modal__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.play-modal__copy {
+		padding-right: calc(var(--space-lg) + 1.5rem);
+	}
 }
 
 @media (max-width: 768px) {

@@ -77,7 +77,7 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: clamp(4rem, 1rem + 21vw, 19rem);
+	font-size: clamp(2.75rem, 1rem + 12vw, 19rem);
 	line-height: 0.9;
 	letter-spacing: var(--tracking-tighter);
 	color: var(--pc-ink);
@@ -158,8 +158,9 @@
 
 .page-project .project-meta__people {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	align-items: center;
+	gap: 0.25rem;
 }
 
 .page-project .project-meta__person {
@@ -543,11 +544,11 @@
 }
 
 .page-project .project-gallery--4 {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: 1fr;
 }
 
 .page-project .project-gallery--bento {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: 1fr;
 	gap: 0;
 }
 
@@ -659,6 +660,20 @@
 	color: #777;
 }
 
+/* ---- Phone --------------------------------------------------------------- */
+
+@media (max-width: 639px) {
+	.page-project .project-meta__row {
+		grid-template-columns: 1fr;
+		gap: var(--space-xs);
+		align-items: start;
+	}
+
+	.page-project .project-meta__person + .project-meta__person {
+		margin-left: 0;
+	}
+}
+
 /* ---- Tablet -------------------------------------------------------------- */
 
 @media (min-width: 640px) {
@@ -672,6 +687,20 @@
 
 	.page-project .project-gallery--4 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.page-project .project-gallery--bento {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.page-project {
+		--pc-label-col: 9rem;
+	}
+
+	.page-project .project-section {
+		gap: var(--space-lg);
 	}
 }
 

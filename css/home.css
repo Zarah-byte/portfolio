@@ -118,6 +118,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--space-xs);
+	max-width: calc(100% - 2 * var(--space-md));
 	list-style: none;
 }
 

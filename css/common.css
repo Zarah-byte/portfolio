@@ -65,6 +65,9 @@
 	--content-width: 1440px;
 	--text-width: 720px;
 	--page-padding: clamp(1rem, 3vw, 3rem);
+	--bp-sm: 640px;
+	--bp-md: 768px;
+	--bp-lg: 1024px;
 
 	/* Radius */
 	--radius-sm: 0.375rem;
