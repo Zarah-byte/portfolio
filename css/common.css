@@ -16,11 +16,11 @@
 	--accent: #0A0A0A;    /* links resolve to ink in this design */
 	--thumb-bg: #F2F2F2;  /* card frame behind gallery media */
 
-	/* Fonts */
-	--font-display: "Khand", system-ui, sans-serif;
-	--font-body: "Geist", system-ui, sans-serif;
-	--font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-	--font-sans: "Manrope", system-ui, sans-serif; /* editorial sans — used on the homepage */
+	/* Fonts — Manrope + Fira Code are the site default; Play overrides in play.css */
+	--font-display: "Manrope", system-ui, sans-serif;
+	--font-body: "Manrope", system-ui, sans-serif;
+	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+	--font-sans: "Manrope", system-ui, sans-serif;
 
 	/* Type scale — 16px base on a ~1.2–1.25 modular ratio; larger steps scale
 	   fluidly via clamp(). Tracking tightens and leading shrinks as size grows

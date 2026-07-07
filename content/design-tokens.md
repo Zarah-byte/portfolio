@@ -44,20 +44,20 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 
 ## Fonts
 
-Loaded from **Google Fonts** via `<link>` tags in each page's `<head>` (no self-hosted `@font-face`; `css/fonts.css` is now a stub).
+Loaded from **Google Fonts** via `<link>` tags in each page's `<head>`.
 
 | Role | Font | Token |
 |---|---|---|
-| Display (wordmark, headings, project titles) | Khand (300–700, condensed) | `--font-display` |
-| Body (paragraphs, descriptions, UI) | Geist (100–900) | `--font-body` |
-| Mono (nav, tag chips, labels) | Geist Mono (100–900) | `--font-mono` |
-| Editorial sans (homepage) | Manrope (200–800) | `--font-sans` |
+| Display (wordmark, headings, project titles) | Manrope (200–800) | `--font-display` |
+| Body (paragraphs, descriptions, UI) | Manrope (200–800) | `--font-body` |
+| Mono (nav, tag chips, labels) | Fira Code (400–600) | `--font-mono` |
+| Editorial sans (alias) | Manrope (200–800) | `--font-sans` |
 
 ```css
 :root {
-	--font-display: "Khand", system-ui, sans-serif;
-	--font-body: "Geist", system-ui, sans-serif;
-	--font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	--font-display: "Manrope", system-ui, sans-serif;
+	--font-body: "Manrope", system-ui, sans-serif;
+	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
 	--font-sans: "Manrope", system-ui, sans-serif;
 }
 ```
@@ -67,19 +67,10 @@ Font `<link>` tags (place in every page `<head>`):
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-```
-
-**Homepage override.** `index.html` (`.page-home`) uses a more editorial pairing: it scopes
-`--font-display` and `--font-body` to `--font-sans` (Manrope) and sets `--font-mono` to
-`"SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace` — mono is reserved for the
-nav pills, tag chips, section labels, and the "view project" link. Manrope + Fira Code are
-loaded via a home-only Google Fonts `<link>`; other pages keep Khand / Geist / Geist Mono.
-
-```html
-<!-- index.html only -->
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 ```
+
+`about.html` loads Manrope only (no mono elements on that page).
 
 ---
 
@@ -123,7 +114,7 @@ The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body con
 
 | Purpose | Font | Size | Weight | Notes |
 |---|---|---|---|---|
-| Wordmark | display | `--text-3xl` | 700 | tight leading + tracking, stacked (Khand max weight) |
+| Wordmark | display | `--text-3xl` | 700 | tight leading + tracking, stacked |
 | h1 | display | `--text-3xl` | 700 | |
 | h2 | display | `--text-2xl` | 700 | |
 | h3 | display | `--text-xl` | 700 | |
@@ -253,4 +244,4 @@ Use tokens instead of hardcoded values everywhere — e.g. `padding: var(--space
 ## Other
 
 - Border radius preference: rounded — `1.5rem` cards, pill chips, `0.375rem` squared year label.
-- Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; Khand display face carries the personality; tag chips stay white with subtle borders for contrast on project media.
+- Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; Manrope carries the personality; tag chips stay white with subtle borders for contrast on project media.

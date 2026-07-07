@@ -7,27 +7,23 @@
 
 	<link href="css/reset.css" rel="stylesheet">
 	<link href="css/common.css" rel="stylesheet">
-	<link href="css/layout.css" rel="stylesheet">
+	<link href="css/site-chrome.css" rel="stylesheet">
+	<link href="css/site-menu.css" rel="stylesheet">
 	<link href="css/play.css" rel="stylesheet">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 <body class="page-play">
-	<div class="layout">
-		<div data-site-sidebar></div>
+	<div class="shell">
+		<div data-site-menu="play"></div>
 
-		<div class="main-column">
-			<div data-site-nav="play"></div>
-
-			<main class="play-gallery" id="play-gallery" aria-label="Play gallery"></main>
-		</div>
+		<main class="play-gallery" id="play-gallery" aria-label="Play gallery"></main>
 	</div>
 
 	<script src="js/site-base.js" defer></script>
-	<script src="js/site-sidebar.js" defer></script>
-	<script src="js/site-nav.js" defer></script>
+	<script src="js/site-menu.js" defer></script>
 	<script src="js/cursor.js" defer></script>
 	<script src="js/play-gallery.js" defer></script>
 </body>

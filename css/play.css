@@ -3,7 +3,7 @@
 .page-play .play-gallery {
 	columns: 1;
 	column-gap: var(--space-md);
-	padding: var(--space-sm) var(--space-lg) var(--space-3xl);
+	padding-block: var(--space-sm) 0;
 }
 
 .page-play .play-card {
@@ -79,12 +79,6 @@
 @media (min-width: 1024px) {
 	.page-play .play-gallery {
 		columns: 3;
-	}
-}
-
-@media (max-width: 768px) {
-	.page-play .play-gallery {
-		padding-inline: var(--space-md);
 	}
 }
 

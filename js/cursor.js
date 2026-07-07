@@ -3,8 +3,17 @@
 
 	if (!window.matchMedia('(pointer: fine)').matches) return;
 
-	const CARD_SELECTOR = '.card-link';
+	// Elements the cursor should react to. Classification happens in
+	// resolveVariant(); anything matching here is considered interactive.
+	const INTERACTIVE =
+		'a, button, [role="button"], input, textarea, select, label, ' +
+		'.card-link, .play-card, [data-cursor]';
+	const CARD_SELECTOR = '.card-link, .play-card';
+	const ICON_SELECTOR = '.site-menu__toggle, .site-menu__social';
+
 	const LERP = 0.18;
+	const MAGNET_STRENGTH = 0.35; // 0 = no pull, 1 = snap to element centre
+	const VARIANT_CLASSES = ['cursor--link', 'cursor--icon', 'cursor--card'];
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	const cursor = document.createElement('div');
@@ -26,7 +35,7 @@
 	let currentX = targetX;
 	let currentY = targetY;
 	let visible = false;
-	let cardHover = false;
+	let currentVariant = '';
 	let rafId = null;
 
 	function setPosition(x, y) {
@@ -57,24 +66,54 @@
 		cursor.classList.remove('is-visible');
 	}
 
-	function setCardHover(active) {
-		cardHover = active;
-		cursor.classList.toggle('is-card-hover', active);
+	function setVariant(variant) {
+		if (variant === currentVariant) return;
+		currentVariant = variant;
+		cursor.classList.remove(...VARIANT_CLASSES);
+		if (variant) cursor.classList.add('cursor--' + variant);
+	}
+
+	// Map an interactive element to a cursor look. An explicit data-cursor
+	// attribute always wins so any element can opt into a specific variant.
+	function classify(el) {
+		if (el.dataset.cursor) return el.dataset.cursor;
+		if (el.matches(CARD_SELECTOR)) return 'card';
+		if (el.matches(ICON_SELECTOR)) return 'icon';
+		return 'link';
 	}
 
 	document.addEventListener('mousemove', (event) => {
-		targetX = event.clientX;
-		targetY = event.clientY;
+		const el = event.target;
+		const target = el && el.closest ? el.closest(INTERACTIVE) : null;
+
+		setVariant(target ? classify(target) : '');
+
+		let x = event.clientX;
+		let y = event.clientY;
+
+		// Magnetic pull: ease the cursor toward the element centre so it
+		// "locks on" to opted-in targets (data-cursor-magnetic).
+		if (target && !reducedMotion) {
+			const magnet = target.closest('[data-cursor-magnetic]');
+			if (magnet) {
+				const rect = magnet.getBoundingClientRect();
+				const cx = rect.left + rect.width / 2;
+				const cy = rect.top + rect.height / 2;
+				x += (cx - x) * MAGNET_STRENGTH;
+				y += (cy - y) * MAGNET_STRENGTH;
+			}
+		}
+
+		targetX = x;
+		targetY = y;
 		show();
 	});
 
 	document.addEventListener('mouseleave', hide);
 	document.addEventListener('mouseenter', show);
 
-	document.querySelectorAll(CARD_SELECTOR).forEach((card) => {
-		card.addEventListener('mouseenter', () => setCardHover(true));
-		card.addEventListener('mouseleave', () => setCardHover(false));
-	});
+	document.addEventListener('pointerdown', () => cursor.classList.add('is-pressed'));
+	document.addEventListener('pointerup', () => cursor.classList.remove('is-pressed'));
 
 	setPosition(currentX, currentY);
 	rafId = requestAnimationFrame(tick);

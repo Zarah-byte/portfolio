@@ -2,10 +2,10 @@
 eyebrow: Iris
 title: Creating wearable intelligence in 24 hours
 team: |
-  Zarah Yaqub — Brand & Product Design
-  Evgenii Astapov — Product Design, Motion
-  Kian Sadat — Business Strategy
-  Safiya Tarazi — Business Strategy
+  Zarah Yaqub — Product Design, Brand — ../assets/media/iris/team/Z.png
+  Evgenii Astapov — Product Design, Motion — ../assets/media/iris/team/E.png
+  Kian Sadat — Business Strategy — ../assets/media/iris/team/K.png
+  Safiya Tarazi — Business Strategy — ../assets/media/iris/team/S.png
 duration: 24 Hours
 context: Designpreneurs — University of Arizona x Parsons School of Design AI Startup Design Hackathon
 tools: Figma, Gemini AI, ChatGPT, Claude AI, Kling AI, Unsplash
@@ -35,6 +35,8 @@ We began by auditing current AI tools and understanding the wearables space:
 We imagined something different — Iris. An agentic AI platform for smart glasses that doesn't wait for a prompt. It learns how you live, reads the moment, and shows up before you ask. Not a chatbot on your face — a discrete personal agent that builds context over time, asks the right questions, and shapes itself around you.
 
 Because your phone isn't always in your hand — but your eyes are always open. Smart glasses give AI continuous access to what you're seeing, without pulling you out of the moment. No tapping, no waking a screen. Just presence.
+
+[image:../assets/media/iris/solution.jpg Solution flush]
 
 ## Living With Iris
 
@@ -80,3 +82,5 @@ Strong vision beats strong visuals. The best ideas we had didn't come from refin
 Iris took first place at the AI & Startup Design Hackathon hosted by Designpreneurs — a 24-hour sprint bringing together students from Parsons School of Design and the University of Arizona. What started as a single question about the future became a product we're genuinely proud of.
 
 Special thanks to my team!
+
+[image:../assets/media/iris/team-photo.jpg Team photo flush]

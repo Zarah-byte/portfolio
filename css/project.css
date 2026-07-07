@@ -24,6 +24,7 @@
 	--pc-radius: 0.75rem;
 	--pc-radius-sm: 0.5rem;
 	--pc-radius-lg: 1rem;
+	--pc-media-radius: clamp(1.5rem, 1rem + 3vw, 3rem); /* 24 → 48px — matches Figma media corners */
 
 	--pc-frame: 87.5rem; /* 1400px — matches the Figma design frame */
 
@@ -56,7 +57,7 @@
 	width: 100%;
 	max-width: var(--pc-max);
 	margin-inline: auto;
-	padding: clamp(1.5rem, 4vw, 3rem) 0 calc(var(--pc-section-gap) * 1.25);
+	padding: clamp(1.5rem, 4vw, 3rem) 0 3.125rem; /* 50px bottom — matches Figma content padding */
 	font-family: var(--font-body);
 	font-size: var(--pc-body);
 	color: var(--pc-ink);
@@ -181,20 +182,42 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	inline-size: 1.875rem;
-	block-size: 1.875rem;
+	inline-size: 2.125rem; /* 34px — matches Figma */
+	block-size: 2.125rem;
 	padding: 0;
-	border: 2px solid var(--bg);
+	border: 1px solid #b1b1b1;
 	border-radius: 50%;
-	background-color: rgb(0 0 0 / 0.035);
+	background-color: var(--bg);
+	overflow: hidden;
 	cursor: default;
+}
+
+/* Logo mark — borderless star avatar (Figma team roster). */
+.page-project .project-meta__person-button--mark {
+	inline-size: 2.1875rem; /* 35px */
+	block-size: 2.125rem; /* 34px */
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	overflow: visible;
+}
+
+.page-project .project-meta__person-button--mark .project-meta__person-avatar {
+	border-radius: 0;
+	object-fit: contain;
+	background: transparent;
 }
 
 .page-project .project-meta__person-avatar {
 	inline-size: 100%;
 	block-size: 100%;
 	border-radius: inherit;
+	object-fit: cover;
 	background-color: rgb(0 0 0 / 0.04);
+}
+
+/* Placeholder-only avatars (no photo supplied) keep a subtle checker fill. */
+.page-project span.project-meta__person-avatar {
 	background-image:
 		linear-gradient(45deg, rgb(0 0 0 / 0.07) 25%, transparent 25%),
 		linear-gradient(-45deg, rgb(0 0 0 / 0.07) 25%, transparent 25%),
@@ -255,13 +278,13 @@
 	white-space: nowrap;
 }
 
-.page-project .project-meta__person-button:hover,
-.page-project .project-meta__person-button:focus-visible {
+.page-project .project-meta__person:hover,
+.page-project .project-meta__person:focus-within {
 	z-index: 7;
 }
 
-.page-project .project-meta__person-button:hover .project-meta__person-tooltip,
-.page-project .project-meta__person-button:focus-visible .project-meta__person-tooltip {
+.page-project .project-meta__person:hover .project-meta__person-tooltip,
+.page-project .project-meta__person:focus-within .project-meta__person-tooltip {
 	opacity: 1;
 	transform: translateX(-50%) translateY(0);
 }
@@ -300,19 +323,19 @@
 	margin: 0 0 var(--pc-section-gap);
 	padding: 0;
 	background: transparent;
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-hero .project-media {
 	margin: 0;
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 	overflow: hidden;
 	background: transparent;
 	padding: 0;
 }
 
 .page-project .project-hero .project-media .project-video {
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-caption {
@@ -389,7 +412,7 @@
 .page-project .project-section__bleed .project-media .project-video,
 .page-project .project-section__bleed .project-media img,
 .page-project .project-section__bleed .project-media video {
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-section__body p {
@@ -428,7 +451,7 @@
 
 .page-project .project-media {
 	margin: 0;
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 	overflow: hidden;
 	background: var(--pc-surface);
 	padding: var(--pc-media-pad);
@@ -437,7 +460,7 @@
 .page-project .project-media--flush {
 	padding: 0;
 	background: transparent;
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-media img,
@@ -445,12 +468,12 @@
 	display: block;
 	width: 100%;
 	height: auto;
-	border-radius: calc(var(--pc-radius-sm) * 0.5);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-media--flush img,
 .page-project .project-media--flush video {
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-media .project-video {
@@ -458,7 +481,7 @@
 	width: 100%;
 	aspect-ratio: 16 / 9;
 	border: 0;
-	border-radius: calc(var(--pc-radius-sm) * 0.5);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-media--embed {
@@ -472,7 +495,7 @@
 	width: 100%;
 	height: 100%;
 	aspect-ratio: auto;
-	border-radius: var(--pc-radius-sm);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-media--ratio-16x9 { aspect-ratio: 16 / 9; }
@@ -491,18 +514,23 @@
 	margin: 0;
 	padding: 0;
 	background: transparent;
-	border-radius: 0;
+	border-radius: var(--pc-media-radius);
 	overflow: hidden;
+}
+
+.page-project .project-gallery .project-media img,
+.page-project .project-gallery .project-media video {
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-gallery .project-media.project-media--contained {
 	padding: var(--pc-media-pad);
 	background: var(--pc-surface);
-	border-radius: var(--pc-radius);
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-gallery .project-media .project-video {
-	border-radius: 0;
+	border-radius: var(--pc-media-radius);
 }
 
 .page-project .project-gallery--2 {
@@ -615,21 +643,20 @@
 /* ---- Footer -------------------------------------------------------------- */
 
 .page-project .project-footer {
-	margin-top: calc(var(--pc-section-gap) * 1.25);
-	padding-top: var(--space-xl);
-	border-top: 1px solid var(--pc-rule);
+	margin-top: var(--pc-section-gap);
+	padding-block: 0.625rem 3.125rem; /* 10px above, 50px below the line — matches Figma */
 	text-align: center;
 }
 
 .page-project .project-footer p {
 	margin: 0 auto;
 	max-width: none;
-	font-family: var(--font-mono);
-	font-size: var(--pc-caption);
+	font-family: var(--font-display);
+	font-size: 0.9375rem; /* 15px */
 	font-weight: 400;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	color: var(--pc-muted);
+	letter-spacing: -0.01em;
+	text-transform: none;
+	color: #777;
 }
 
 /* ---- Tablet -------------------------------------------------------------- */
@@ -711,5 +738,5 @@
 }
 
 .page-project .project-gallery:has(.project-media--embed) .project-media .project-video {
-	border-radius: 0;
+	border-radius: var(--pc-media-radius);
 }

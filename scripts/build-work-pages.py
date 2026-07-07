@@ -383,9 +383,10 @@ def format_meta_value(key: str, value: str) -> str:
         if len(members) > 1 or any(re.search(r"\s[—–-]\s", m) for m in members):
             people: list[str] = []
             for member in members:
-                parts = re.split(r"\s+[—–-]\s+", member, maxsplit=1)
+                parts = re.split(r"\s+[—–-]\s+", member, maxsplit=2)
                 raw_name = parts[0].strip()
                 raw_role = parts[1].strip() if len(parts) > 1 else ""
+                raw_photo = parts[2].strip() if len(parts) > 2 else ""
                 name = html.escape(raw_name)
                 role = html.escape(raw_role)
                 tooltip_text = f"{raw_name} — {raw_role}" if raw_role else raw_name
@@ -394,15 +395,32 @@ def format_meta_value(key: str, value: str) -> str:
                     if role
                     else ""
                 )
+                is_mark = "logo-star" in raw_photo or raw_photo.endswith("/Z.png")
+                button_class = (
+                    "project-meta__person-button project-meta__person-button--mark"
+                    if is_mark
+                    else "project-meta__person-button"
+                )
+                if raw_photo:
+                    avatar_html = (
+                        f'<img class="project-meta__person-avatar" '
+                        f'src="{html.escape(raw_photo)}" alt="" '
+                        f'loading="lazy" aria-hidden="true">'
+                    )
+                else:
+                    avatar_html = (
+                        '<span class="project-meta__person-avatar" aria-hidden="true"></span>'
+                    )
                 people.append(
                     '<span class="project-meta__person">'
-                    f'<button class="project-meta__person-button" type="button" '
+                    f'<button class="{button_class}" type="button" '
                     f'aria-label="{html.escape(tooltip_text)}">'
-                    f'<span class="project-meta__person-avatar" aria-hidden="true"></span>'
+                    f"{avatar_html}"
+                    f"</button>"
                     f'<span class="project-meta__person-tooltip" role="tooltip">'
                     f'<span class="project-meta__person-tooltip-name">{name}</span>'
                     f"{role_html}"
-                    f"</span></button></span>"
+                    f"</span></span>"
                 )
             return '<span class="project-meta__people">' + "".join(people) + "</span>"
 

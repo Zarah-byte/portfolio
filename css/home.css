@@ -3,12 +3,6 @@
    Mobile-first; all rules scoped under .page-home so nothing leaks elsewhere. */
 
 .page-home {
-	/* Home-scoped font choices (Fira Code is the web fallback we load) */
-	--font-sans: "Manrope", system-ui, sans-serif;
-	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
-	--font-display: var(--font-sans);
-	--font-body: var(--font-sans);
-
 	font-family: var(--font-body);
 	color: var(--ink);
 	background: var(--bg);
