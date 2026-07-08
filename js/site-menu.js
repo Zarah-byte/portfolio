@@ -5,7 +5,7 @@
 
 	const PAGES = [
 		{ id: 'work', label: 'Work', href: 'index.html' },
-		{ id: 'play', label: 'Play', href: 'play.html' },
+		{ id: 'play', label: 'Archive', href: 'play.html' },
 		{ id: 'about', label: 'About', href: 'about.html' },
 	];
 
