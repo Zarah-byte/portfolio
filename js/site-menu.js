@@ -71,7 +71,7 @@
 		secondary.className = 'site-menu__secondary';
 		const resume = document.createElement('a');
 		resume.className = 'site-menu__link-sub';
-		resume.href = '/resume/';
+		resume.href = '/resume/Zarah_Yaqub_Resume.pdf';
 		resume.target = '_blank';
 		resume.rel = 'noopener noreferrer';
 		resume.textContent = 'Resume';

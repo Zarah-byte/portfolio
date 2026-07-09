@@ -4,6 +4,7 @@
 	const MANIFEST_URL = `${window.sitePrefix ? window.sitePrefix() : ''}content/play/manifest.json`;
 	const EXPAND_MS = 500;
 	const COPY_DELAY_MS = 120;
+	const SWAP_MS = 200;
 
 	const gallery = document.getElementById('play-gallery');
 	if (!gallery) return;
@@ -11,6 +12,8 @@
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	let items = [];
+	const cardById = new Map();
+	let activeIndex = -1;
 	let lastFocus = null;
 	let activeCard = null;
 	let isAnimating = false;
@@ -34,6 +37,16 @@
 		root.hidden = true;
 		root.innerHTML = `
 			<button type="button" class="play-modal__backdrop" aria-label="Close"></button>
+			<button type="button" class="play-modal__nav play-modal__nav--prev" aria-label="Previous project">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<path d="M15 6l-6 6 6 6"/>
+				</svg>
+			</button>
+			<button type="button" class="play-modal__nav play-modal__nav--next" aria-label="Next project">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<path d="M9 6l6 6-6 6"/>
+				</svg>
+			</button>
 			<div class="play-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="play-modal-title" tabindex="-1">
 				<button type="button" class="play-modal__close" aria-label="Close">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -41,33 +54,38 @@
 					</svg>
 				</button>
 				<div class="play-modal__layout">
+					<div class="play-modal__media"></div>
 					<div class="play-modal__copy">
-						<div class="play-modal__meta"></div>
+						<div class="play-modal__meta" hidden></div>
 						<h2 class="play-modal__title" id="play-modal-title"></h2>
 						<div class="play-modal__desc"></div>
-						<a class="play-modal__link" target="_blank" rel="noopener noreferrer">
-							<span class="play-modal__link-icon" aria-hidden="true">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<path d="M7 17 17 7"/>
-									<path d="M8 7h9v9"/>
-								</svg>
-							</span>
+						<a class="play-modal__link">
 							<span class="play-modal__link-text"></span>
+							<svg class="play-modal__link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path d="M7 17 17 7"/>
+								<path d="M8 7h9v9"/>
+							</svg>
 						</a>
 					</div>
-					<div class="play-modal__media"></div>
 				</div>
 			</div>
 		`;
 
 		document.body.append(root);
 
+		const prev = root.querySelector('.play-modal__nav--prev');
+		const next = root.querySelector('.play-modal__nav--next');
+
 		root.querySelector('.play-modal__backdrop').addEventListener('click', closeModal);
 		root.querySelector('.play-modal__close').addEventListener('click', closeModal);
+		prev.addEventListener('click', () => goPrev());
+		next.addEventListener('click', () => goNext());
 		document.addEventListener('keydown', onKeydown);
 
 		return {
 			root,
+			prev,
+			next,
 			meta: root.querySelector('.play-modal__meta'),
 			title: root.querySelector('.play-modal__title'),
 			desc: root.querySelector('.play-modal__desc'),
@@ -84,6 +102,15 @@
 		if (event.key === 'Escape') {
 			event.preventDefault();
 			closeModal();
+			return;
+		}
+		if (items.length <= 1) return;
+		if (event.key === 'ArrowLeft') {
+			event.preventDefault();
+			goPrev();
+		} else if (event.key === 'ArrowRight') {
+			event.preventDefault();
+			goNext();
 		}
 	}
 
@@ -187,7 +214,27 @@
 	function resetModalState() {
 		modal.root.classList.remove('is-opening', 'is-open', 'is-closing');
 		modal.dialog.classList.remove('play-modal__dialog--preparing');
-		modal.copy.classList.remove('is-revealed');
+		modal.copy.classList.remove('is-revealed', 'is-swapping');
+	}
+
+	function updateNavVisibility() {
+		const showNav = items.length > 1 && !modal.root.hidden;
+		modal.prev.hidden = !showNav;
+		modal.next.hidden = !showNav;
+	}
+
+	function isExternalLink(href) {
+		return /^https?:\/\//i.test(href) || href.startsWith('//');
+	}
+
+	function setLinkAttributes(linkEl, href) {
+		if (isExternalLink(href)) {
+			linkEl.target = '_blank';
+			linkEl.rel = 'noopener noreferrer';
+		} else {
+			linkEl.removeAttribute('target');
+			linkEl.removeAttribute('rel');
+		}
 	}
 
 	function createImage(src, alt, className) {
@@ -262,29 +309,14 @@
 	}
 
 	function hasCopy(item) {
-		return Boolean(item.title || item.description || item.date || item.tag || item.link);
+		return Boolean(item.title || item.description || item.link);
 	}
 
 	function populateModal(item) {
 		const showCopy = hasCopy(item);
 		modal.copy.hidden = !showCopy;
 		modal.dialog.classList.toggle('play-modal__dialog--media-only', !showCopy);
-
-		modal.meta.replaceChildren();
-
-		if (item.date) {
-			const span = document.createElement('span');
-			span.textContent = `( ${item.date} )`;
-			modal.meta.append(span);
-		}
-
-		if (item.tag) {
-			const span = document.createElement('span');
-			span.textContent = `( ${item.tag} )`;
-			modal.meta.append(span);
-		}
-
-		modal.meta.hidden = !item.date && !item.tag;
+		modal.meta.hidden = true;
 
 		modal.title.textContent = item.title || item.id;
 		modal.title.hidden = !item.title;
@@ -294,6 +326,7 @@
 
 		if (item.link) {
 			modal.link.href = item.link;
+			setLinkAttributes(modal.link, item.link);
 			modal.linkText.textContent = item.linkLabel || 'See it live';
 			modal.link.hidden = false;
 		} else {
@@ -303,11 +336,60 @@
 		modal.media.replaceChildren(createMediaElement(item, { modal: true }));
 	}
 
+	function getItemAt(index) {
+		const len = items.length;
+		if (len === 0) return null;
+		return items[((index % len) + len) % len];
+	}
+
+	function syncActiveCard() {
+		const item = getItemAt(activeIndex);
+		activeCard = item ? cardById.get(item.id) || null : null;
+	}
+
+	function goToItem(index, { animate = true } = {}) {
+		if (items.length === 0 || modal.root.hidden) return;
+		if (isAnimating) return;
+
+		const nextIndex = ((index % items.length) + items.length) % items.length;
+		if (nextIndex === activeIndex && modal.root.classList.contains('is-open')) return;
+
+		const item = items[nextIndex];
+		activeIndex = nextIndex;
+		syncActiveCard();
+
+		if (!animate || prefersReducedMotion) {
+			populateModal(item);
+			modal.copy.classList.add('is-revealed');
+			return;
+		}
+
+		modal.copy.classList.remove('is-revealed');
+		modal.copy.classList.add('is-swapping');
+
+		window.setTimeout(() => {
+			populateModal(item);
+			modal.copy.classList.remove('is-swapping');
+			modal.copy.classList.add('is-revealed');
+		}, SWAP_MS);
+	}
+
+	function goPrev() {
+		if (items.length <= 1) return;
+		goToItem(activeIndex - 1);
+	}
+
+	function goNext() {
+		if (items.length <= 1) return;
+		goToItem(activeIndex + 1);
+	}
+
 	function revealModal() {
 		removeProxy();
 		modal.dialog.classList.remove('play-modal__dialog--preparing');
 		modal.root.classList.remove('is-opening');
 		modal.root.classList.add('is-open');
+		updateNavVisibility();
 		modal.dialog.focus();
 
 		clearOpenTimer();
@@ -318,17 +400,20 @@
 	}
 
 	function openModalInstant(item, card) {
+		activeIndex = items.indexOf(item);
 		activeCard = card;
 		lastFocus = document.activeElement;
 		populateModal(item);
 		modal.root.hidden = false;
 		document.body.classList.add('play-modal-open');
 		modal.root.classList.add('is-open');
+		updateNavVisibility();
 		modal.copy.classList.add('is-revealed');
 		modal.dialog.focus();
 	}
 
 	async function openModalAnimated(item, card) {
+		activeIndex = items.indexOf(item);
 		activeCard = card;
 		lastFocus = document.activeElement;
 		isAnimating = true;
@@ -353,6 +438,7 @@
 		applyFrame(proxy, fromRect, fromRadius);
 
 		modal.root.classList.add('is-open');
+		updateNavVisibility();
 
 		await animateRect(proxy, fromRect, toRect, fromRadius, toRadius, EXPAND_MS);
 
@@ -388,7 +474,9 @@
 		document.body.classList.remove('play-modal-open');
 		modal.media.replaceChildren();
 		activeCard = null;
+		activeIndex = -1;
 		isAnimating = false;
+		updateNavVisibility();
 
 		if (lastFocus && typeof lastFocus.focus === 'function') {
 			lastFocus.focus();
@@ -410,7 +498,7 @@
 		const cardMedia = card?.querySelector('.play-card__media');
 		const canReverse = cardMedia && isRectInViewport(getMediaRect(cardMedia));
 
-		modal.copy.classList.remove('is-revealed');
+		modal.copy.classList.remove('is-revealed', 'is-swapping');
 		modal.dialog.classList.add('play-modal__dialog--preparing');
 		modal.root.classList.add('is-closing');
 
@@ -456,6 +544,7 @@
 
 	function buildGallery(manifestItems) {
 		items = shuffle(manifestItems);
+		cardById.clear();
 		const fragment = document.createDocumentFragment();
 
 		items.forEach((item) => {
@@ -464,6 +553,7 @@
 			card.className = 'play-card';
 			if (item.type === 'video') card.classList.add('play-card--video');
 			card.setAttribute('aria-label', item.title || item.id);
+			card.dataset.playId = item.id;
 
 			const mediaWrap = document.createElement('div');
 			mediaWrap.className = 'play-card__media';
@@ -471,10 +561,12 @@
 
 			card.append(mediaWrap);
 			card.addEventListener('click', () => openModal(item, card));
+			cardById.set(item.id, card);
 			fragment.append(card);
 		});
 
 		gallery.replaceChildren(fragment);
+		updateNavVisibility();
 	}
 
 	fetch(MANIFEST_URL)
