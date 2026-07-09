@@ -144,14 +144,11 @@
 
 /* ---- Work feed ----------------------------------------------------------- */
 
-/* Section header — title left, year range right */
+/* Section header — centered title */
 
 .page-home .work-head {
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
-	gap: var(--space-md);
 	margin-bottom: var(--space-lg);
+	text-align: center;
 }
 
 .page-home .work-title {
@@ -162,18 +159,14 @@
 	color: var(--ink);
 }
 
-.page-home .work-range {
-	flex-shrink: 0;
-	font-family: var(--font-mono);
-	font-size: var(--text-sm);
-	letter-spacing: var(--tracking-wide);
-	color: var(--ink-muted);
-}
-
+/* Cards sit in a 858px column centered in the 1400px frame */
 .page-home .work-list {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: var(--space-lg);
+	gap: clamp(2rem, 5vw, 6.75rem);
+	width: 100%;
+	max-width: 53.625rem;
+	margin-inline: auto;
 	list-style: none;
 }
 
@@ -213,11 +206,6 @@
 	object-fit: cover;
 	background: transparent;
 	transition: transform var(--duration-base) var(--ease-base);
-}
-
-.page-home .card-video {
-	border: 0;
-	pointer-events: none;
 }
 
 .page-home .card-link:hover .card-img {
