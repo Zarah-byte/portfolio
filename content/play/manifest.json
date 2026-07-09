@@ -10,6 +10,19 @@
       "date": "2026",
       "tag": "UI Study",
       "description": "Visual exploration for a generative interface concept built around search and discovery."
+    },
+    {
+      "id": "Mirae",
+      "type": "image",
+      "src": "content/play/Mirae.png",
+      "modalSrc": "content/play/Mirae.png",
+      "alt": "",
+      "title": "Mirae",
+      "date": "2026",
+      "tag": "Speculative",
+      "link": "projects/mirae.html",
+      "linkLabel": "Read the case study",
+      "description": "A speculative bio-adaptive system \u2014 a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface. Built for FigBuild 2026 with Chareese Lam."
     }
   ]
 }
