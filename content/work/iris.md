@@ -30,6 +30,12 @@ We began by auditing current AI tools and understanding the wearables space:
 
 [image:../assets/media/iris/problem.jpg Problem space flush]
 
+## The Insight
+
+The prompt is the problem. Everyone in the space was racing to build a smarter assistant — better answers, faster recall, a nicer chat on your face. But the bottleneck was never the answers. It was the asking. As long as intelligence waits to be summoned, it stays a tool you have to remember to reach for.
+
+So we bet on the opposite: an agent that reads the moment and acts before you think to prompt it — context replacing commands. Presence, not response.
+
 ## Solution
 
 We imagined something different — Iris. An agentic AI platform for smart glasses that doesn't wait for a prompt. It learns how you live, reads the moment, and shows up before you ask. Not a chatbot on your face — a discrete personal agent that builds context over time, asks the right questions, and shapes itself around you.

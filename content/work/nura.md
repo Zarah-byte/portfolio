@@ -25,6 +25,12 @@ Care between appointments falls through the cracks. The hardest part of dementia
 
 [image:../assets/media/nura/problem.jpg Problem context flush]
 
+## The Insight
+
+Design for the person behind the person. Every existing tool pointed its attention at the patient — medications taken, symptoms logged — and treated the caregiver as the unpaid clerk entering it all. But the one quietly breaking under the weight wasn't the patient. It was the one keeping track.
+
+The reframe was simple and it changed everything: design for the caregiver's load first, and let the patient's data fall out of a gentler routine — not the other way around.
+
 ## Solution
 
 Soft edges, honest data. Nura asks for less, more kindly: one tap to log how the day went, a routine that adapts instead of nagging, and a tone that never scolds a missed task. Underneath the calm surface, the data is rigorous — clean enough to bring to a doctor, gentle enough to keep up with.

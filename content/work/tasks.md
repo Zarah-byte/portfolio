@@ -77,14 +77,14 @@ The details carry the feeling. Swipe to complete gives a task a satisfying, unmi
 
 I tested in two rounds — three participants early, two more once the organizational system took shape — spanning students, working professionals, and parents. Phase one confirmed the appetite for flexible views; phase two pressure-tested whether the Google-borrowed patterns actually made those views discoverable. They did: people reached for organization where they expected it, without being told it was there.
 
-## Outcome
-
-Structure that keeps up. Tasks stopped being one long stream and became a view you can reshape in a tap — more control, no new vocabulary. It stays loyal to Google's design language while finally answering the question users were really asking: not "what's on my list," but "what should I look at right now."
-
-[image:../assets/media/tasks/welcome.png A calmer, clearer entry into Tasks flush]
-
 ## Next Steps
 
 1. Deeper integration with Google Calendar for time-based task planning
 2. Subtle task-completion feedback to reinforce a sense of progress
 3. Further testing to refine the default organizational behavior
+
+## Outcome
+
+Structure that keeps up. Tasks stopped being one long stream and became a view you can reshape in a tap — more control, no new vocabulary. It stays loyal to Google's design language while finally answering the question users were really asking: not "what's on my list," but "what should I look at right now."
+
+[image:../assets/media/tasks/welcome.png A calmer, clearer entry into Tasks flush]
