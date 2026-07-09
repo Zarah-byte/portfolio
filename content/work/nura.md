@@ -35,7 +35,7 @@ Soft edges, honest data. Nura asks for less, more kindly: one tap to log how the
 
 ## Living With Nura
 
-To make this real, we followed one caregiver through an ordinary day.
+To make this real, I followed one caregiver through an ordinary day.
 
 Morning starts before anyone is ready. Nura surfaces the day's routine as a single gentle prompt — what to remember, not everything at once — so the first hour isn't spent bracing for what might be forgotten.
 
@@ -67,9 +67,9 @@ In testing, caregivers described Nura as a companion rather than a tracker — t
 
 Designing for care meant designing for the person behind the person — the caregiver whose needs are usually invisible in health tools. The hardest choices were about what to leave out.
 
-[image:../assets/media/nura/reflection-01.jpg flush]
+[image:../assets/media/nura/reflection-01.jpg Designing for the caregiver behind the patient flush]
 
-[image:../assets/media/nura/reflection-02.jpg flush]
+[image:../assets/media/nura/reflection-02.jpg Deciding what to leave out of the interface flush]
 
 ## Outcome
 
@@ -77,6 +77,6 @@ Consistency without pressure. The design made space for the emotional weight of 
 
 Nura became a thesis about care as a design constraint — proof that rigor and gentleness don't have to trade off against each other.
 
-[image:../assets/media/nura/close-01.jpg flush]
+[image:../assets/media/nura/close-01.jpg Final Nura screens — calm surface over rigorous data flush]
 
-[image:../assets/media/nura/close-02.jpg flush]
+[image:../assets/media/nura/close-02.jpg Final Nura screens — care as a design constraint flush]

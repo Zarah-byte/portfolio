@@ -24,8 +24,8 @@ Iris was built at the Parsons x University of Arizona 24-hour AI Hackathon, host
 
 We began by auditing current AI tools and understanding the wearables space:
 
-1. Current AI tools are largely reactive, make you go to them relying on prompting and do not understand the full context of the issues you want them to solve.
-2. Users rely on multiple tools to solve a singular problem; as Apps often only solve one problem at a time.
+1. Current AI tools are largely reactive. They wait for a prompt, and they rarely understand the full context of the problem you want them to solve.
+2. Users rely on multiple tools to solve a single problem, since apps often only solve one thing at a time.
 3. Wearables get AI out of the screen and into the world, which is exciting — but they're still running on shallow intelligence and interfaces that aren't there yet. The form factor is solved. The thinking layer isn't.
 
 [image:../assets/media/iris/problem.jpg Problem space flush]

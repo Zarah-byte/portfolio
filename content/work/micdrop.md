@@ -1,6 +1,6 @@
 ---
 eyebrow: Micdrop Magazine
-title: A South Asian music magazine celebrating talent and artistry
+title: Centering South Asian artistry in editorial design
 team: Solo
 duration: 8 weeks
 context: Parsons School of Design

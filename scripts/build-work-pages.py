@@ -37,6 +37,7 @@ VIMEO_CTRL_PARAMS = "?title=0&byline=0&portrait=0&badge=0&app_id=58479"
 IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
 
 VIMEO_TAG_RE = re.compile(r"^\[vimeo:(\d+)(?:\s+(.*))?\]$")
+YOUTUBE_TAG_RE = re.compile(r"^\[youtube:([\w-]{11})(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
 ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
 
@@ -177,6 +178,62 @@ def parse_vimeo_tag(stripped: str, section_title: str) -> tuple[str, str, str, b
     return video_id, title, ratio, background
 
 
+def youtube_embed_block(
+    video_id: str,
+    title: str,
+    *,
+    ratio: str = "16x9",
+    background: bool = False,
+    indent: str = "\t\t\t\t",
+) -> str:
+    if background:
+        src = (
+            f"https://www.youtube.com/embed/{video_id}"
+            f"?autoplay=1&mute=1&loop=1&playlist={video_id}"
+            "&controls=0&modestbranding=1&rel=0&playsinline=1"
+        )
+    else:
+        src = f"https://www.youtube.com/embed/{video_id}?rel=0&modestbranding=1"
+    media_class = f"project-media project-media--embed project-media--flush project-media--ratio-{ratio}"
+    return (
+        f'{indent}<figure class="{media_class}">\n'
+        f'{indent}\t<iframe class="project-video" src="{src}" '
+        f'allow="{IFRAME_ALLOW}" '
+        f'referrerpolicy="strict-origin-when-cross-origin" '
+        f'title="{html.escape(title)}"></iframe>\n'
+        f"{indent}</figure>"
+    )
+
+
+def parse_youtube_tag(stripped: str, section_title: str) -> tuple[str, str, str, bool] | None:
+    video_match = YOUTUBE_TAG_RE.match(stripped)
+    if not video_match:
+        return None
+
+    video_id = video_match.group(1)
+    rest = (video_match.group(2) or "").strip()
+    background = False
+    ratio = "16x9"
+    title = section_title
+
+    if rest:
+        tokens = rest.split()
+        while tokens:
+            last = tokens[-1].lower()
+            if last in ("16x9", "3x2"):
+                ratio = last
+                tokens.pop()
+            elif last == "background":
+                background = True
+                tokens.pop()
+            else:
+                break
+        if tokens:
+            title = " ".join(tokens)
+
+    return video_id, title, ratio, background
+
+
 def image_embed_block(
     src: str,
     alt: str,
@@ -277,7 +334,8 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
     for line in text.splitlines():
         stripped = line.strip()
         if not stripped:
-            flush_paragraphs()
+            if paragraph_lines:
+                paragraph_lines.append("")
             flush_ordered_list()
             flush_media()
             continue
@@ -295,6 +353,15 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
             video_id, video_title, ratio, background = parsed
             media_run.append(
                 vimeo_embed_block(video_id, video_title, ratio=ratio, background=background)
+            )
+            continue
+
+        yt_parsed = parse_youtube_tag(stripped, section_title)
+        if yt_parsed:
+            flush_paragraphs()
+            video_id, video_title, ratio, background = yt_parsed
+            media_run.append(
+                youtube_embed_block(video_id, video_title, ratio=ratio, background=background)
             )
             continue
 
@@ -457,7 +524,11 @@ def render_details(meta: dict[str, str], *, indent: str = "\t\t\t") -> str:
 def section_has_media(body: str) -> bool:
     for line in body.splitlines():
         stripped = line.strip()
-        if VIMEO_TAG_RE.match(stripped) or IMAGE_TAG_RE.match(stripped):
+        if (
+            VIMEO_TAG_RE.match(stripped)
+            or YOUTUBE_TAG_RE.match(stripped)
+            or IMAGE_TAG_RE.match(stripped)
+        ):
             return True
     return False
 
@@ -469,9 +540,7 @@ def render_section(title: str, body: str) -> str:
 
     parts: list[str] = [
         '\t\t\t<section class="project-section">',
-        '\t\t\t\t<div class="project-section__head">',
-        f"\t\t\t\t\t<h2>{html.escape(title)}</h2>",
-        "\t\t\t\t</div>",
+        f"\t\t\t\t<h2>{html.escape(title)}</h2>",
     ]
 
     for kind, html_block in blocks:
@@ -620,11 +689,7 @@ def render_page(
         section_blocks = [render_section(name, content) for name, content in follow_on]
         section_blocks = [block for block in section_blocks if block]
         if section_blocks:
-            parts.append(
-                '\t\t\t<div class="project-sections">\n'
-                + "\n".join(section_blocks)
-                + "\n\t\t\t</div>"
-            )
+            parts.append("\n".join(section_blocks))
 
     related = render_related(slug, all_projects)
     if related:
