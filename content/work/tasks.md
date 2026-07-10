@@ -9,6 +9,7 @@ year: 2025
 presentation: https://www.figma.com/deck/ihtL1gaT0U4N2ZBRXdRAOl/Zarah-Yaqub---Project-3?node-id=108-559
 order: 4
 tags: ["Productivity", "Product"]
+cover: ../assets/media/covers/tasks-cover.png
 hero: "1184451152"
 heroType: vimeo
 ---

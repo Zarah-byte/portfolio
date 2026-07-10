@@ -56,7 +56,6 @@
 				<div class="play-modal__layout">
 					<div class="play-modal__media"></div>
 					<div class="play-modal__copy">
-						<div class="play-modal__meta" hidden></div>
 						<h2 class="play-modal__title" id="play-modal-title"></h2>
 						<div class="play-modal__desc"></div>
 						<a class="play-modal__link">
@@ -86,7 +85,6 @@
 			root,
 			prev,
 			next,
-			meta: root.querySelector('.play-modal__meta'),
 			title: root.querySelector('.play-modal__title'),
 			desc: root.querySelector('.play-modal__desc'),
 			link: root.querySelector('.play-modal__link'),
@@ -97,6 +95,35 @@
 		};
 	}
 
+	function getFocusable(container) {
+		return [...container.querySelectorAll(
+			'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"]), video[controls]',
+		)].filter((el) => !el.hidden && el.getAttribute('aria-hidden') !== 'true');
+	}
+
+	function trapFocus(event) {
+		if (event.key !== 'Tab' || modal.root.hidden) return;
+
+		const focusable = getFocusable(modal.root);
+		if (focusable.length === 0) {
+			event.preventDefault();
+			modal.dialog.focus();
+			return;
+		}
+
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
+		const active = document.activeElement;
+
+		if (event.shiftKey && (active === first || !modal.root.contains(active))) {
+			event.preventDefault();
+			last.focus();
+		} else if (!event.shiftKey && (active === last || !modal.root.contains(active))) {
+			event.preventDefault();
+			first.focus();
+		}
+	}
+
 	function onKeydown(event) {
 		if (modal.root.hidden) return;
 		if (event.key === 'Escape') {
@@ -104,6 +131,7 @@
 			closeModal();
 			return;
 		}
+		trapFocus(event);
 		if (items.length <= 1) return;
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();
@@ -316,7 +344,6 @@
 		const showCopy = hasCopy(item);
 		modal.copy.hidden = !showCopy;
 		modal.dialog.classList.toggle('play-modal__dialog--media-only', !showCopy);
-		modal.meta.hidden = true;
 
 		modal.title.textContent = item.title || item.id;
 		modal.title.hidden = !item.title;
@@ -566,8 +593,19 @@
 		});
 
 		gallery.replaceChildren(fragment);
+		gallery.removeAttribute('aria-busy');
 		updateNavVisibility();
 	}
+
+	function showGalleryError() {
+		const message = document.createElement('p');
+		message.className = 'play-gallery__empty';
+		message.textContent = 'Archive items could not be loaded. Refresh to try again.';
+		gallery.replaceChildren(message);
+		gallery.removeAttribute('aria-busy');
+	}
+
+	gallery.setAttribute('aria-busy', 'true');
 
 	fetch(MANIFEST_URL)
 		.then((response) => {
@@ -577,6 +615,6 @@
 		.then((data) => buildGallery(data.items || []))
 		.catch((error) => {
 			console.error(error);
-			gallery.replaceChildren();
+			showGalleryError();
 		});
 })();

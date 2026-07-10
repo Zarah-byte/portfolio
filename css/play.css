@@ -9,6 +9,13 @@
 	padding-block: var(--space-sm) 0;
 }
 
+.page-play .play-gallery__empty {
+	margin: var(--space-xl) auto;
+	max-width: 36ch;
+	text-align: center;
+	color: var(--ink-muted);
+}
+
 .page-play .play-card {
 	break-inside: avoid;
 	margin-bottom: var(--space-md);
@@ -265,10 +272,6 @@ body.play-modal-open {
 }
 
 .play-modal__copy[hidden] {
-	display: none;
-}
-
-.play-modal__meta {
 	display: none;
 }
 

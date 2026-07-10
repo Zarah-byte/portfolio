@@ -50,9 +50,9 @@
 		footer.append(copy, clock, list);
 
 		const tick = () => {
-			const now = nyc.format(new Date());
-			time.textContent = now;
-			time.dateTime = now;
+			const now = new Date();
+			time.textContent = nyc.format(now);
+			time.dateTime = now.toISOString();
 		};
 		tick();
 		setInterval(tick, 30000);

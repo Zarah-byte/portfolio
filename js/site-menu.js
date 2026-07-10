@@ -63,8 +63,9 @@
 		});
 
 		// Secondary links (Resume)
-		const secondary = document.createElement('div');
+		const secondary = document.createElement('nav');
 		secondary.className = 'site-menu__secondary';
+		secondary.setAttribute('aria-label', 'Resume');
 		const resume = document.createElement('a');
 		resume.className = 'site-menu__link-sub';
 		resume.href = '/resume/Zarah_Yaqub_Resume.pdf';

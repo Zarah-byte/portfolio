@@ -10,6 +10,9 @@ import html
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
+
+SITE_URL = "https://zarahyaqub.com"
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK_DIR = ROOT / "content" / "work"
@@ -473,9 +476,9 @@ def format_meta_value(key: str, value: str) -> str:
         if not tools:
             return ""
         pills = "".join(
-            f'<span class="project-meta__pill">{html.escape(tool)}</span>' for tool in tools
+            f'<li class="project-meta__pill">{html.escape(tool)}</li>' for tool in tools
         )
-        return f'<span class="project-meta__pills">{pills}</span>'
+        return f'<ul class="project-meta__pills">{pills}</ul>'
 
     if key == "team":
         members = [line.strip() for line in value.split("\n") if line.strip()]
@@ -591,25 +594,27 @@ def render_section(title: str, body: str) -> str:
     return "\n".join(parts)
 
 
-def related_thumb_html(meta: dict[str, str], eyebrow: str) -> str:
-    hero_type = meta.get("heroType", "image").lower()
-    hero = meta.get("hero", "")
+def project_cover_src(meta: dict[str, str], slug: str) -> str:
+    """Static image for cards/thumbs/OG — never a video embed id."""
+    cover = meta.get("cover", "").strip()
+    if cover:
+        return cover
 
-    if not hero:
-        return f'<div class="project-related__thumb" aria-hidden="true"></div>'
+    hero = meta.get("hero", "").strip()
+    if meta.get("heroType", "").strip().lower() == "image" and hero:
+        return hero
 
-    if hero_type == "vimeo":
-        src = f"https://player.vimeo.com/video/{hero}{VIMEO_BG_PARAMS}"
-        return (
-            f'<div class="project-related__thumb">'
-            f'<iframe src="{src}" allow="{IFRAME_ALLOW}" '
-            f'title="{html.escape(eyebrow)} thumbnail" loading="lazy"></iframe>'
-            f"</div>"
-        )
+    return f"../assets/media/covers/{slug}-cover.png"
+
+
+def related_thumb_html(meta: dict[str, str], slug: str) -> str:
+    src = project_cover_src(meta, slug)
+    if not src:
+        return '<div class="project-related__thumb" aria-hidden="true"></div>'
 
     return (
         f'<div class="project-related__thumb">'
-        f'<img src="{html.escape(hero)}" alt="" loading="lazy">'
+        f'<img src="{html.escape(src)}" alt="" loading="lazy">'
         f"</div>"
     )
 
@@ -624,7 +629,7 @@ def render_related(current_slug: str, all_projects: list[tuple[str, dict[str, st
         eyebrow = meta.get("eyebrow", slug).strip()
         title = meta.get("title", eyebrow).strip()
         href = f"{slug}.html"
-        thumb = related_thumb_html(meta, eyebrow)
+        thumb = related_thumb_html(meta, slug)
 
         cards.append(
             f'\t\t\t\t<li>\n'
@@ -749,6 +754,22 @@ def load_all_projects() -> list[tuple[str, dict[str, str]]]:
     return [(slug, meta) for slug, meta, _ in projects]
 
 
+def site_asset_path(relative: str) -> str:
+    """Normalize a repo-relative media path to a site-root path for absolute URLs."""
+    path = relative.strip().replace("\\", "/")
+    while path.startswith("../"):
+        path = path[3:]
+    if path.startswith("./"):
+        path = path[2:]
+    return path.lstrip("/")
+
+
+def og_image_url(meta: dict[str, str], slug: str) -> str:
+    """Absolute share image from the project cover (never a Vimeo id)."""
+    path = site_asset_path(project_cover_src(meta, slug))
+    return f"{SITE_URL}/{quote(path)}"
+
+
 def build_page(path: Path, template: str, all_projects: list[tuple[str, dict[str, str]]]) -> str:
     meta, body = parse_frontmatter(path.read_text(encoding="utf-8"))
     slug = slug_from_path(path)
@@ -759,6 +780,8 @@ def build_page(path: Path, template: str, all_projects: list[tuple[str, dict[str
     return (
         template.replace("{{page_title}}", html.escape(page_title))
         .replace("{{description}}", html.escape(description, quote=True))
+        .replace("{{canonical}}", f"{SITE_URL}/projects/{slug}.html")
+        .replace("{{og_image}}", og_image_url(meta, slug))
         .replace("{{content}}", content)
     )
 

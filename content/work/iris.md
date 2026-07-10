@@ -11,6 +11,7 @@ context: Designpreneurs — University of Arizona x Parsons School of Design AI 
 tools: Figma, Gemini AI, ChatGPT, Claude AI, Kling AI, Unsplash
 year: 2026
 order: 1
+cover: ../assets/media/covers/iris-cover.png
 hero: "1190751732"
 heroType: vimeo
 caption: Iris — 2026
