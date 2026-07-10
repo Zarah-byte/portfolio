@@ -3,102 +3,104 @@
 
 .page-about {
 	font-family: var(--font-sans);
-
-	.about-content {
-		padding-block: var(--space-lg) 0;
-	}
-
-	/* Two columns on desktop; aligned to the 1400px header frame. */
-	.about-layout {
-		display: flex;
-		align-items: flex-start;
-		gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
-		width: 100%;
-		max-width: 87.5rem; /* 1400px — matches the site-menu frame */
-		margin-inline: auto;
-	}
-
-	.about-main {
-		flex: 1 1 auto;
-		min-width: 0;
-		max-width: 45.875rem; /* 684px copy + 50px indent */
-		padding-left: clamp(0px, 3vw, 50px);
-	}
-
-	.about-figure {
-		flex: 0 1 577px;
-		min-width: 0;
-		margin: 0;
-		border-radius: 3.125rem; /* 50px — flat to match the reference */
-		overflow: hidden;
-	}
-
-	.about-photo {
-		display: block;
-		width: 100%;
-		aspect-ratio: 577 / 865;
-		object-fit: cover;
-	}
-
-	/* ---- Prose ----------------------------------------------------------- */
-
-	.about-prose {
-		display: flex;
-		flex-direction: column;
-		gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
-		font-family: var(--font-sans); /* Manrope */
-
-		p {
-			font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5625rem); /* ~18 → 25px */
-			font-weight: 400;
-			line-height: 1.6; /* 40 / 25 */
-			letter-spacing: -0.026em;
-			color: var(--ink-muted);
-			max-width: none;
-		}
-
-		strong {
-			font-weight: 600;
-			color: #000;
-			cursor: default;
-		}
-
-		a {
-			color: inherit;
-			text-decoration: underline;
-			text-underline-offset: 0.12em;
-
-			&:hover {
-				opacity: 0.55;
-			}
-		}
-	}
-
-	/* ---- Colophon -------------------------------------------------------- */
-
-	.about-meta {
-		margin-top: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
-		font-family: var(--font-sans);
-
-		&__heading,
-		p {
-			font-size: clamp(1rem, 0.9rem + 0.45vw, 1.355rem); /* ~16 → 21.7px */
-			line-height: 1.6;
-			color: var(--ink-muted);
-			max-width: none;
-		}
-
-		&__heading {
-			font-weight: 700;
-			letter-spacing: -0.04em;
-			margin-bottom: 0;
-		}
-
-		p {
-			font-weight: 400;
-		}
-	}
 }
+
+.page-about .about-content {
+	padding-block: var(--space-lg) 0;
+}
+
+/* Two columns on desktop; aligned to the 1400px header frame. */
+.page-about .about-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
+	width: 100%;
+	max-width: 87.5rem; /* 1400px — matches the site-menu frame */
+	margin-inline: auto;
+}
+
+.page-about .about-main {
+	flex: 1 1 auto;
+	min-width: 0;
+	max-width: 45.875rem; /* 684px copy + 50px indent */
+	padding-left: clamp(0px, 3vw, 50px);
+}
+
+.page-about .about-figure {
+	flex: 0 1 577px;
+	min-width: 0;
+	margin: 0;
+	border-radius: 3.125rem; /* 50px — flat to match the reference */
+	overflow: hidden;
+}
+
+.page-about .about-photo {
+	display: block;
+	width: 100%;
+	aspect-ratio: 577 / 865;
+	object-fit: cover;
+}
+
+/* ---- Prose --------------------------------------------------------------- */
+
+.page-about .about-prose {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
+	font-family: var(--font-sans); /* Manrope */
+}
+
+.page-about .about-prose p {
+	font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5625rem); /* ~18 → 25px */
+	font-weight: 400;
+	line-height: 1.6; /* 40 / 25 */
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+.page-about .about-prose strong {
+	font-weight: 600;
+	color: #000;
+	cursor: default;
+}
+
+.page-about .about-prose a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+}
+
+.page-about .about-prose a:hover {
+	opacity: 0.55;
+}
+
+/* ---- Colophon ------------------------------------------------------------ */
+
+.page-about .about-meta {
+	margin-top: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
+	font-family: var(--font-sans);
+}
+
+.page-about .about-meta__heading,
+.page-about .about-meta p {
+	font-size: clamp(1rem, 0.9rem + 0.45vw, 1.355rem); /* ~16 → 21.7px */
+	line-height: 1.6;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+.page-about .about-meta__heading {
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	margin-bottom: 0;
+}
+
+.page-about .about-meta p {
+	font-weight: 400;
+}
+
+/* Footer — shared .site-footer component (see css/site-chrome.css). */
 
 /* ---- Cursor-following image reveal --------------------------------------- */
 
@@ -118,10 +120,10 @@
 	transform: translate3d(-50%, -50%, 0) scale(0.85);
 	transition: opacity var(--duration-base) var(--ease-base);
 	will-change: transform, opacity;
+}
 
-	&.is-visible {
-		opacity: 1;
-	}
+.about-hover-media.is-visible {
+	opacity: 1;
 }
 
 /* ---- Responsive: stack the photo under the copy --------------------------
@@ -130,22 +132,20 @@
    stack until then — otherwise the portrait collapses into a thin sliver. */
 
 @media (max-width: 1100px) {
-	.page-about {
-		.about-layout {
-			flex-direction: column;
-			gap: var(--space-xl);
-		}
+	.page-about .about-layout {
+		flex-direction: column;
+		gap: var(--space-xl);
+	}
 
-		.about-main {
-			max-width: none;
-			padding-left: 0;
-		}
+	.page-about .about-main {
+		max-width: none;
+		padding-left: 0;
+	}
 
-		.about-figure {
-			flex: 0 0 auto;
-			width: 100%;
-			max-width: 30rem;
-			margin-inline: auto;
-		}
+	.page-about .about-figure {
+		flex: 0 0 auto;
+		width: 100%;
+		max-width: 30rem;
+		margin-inline: auto;
 	}
 }

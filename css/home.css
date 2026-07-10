@@ -2,302 +2,295 @@
    image-led project cards (tags overlaid on the media, inline caption below).
    Mobile-first; all rules scoped under .page-home so nothing leaks elsewhere. */
 
+/* Tighter horizontal inset than the global shell — matches the mobile ref
+   (~7px side margins at 343px so cards span ~96% of the viewport). */
+.page-home .shell {
+	padding-inline: clamp(0.4375rem, 2vw, 2rem);
+}
+
 .page-home {
 	font-family: var(--font-body);
 	color: var(--ink);
 	background: var(--bg);
+}
 
-	/* Tighter horizontal inset than the global shell — matches the mobile ref
-	   (~7px side margins at 343px so cards span ~96% of the viewport). */
-	.shell {
-		padding-inline: clamp(0.4375rem, 2vw, 2rem);
-	}
+/* ---- Hero ---------------------------------------------------------------- */
 
-	/* ---- Hero ------------------------------------------------------------ */
+/* Single-column body — a full-width editorial hero statement above the
+   "Select Works" section header and the stacked work feed. */
 
-	/* Single-column body — a full-width editorial hero statement above the
-	   "Select Works" section header and the stacked work feed. */
-	.home-body {
-		display: flex;
-		flex-direction: column;
-		gap: clamp(3rem, 13.3vw, 12.25rem); /* 196px at the 1470px design width */
-		width: 100%;
-		max-width: var(--frame-width);
-		margin-top: clamp(1.5rem, 4vw, 3rem);
-		margin-inline: auto;
-	}
+.page-home .home-body {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(3rem, 13.3vw, 12.25rem); /* 196px at the 1470px design width */
+	width: 100%;
+	max-width: var(--frame-width);
+	margin-top: clamp(1.5rem, 4vw, 3rem);
+	margin-inline: auto;
+}
 
-	.hero-intro {
-		max-width: 58rem;
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4375rem);
-		font-weight: 400;
-		line-height: 1.45;
-		letter-spacing: var(--tracking-tighter);
-		color: var(--ink-muted);
+.page-home .hero-intro {
+	max-width: 58rem;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4375rem);
+	font-weight: 400;
+	line-height: 1.45;
+	letter-spacing: var(--tracking-tighter);
+	color: var(--ink-muted);
+}
 
-		strong {
-			font-weight: 700;
-			color: var(--ink);
-		}
-	}
+.page-home .hero-intro strong {
+	font-weight: 700;
+	color: var(--ink);
+}
 
-	/* Hand-drawn waving hand, inline after the greeting — waves only on hover. */
-	.hero-wave {
-		display: inline-block;
-		width: 0.95em;
-		height: 0.95em;
-		vertical-align: -0.12em;
-		margin-left: 0.12em;
-		transform-origin: 72% 82%;
+/* Hand-drawn waving hand, inline after the greeting — waves only on hover. */
+.page-home .hero-wave {
+	display: inline-block;
+	width: 0.95em;
+	height: 0.95em;
+	vertical-align: -0.12em;
+	margin-left: 0.12em;
+	transform-origin: 72% 82%;
+}
 
-		&:hover {
-			animation: hero-wave-hover 0.9s cubic-bezier(0.45, 0, 0.55, 1) 0s 1;
-		}
-	}
-
-	/* Inline outlined pill at the end of the intro — jumps to the work feed */
-	.scroll-cue {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5em;
-		margin-left: 0.4rem;
-		padding: 0.75em 1.25em;
-		font-family: var(--font-body);
-		font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.25rem);
-		font-weight: 500;
-		line-height: 1;
-		letter-spacing: var(--tracking-snug);
-		color: var(--ink);
-		white-space: nowrap;
-		vertical-align: middle;
-		border: 1px solid var(--ink);
-		border-radius: var(--radius-full);
-		text-decoration: none;
-		transition:
-			background-color var(--duration-fast) var(--ease-base),
-			color var(--duration-fast) var(--ease-base);
-
-		/* Lucide arrow sits on a 24-grid with built-in padding, so the drawn glyph
-		   is ~0.58 of its box; sizing the box to 1.2em makes the arrow read at the
-		   text's cap height.
-		   Stroke is declared here (not via SVG attributes) because the global reset
-		   runs `all: unset` on the <svg> element, wiping its fill/stroke attributes;
-		   the child paths inherit these CSS values instead. */
-		&__arrow {
-			width: 1.2em;
-			height: 1.2em;
-			flex-shrink: 0;
-			fill: none;
-			stroke: currentColor;
-			stroke-width: 2;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-			transition: transform var(--duration-base) var(--ease-base);
-		}
-
-		&:hover {
-			background-color: var(--ink);
-			color: var(--bg);
-
-			.scroll-cue__arrow {
-				transform: translateY(0.15em);
-			}
-		}
-	}
-
-	/* Anchor target sits a little below the top edge when jumped to */
-	#work {
-		scroll-margin-top: var(--space-xl);
-	}
-
-	/* ---- Work feed ------------------------------------------------------- */
-
-	.work-head {
-		margin-bottom: clamp(1.25rem, 2.25vw, 2.0625rem); /* 33px at 1470px */
-		text-align: center;
-	}
-
-	/* Scales on the same curve as the hero statement — both cap at 55px */
-	.work-title {
-		font-family: var(--font-display);
-		font-size: clamp(1.75rem, 1.2rem + 3.4vw, 3.4375rem);
-		font-weight: 600;
-		line-height: 1.45;
-		letter-spacing: var(--tracking-tighter);
-		color: var(--ink);
-	}
-
-	/* Cards sit in a 858px column centered in the 1400px frame */
-	.work-list {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(2rem, 7.35vw, 6.75rem); /* 108px at 1470px */
-		width: 100%;
-		max-width: 53.625rem;
-		margin-inline: auto;
-		list-style: none;
-
-		> li {
-			width: 100%;
-			min-width: 0;
-		}
-	}
-
-	.card {
-		width: 100%;
-	}
-
-	.card-link {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		gap: 0.625rem; /* 10px media-to-caption, per the design */
-		width: 100%;
-		text-decoration: none;
-
-		&:hover .card-img {
-			transform: scale(1.03);
-		}
-	}
-
-	.card-media {
-		position: relative;
-		width: 100%;
-		aspect-ratio: var(--card-aspect-ratio);
-		overflow: hidden;
-		margin: 0;
-		border-radius: var(--radius-lg);
-		background: var(--surface);
-	}
-
-	.card-img {
-		position: absolute;
-		inset: 0;
-		display: block;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		background: transparent;
-		transition: transform var(--duration-base) var(--ease-base);
-	}
-
-	/* Tags overlaid on the media, top-left — siblings of the figure, not inside it */
-	.tags {
-		position: absolute;
-		z-index: 1;
-		top: var(--space-md);
-		left: var(--space-md);
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-xs);
-		max-width: calc(100% - 2 * var(--space-md));
-		list-style: none;
-	}
-
-	.tag {
-		display: inline-flex;
-		align-items: center;
-		height: 1.875rem;
-		padding: 0 0.75rem;
-		font-family: var(--font-mono);
-		font-size: var(--text-2xs);
-		line-height: 1;
-		letter-spacing: var(--tracking-wide);
-		text-transform: uppercase;
-		color: var(--chip-ink);
-		background: var(--chip-bg);
-		border: 1px solid var(--chip-rule);
-		border-radius: var(--radius-full);
-		white-space: nowrap;
-
-		&.tag-year {
-			border-radius: var(--radius-sm);
-		}
-	}
-
-	/* Inline caption below the media: "Title: description" */
-	.card-caption {
-		font-family: var(--font-body);
-		font-size: var(--text-md);
-		line-height: var(--leading-snug);
-		letter-spacing: var(--tracking-snug);
-	}
-
-	.card-title {
-		display: inline;
-		font-family: var(--font-body);
-		font-size: inherit;
-		font-weight: 700;
-		letter-spacing: var(--tracking-normal);
-		line-height: inherit;
-		color: var(--ink);
-
-		&::after {
-			content: ":";
-		}
-	}
-
-	.card-desc {
-		display: inline;
-		margin: 0;
-		max-width: none;
-		color: var(--ink-muted);
-
-		&::before {
-			content: " ";
-		}
-	}
+/* ease-in-out curve so each swing decelerates at its peak like a real
+   pendulum — applied per keyframe segment, it reads smooth, not jerky. */
+.page-home .hero-wave:hover {
+	animation: hero-wave-hover 0.9s cubic-bezier(0.45, 0, 0.55, 1) 0s 1;
 }
 
 /* Playful wave with smoothly decaying amplitude — swings settle gently
-	 back to rest rather than snapping. No scale change. */
+   back to rest rather than snapping. No scale change. */
 @keyframes hero-wave-hover {
-	0% {
-		transform: rotate(0deg);
-	}
-	18% {
-		transform: rotate(14deg);
-	}
-	36% {
-		transform: rotate(-11deg);
-	}
-	54% {
-		transform: rotate(8deg);
-	}
-	72% {
-		transform: rotate(-5deg);
-	}
-	86% {
-		transform: rotate(2deg);
-	}
-	100% {
-		transform: rotate(0deg);
-	}
+	0%   { transform: rotate(0deg); }
+	18%  { transform: rotate(14deg); }
+	36%  { transform: rotate(-11deg); }
+	54%  { transform: rotate(8deg); }
+	72%  { transform: rotate(-5deg); }
+	86%  { transform: rotate(2deg); }
+	100% { transform: rotate(0deg); }
+}
+
+/* Inline outlined pill at the end of the intro — jumps to the work feed */
+.page-home .scroll-cue {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-left: 0.4rem;
+	padding: 0.75em 1.25em;
+	font-family: var(--font-body);
+	font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.25rem);
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: var(--tracking-snug);
+	color: var(--ink);
+	white-space: nowrap;
+	vertical-align: middle;
+	border: 1px solid var(--ink);
+	border-radius: var(--radius-full);
+	text-decoration: none;
+	transition: background-color var(--duration-fast) var(--ease-base),
+		color var(--duration-fast) var(--ease-base);
+}
+
+/* Lucide arrow sits on a 24-grid with built-in padding, so the drawn glyph
+   is ~0.58 of its box; sizing the box to 1.2em makes the arrow read at the
+   text's cap height.
+   Stroke is declared here (not via SVG attributes) because the global reset
+   runs `all: unset` on the <svg> element, wiping its fill/stroke attributes;
+   the child paths inherit these CSS values instead. */
+.page-home .scroll-cue__arrow {
+	width: 1.2em;
+	height: 1.2em;
+	flex-shrink: 0;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	transition: transform var(--duration-base) var(--ease-base);
+}
+
+.page-home .scroll-cue:hover {
+	background-color: var(--ink);
+	color: var(--bg);
+}
+
+.page-home .scroll-cue:hover .scroll-cue__arrow {
+	transform: translateY(0.15em);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.page-home {
-		.hero-wave,
-		.hero-wave:hover {
-			animation: none;
-		}
-
-		.scroll-cue__arrow {
-			transition: none;
-		}
-
-		.scroll-cue:hover .scroll-cue__arrow {
-			transform: none;
-		}
-
-		.card-img {
-			transition: none;
-		}
-
-		.card-link:hover .card-img {
-			transform: none;
-		}
+	.page-home .hero-wave,
+	.page-home .hero-wave:hover {
+		animation: none;
 	}
+
+	.page-home .scroll-cue__arrow {
+		transition: none;
+	}
+
+	.page-home .scroll-cue:hover .scroll-cue__arrow {
+		transform: none;
+	}
+}
+
+/* Anchor target sits a little below the top edge when jumped to */
+.page-home #work {
+	scroll-margin-top: var(--space-xl);
+}
+
+/* ---- Work feed ----------------------------------------------------------- */
+
+/* Section header — centered title */
+
+.page-home .work-head {
+	margin-bottom: clamp(1.25rem, 2.25vw, 2.0625rem); /* 33px at 1470px */
+	text-align: center;
+}
+
+/* Scales on the same curve as the hero statement — both cap at 55px */
+.page-home .work-title {
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 1.2rem + 3.4vw, 3.4375rem);
+	font-weight: 600;
+	line-height: 1.45;
+	letter-spacing: var(--tracking-tighter);
+	color: var(--ink);
+}
+
+/* Cards sit in a 858px column centered in the 1400px frame */
+.page-home .work-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(2rem, 7.35vw, 6.75rem); /* 108px at 1470px */
+	width: 100%;
+	max-width: 53.625rem;
+	margin-inline: auto;
+	list-style: none;
+}
+
+.page-home .work-list > li {
+	width: 100%;
+	min-width: 0;
+}
+
+.page-home .card {
+	width: 100%;
+}
+
+.page-home .card-link {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem; /* 10px media-to-caption, per the design */
+	width: 100%;
+	text-decoration: none;
+}
+
+.page-home .card-media {
+	position: relative;
+	width: 100%;
+	aspect-ratio: var(--card-aspect-ratio);
+	overflow: hidden;
+	margin: 0;
+	border-radius: var(--radius-lg);
+	background: var(--surface);
+}
+
+.page-home .card-img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	background: transparent;
+	transition: transform var(--duration-base) var(--ease-base);
+}
+
+.page-home .card-link:hover .card-img {
+	transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-home .card-img {
+		transition: none;
+	}
+
+	.page-home .card-link:hover .card-img {
+		transform: none;
+	}
+}
+
+/* Tags overlaid on the media, top-left — siblings of the figure, not inside it */
+
+.page-home .tags {
+	position: absolute;
+	z-index: 1;
+	top: var(--space-md);
+	left: var(--space-md);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	max-width: calc(100% - 2 * var(--space-md));
+	list-style: none;
+}
+
+.page-home .tag {
+	display: inline-flex;
+	align-items: center;
+	height: 1.875rem;
+	padding: 0 0.75rem;
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	line-height: 1;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--chip-ink);
+	background: var(--chip-bg);
+	border: 1px solid var(--chip-rule);
+	border-radius: var(--radius-full);
+	white-space: nowrap;
+}
+
+.page-home .tag-year {
+	border-radius: var(--radius-sm);
+}
+
+/* Inline caption below the media: "Title — description" */
+
+.page-home .card-caption {
+	font-family: var(--font-body);
+	font-size: var(--text-md);
+	line-height: var(--leading-snug);
+	letter-spacing: var(--tracking-snug);
+}
+
+.page-home .card-title {
+	display: inline;
+	font-family: var(--font-body);
+	font-size: inherit;
+	font-weight: 700;
+	letter-spacing: var(--tracking-normal);
+	line-height: inherit;
+	color: var(--ink);
+}
+
+/* Colon joins the bold title to the muted description: "Iris: Wearable…" */
+.page-home .card-title::after {
+	content: ":";
+}
+
+.page-home .card-desc {
+	display: inline;
+	margin: 0;
+	max-width: none;
+	color: var(--ink-muted);
+}
+
+.page-home .card-desc::before {
+	content: " ";
 }
