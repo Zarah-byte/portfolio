@@ -32,6 +32,14 @@ A patch that senses, a guide that responds. The wearable reads physiological and
 
 The form was a deliberate choice. A bio-sensing device can easily read as clinical or surveillant, so we designed the patch to feel closer to skin than to hardware — translucent, soft-edged, quietly present rather than demanding attention.
 
+The value isn't in any single screen. It is in how the hardware, the AI interpretation, and the interface hand off to each other — a signal picked up at the skin becomes a read of your state, which becomes one small prompt at the moment it can still change something.
+
+[placeholder: System diagram — patch senses, AI interprets the pattern, interface surfaces a single timely nudge. Horizontal and simple: the one diagram every reviewer can remember]
+
+The companion interface is where a body signal becomes something a person can act on. It shows the state, not the score — no chart to optimize against, no streak to break.
+
+[placeholder: Companion interface — three key screens: the ambient state view, a nudge as it arrives, and the reflection after a loop is broken]
+
 ## The Concept in Motion
 
 [youtube:R1OuLBKxxIY Mirae concept film]
@@ -43,6 +51,8 @@ The concept film walks through a day with Mirae: how a signal becomes a nudge, a
 The hardest part was picturing what can't be seen. Hormonal and neurochemical shifts have no natural image, and the wrong visual language turns a supportive tool into a clinical readout — or worse, a new source of anxiety about your own body.
 
 So the work became translation: complex internal processes rendered as calm, legible cues, held in a supportive tone from start to finish. Mirae observes and offers; it never diagnoses or scolds. The aim was self-awareness, not self-optimization.
+
+[placeholder: Visual language exploration — the rejected clinical readouts beside the calm cues we landed on, showing how the tone was found]
 
 ## What We Learned
 

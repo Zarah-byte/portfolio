@@ -13,7 +13,6 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 | Token | Value | Use |
 |---|---|---|
 | `--bg` | `#FFFFFF` | Page background |
-| `--sidebar-bg` | `#FFFFFF` | Sidebar column |
 | `--surface` | `#F2F2F2` | Project card fill and media placeholder |
 | `--ink` | `#0A0A0A` | Primary text |
 | `--ink-muted` | `#666666` | Secondary text — descriptions, inactive nav |
@@ -27,7 +26,6 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 ```css
 :root {
 	--bg: #FFFFFF;
-	--sidebar-bg: #FFFFFF;
 	--surface: #F2F2F2;
 	--ink: #0A0A0A;
 	--ink-muted: #666666;
@@ -171,13 +169,18 @@ Base spacing unit: `8px`. Larger steps use `clamp()` so sections breathe more on
 
 ```css
 :root {
-	--content-width: 1200px;
+	--frame-width: 87.5rem;         /* 1400px — shared content frame */
+	--card-aspect-ratio: 858 / 555; /* work feed project card media */
 	--text-width: 720px;
-	--page-padding: clamp(1rem, 3vw, 3rem);
+	--bp-sm: 640px;
+	--bp-md: 768px;
+	--bp-lg: 1024px;
 }
 ```
 
-The home layout is a two-column grid: `minmax(220px, 260px)` wordmark sidebar and a `1fr` main column separated by a `--rule` vertical divider. Collapses to a single column at ≤768px.
+The `--bp-*` values document the breakpoints; `@media` cannot read custom properties, so the queries repeat the literals.
+
+The home layout is a single centered column: a full-width editorial hero above the "Selected Works" feed, whose cards sit in a `53.625rem` column centered inside `--frame-width`.
 
 ---
 

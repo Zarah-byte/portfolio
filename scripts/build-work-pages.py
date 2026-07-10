@@ -40,6 +40,7 @@ VIMEO_TAG_RE = re.compile(r"^\[vimeo:(\d+)(?:\s+(.*))?\]$")
 YOUTUBE_TAG_RE = re.compile(r"^\[youtube:([\w-]{11})(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
 CALLOUT_TAG_RE = re.compile(r"^\[callout:\s*(.+)\]$")
+PLACEHOLDER_TAG_RE = re.compile(r"^\[placeholder:\s*(.+)\]$")
 ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
 
 
@@ -285,6 +286,15 @@ def parse_image_tag(stripped: str, section_title: str) -> tuple[str, str, bool, 
     return src, alt, flush, contained
 
 
+def placeholder_embed_block(label: str, *, indent: str = "\t\t\t\t") -> str:
+    """A 16:9 slot standing in for artwork that has not been produced yet."""
+    return (
+        f'{indent}<figure class="project-media project-media--placeholder">\n'
+        f"{indent}\t<p>{html.escape(label)}</p>\n"
+        f"{indent}</figure>"
+    )
+
+
 def wrap_gallery(media: list[str], *, indent: str = "\t\t\t\t") -> str:
     """A single figure renders as-is; two or more become a grid gallery."""
     if len(media) == 1:
@@ -361,6 +371,12 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
                     "\t\t\t\t</aside>",
                 )
             )
+            continue
+
+        placeholder = PLACEHOLDER_TAG_RE.match(stripped)
+        if placeholder:
+            flush_paragraphs()
+            media_run.append(placeholder_embed_block(placeholder.group(1).strip()))
             continue
 
         parsed = parse_vimeo_tag(stripped, section_title)
@@ -544,6 +560,7 @@ def section_has_media(body: str) -> bool:
             VIMEO_TAG_RE.match(stripped)
             or YOUTUBE_TAG_RE.match(stripped)
             or IMAGE_TAG_RE.match(stripped)
+            or PLACEHOLDER_TAG_RE.match(stripped)
         ):
             return True
     return False
@@ -613,7 +630,7 @@ def render_related(current_slug: str, all_projects: list[tuple[str, dict[str, st
             f'\t\t\t\t<li>\n'
             f'\t\t\t\t\t<a class="project-related__card" href="{html.escape(href)}">\n'
             f"\t\t\t\t\t\t{thumb}\n"
-            f'\t\t\t\t\t\t<p class="project-related__name">{html.escape(eyebrow)}</p>\n'
+            f'\t\t\t\t\t\t<h3 class="project-related__name">{html.escape(eyebrow)}</h3>\n'
             f'\t\t\t\t\t\t<p class="project-related__desc">{html.escape(title)}</p>\n'
             f"\t\t\t\t\t</a>\n"
             f"\t\t\t\t</li>"
@@ -685,7 +702,6 @@ def render_page(
 ) -> str:
     eyebrow = meta.get("eyebrow", "").strip()
     title = meta.get("title", eyebrow).strip()
-    caption = meta.get("caption", "").strip()
 
     sections = split_sections(body)
     about_body = ""
@@ -701,13 +717,7 @@ def render_page(
 
     hero = render_hero(meta, eyebrow)
     if hero:
-        hero_parts = ['\t\t\t<div class="project-hero">', hero]
-        if caption:
-            hero_parts.append(
-                f'\t\t\t\t<p class="project-caption">{html.escape(caption)}</p>'
-            )
-        hero_parts.append("\t\t\t</div>")
-        parts.append("\n".join(hero_parts))
+        parts.append('\t\t\t<div class="project-hero">\n' + hero + "\n\t\t\t</div>")
 
     if follow_on:
         section_blocks = [render_section(name, content) for name, content in follow_on]
@@ -743,10 +753,12 @@ def build_page(path: Path, template: str, all_projects: list[tuple[str, dict[str
     meta, body = parse_frontmatter(path.read_text(encoding="utf-8"))
     slug = slug_from_path(path)
     page_title = meta.get("eyebrow", slug).strip()
+    description = meta.get("title", page_title).strip()
     content = render_page(meta, body, slug=slug, all_projects=all_projects)
 
     return (
         template.replace("{{page_title}}", html.escape(page_title))
+        .replace("{{description}}", html.escape(description, quote=True))
         .replace("{{content}}", content)
     )
 

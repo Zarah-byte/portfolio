@@ -5,14 +5,13 @@
 :root {
 	/* Colors — light editorial theme */
 	--bg: #FFFFFF;        /* page background */
-	--sidebar-bg: #FFFFFF; /* sidebar column */
 	--surface: #F2F2F2;   /* project card fill and media placeholder */
 	--ink: #0A0A0A;       /* primary text */
 	--ink-muted: #666666; /* descriptions, inactive nav */
 	--rule: #E5E5E5;      /* vertical divider, hairlines */
 	--chip-bg: #FFFFFF;   /* tag chip background */
 	--chip-ink: #0A0A0A;  /* tag chip text */
-	--chip-rule: #D8D8D8; /* tag chip border */
+	--chip-rule: #D8D8D8; /* tag chip border — decorative; chip text carries the label */
 	--accent: #0A0A0A;    /* links resolve to ink in this design */
 	--thumb-bg: #F2F2F2;  /* card frame behind gallery media */
 
@@ -62,11 +61,9 @@
 	--space-3xl: clamp(6rem, 3rem + 12vw, 12rem);
 
 	/* Layout */
-	--content-width: 1440px;
 	--frame-width: 87.5rem; /* 1400px — shared content frame; header and page content align to this */
 	--card-aspect-ratio: 858 / 555; /* work feed project card media */
 	--text-width: 720px;
-	--page-padding: clamp(1rem, 3vw, 3rem);
 	--bp-sm: 640px;
 	--bp-md: 768px;
 	--bp-lg: 1024px;
@@ -132,21 +129,13 @@ a {
 	text-decoration: none;
 }
 
-.page {
-	width: min(100% - var(--page-padding) * 2, var(--content-width));
-	margin-inline: auto;
-}
-
-.stack {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-md);
-}
-
-.cluster {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-sm);
+/* reset.css runs `all: unset` over every element, which strips the UA focus
+   ring site-wide. Restore one here so every focusable element gets an
+   indicator by default; components that want a different look override it. */
+:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 3px;
+	border-radius: var(--radius-sm);
 }
 
 .visually-hidden {

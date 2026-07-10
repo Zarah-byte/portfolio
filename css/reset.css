@@ -1,7 +1,7 @@
 /* Derived from: https://github.com/elad2412/the-new-css-reset */
 
 /* Remove all the styles of the “User-Agent-Stylesheet” except for the `display` property. */
-*:where(:not(html, svg *, symbol *)) {
+*:where(:not(html, svg, svg *, symbol *)) {
 	all: unset;
 	display: revert;
 }
