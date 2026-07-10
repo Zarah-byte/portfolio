@@ -22,7 +22,7 @@
 .page-home .home-body {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-xl);
+	gap: clamp(3rem, 13.3vw, 12.25rem); /* 196px at the 1470px design width */
 	width: 100%;
 	max-width: var(--frame-width);
 	margin-top: clamp(1.5rem, 4vw, 3rem);
@@ -147,15 +147,17 @@
 /* Section header — centered title */
 
 .page-home .work-head {
-	margin-bottom: var(--space-lg);
+	margin-bottom: clamp(1.25rem, 2.25vw, 2.0625rem); /* 33px at 1470px */
 	text-align: center;
 }
 
+/* Scales on the same curve as the hero statement — both cap at 55px */
 .page-home .work-title {
 	font-family: var(--font-display);
-	font-size: var(--text-xl);
-	font-weight: 700;
-	letter-spacing: var(--tracking-tight);
+	font-size: clamp(1.75rem, 1.2rem + 3.4vw, 3.4375rem);
+	font-weight: 600;
+	line-height: 1.45;
+	letter-spacing: var(--tracking-tighter);
 	color: var(--ink);
 }
 
@@ -163,7 +165,7 @@
 .page-home .work-list {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: clamp(2rem, 5vw, 6.75rem);
+	gap: clamp(2rem, 7.35vw, 6.75rem); /* 108px at 1470px */
 	width: 100%;
 	max-width: 53.625rem;
 	margin-inline: auto;
@@ -182,7 +184,7 @@
 .page-home .card-link {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-sm);
+	gap: 0.625rem; /* 10px media-to-caption, per the design */
 	width: 100%;
 	text-decoration: none;
 }
@@ -261,8 +263,9 @@
 
 .page-home .card-caption {
 	font-family: var(--font-body);
-	font-size: var(--text-base);
-	line-height: 1.45;
+	font-size: var(--text-md);
+	line-height: var(--leading-snug);
+	letter-spacing: var(--tracking-snug);
 }
 
 .page-home .card-title {
@@ -289,12 +292,4 @@
 
 .page-home .card-desc::before {
 	content: " ";
-}
-
-@media (max-width: 640px) {
-	.page-home .tag {
-		height: 1.625rem;
-		padding: 0 0.625rem;
-		font-size: 0.625rem;
-	}
 }

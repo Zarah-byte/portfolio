@@ -9,11 +9,7 @@
 		{ id: 'about', label: 'About', href: 'about.html' },
 	];
 
-	const SOCIALS = [
-		{ label: 'Email', href: 'mailto:zarahyaqubdesign@gmail.com', icon: 'assets/icons/email.svg', external: false, chip: true },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/zarahbydesign', icon: 'assets/icons/linkedin-svgrepo-com 1.svg', external: true },
-		{ label: 'GitHub', href: 'https://github.com/Zarah-byte', icon: 'assets/icons/github-rounded-svgrepo-com 1.svg', external: true },
-	];
+	const SOCIALS = window.siteSocials;
 
 	const PANEL_ID = 'site-menu-panel';
 	let uid = 0;

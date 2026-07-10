@@ -19,6 +19,10 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+	<script src="../js/site-base.js" defer></script>
+	<script src="../js/site-footer.js" defer></script>
+	<script src="../js/site-menu.js" defer></script>
+	<script src="../js/cursor.js" defer></script>
 </head>
 <body class="page-project">
 	<div class="shell">
@@ -33,6 +37,7 @@
 						<p class="project-tagline">Bringing flexible organization to Google Tasks</p>
 						<p>Google Tasks is the simplest task app Google makes — and the first one people outgrow. This project asked how it could hold more of real life without losing the lightness that makes people reach for it in the first place.</p>
 						<p>The answer wasn&#x27;t more features. It was organization that bends to the day you&#x27;re having, built entirely from patterns Google users already know. Over seven weeks I ran interviews, competitor and app audits, and two rounds of testing to design a way to group, sort, and move tasks that feels discovered rather than learned.</p>
+						<a class="project-lead__link" href="https://www.figma.com/deck/ihtL1gaT0U4N2ZBRXdRAOl/Zarah-Yaqub---Project-3?node-id=108-559" target="_blank" rel="noopener">See the Presentation</a>
 					</div>
 					<dl class="project-meta">
 						<div class="project-meta__row">
@@ -41,15 +46,15 @@
 						</div>
 						<div class="project-meta__row">
 							<dt class="project-meta__label">Timeline</dt>
-							<dd class="project-meta__value">7 weeks</dd>
+							<dd class="project-meta__value">7 Weeks (Oct 27th - Dec 15th 2025)</dd>
 						</div>
 						<div class="project-meta__row">
 							<dt class="project-meta__label">Context</dt>
-							<dd class="project-meta__value">Parsons School of Design</dd>
+							<dd class="project-meta__value">Parsons School of Design — Adding a feature</dd>
 						</div>
 						<div class="project-meta__row">
 							<dt class="project-meta__label">Tools</dt>
-							<dd class="project-meta__value"><span class="project-meta__pills"><span class="project-meta__pill">Figma</span></span></dd>
+							<dd class="project-meta__value"><span class="project-meta__pills"><span class="project-meta__pill">Figma</span><span class="project-meta__pill">Gemini AI</span><span class="project-meta__pill">ChatGPT</span><span class="project-meta__pill">Claude AI</span><span class="project-meta__pill">Google Workspace</span></span></dd>
 						</div>
 						<div class="project-meta__row">
 							<dt class="project-meta__label">Year</dt>
@@ -62,103 +67,106 @@
 			<figure class="project-media project-media--embed project-media--flush project-media--ratio-16x9">
 				<iframe class="project-video" src="https://player.vimeo.com/video/1184451152?background=1&loop=1&autoplay=1&muted=1&title=0&byline=0&portrait=0&badge=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Google Tasks cover"></iframe>
 			</figure>
-				<p class="project-caption">Google Tasks — 2025</p>
 			</div>
 			<section class="project-section">
-				<h2>The Problem</h2>
+				<h2>Problem Space</h2>
 				<div class="project-section__body">
 				<p>One list, every kind of life. Work, errands, coursework, and someday-maybes all pile into a single stream with no way to group them, sort them, or shift focus.</p>
 				<p>Every person I spoke to said a version of the same thing: the app is great at catching a task and useless at helping them decide what to actually do next. So the real planning happened in their heads — the tool held the list, but never the priorities.</p>
 				</div>
 				<div class="project-section__bleed">
-				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/in-hand.png" alt="Google Tasks today — one undifferentiated stream" loading="lazy">
-				</figure>
+				<aside class="project-callout">
+					<p>How can I introduce a flexible organizational system while remaining loyal to Google&#x27;s brand, interaction patterns, and design language?</p>
+				</aside>
 				</div>
 			</section>
 			<section class="project-section">
-				<h2>Research</h2>
+				<h2>Solution</h2>
 				<div class="project-section__body">
-				<p>I approached it from four angles: user interviews, a competitor audit, secondary research, and an audit of Google Tasks itself. Four participants across Google Tasks, Apple Reminders, and Notion showed a consistent pattern — everyone captured quickly, everyone planned mentally, and no one felt their app helped them choose what mattered now.</p>
-				<p>The competitors drew the boundaries of the problem. TickTick buys flexibility with complexity; Apple Reminders buys power with hidden depth. Neither offered flexible and simple at once — and that gap became the opening.</p>
+				<p>Familiar on top, flexible underneath. I audited Calendar, Gmail, and Keep and found one consistent grammar — side-panel navigation, small section headings, and a persistent &quot;+&quot; for adding things. Google Tasks was the outlier that had never adopted it. So the redesign borrows that grammar wholesale, which means new organization lives exactly where a Google user already expects to find it. It reads as recognition, not a feature to learn.</p>
+				<p>Small changes, big legibility. Moving to the top-left hamburger menu and relocating the add button turned a flat, ambiguous list into a screen whose structure you can read at a glance — and put both controls where every other Google app already keeps them.</p>
 				</div>
 				<div class="project-section__bleed">
 				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/competitors.png" alt="Competitor audit — Apple Reminders and TickTick" loading="lazy">
-				</figure>
-				</div>
-			</section>
-			<section class="project-section">
-				<h2>The Insight</h2>
-				<div class="project-section__body">
-				<p>Organization isn&#x27;t one thing. Needs change day to day, so people don&#x27;t want the one right structure handed to them — they want to switch structures without friction. As one tester, Riya, put it: &quot;I change my view on tasks every day. Sometimes I want to see the ones due in the next week, sometimes I want to see them by class. It changes every day.&quot;</p>
-				<p>Two more findings shaped the direction: users lean on familiar Google interaction patterns to know where organization lives, and when those patterns are missing, features simply go undiscovered — but pile on too many options at once and the whole thing feels overwhelming.</p>
-				<p>The brief wrote itself into a single question: how can I introduce a flexible organizational system while staying loyal to Google&#x27;s brand, interaction patterns, and design language?</p>
-				</div>
-			</section>
-			<section class="project-section">
-				<h2>Staying Loyal to Google</h2>
-				<div class="project-section__body">
-				<p>Familiar on top, flexible underneath. I audited Calendar, Gmail, and Keep and found one consistent grammar — side-panel navigation, small section headings, and a persistent &quot;+&quot; for adding things. Google Tasks was the outlier that had never adopted it.</p>
-				<p>So the redesign borrows that grammar wholesale. New organization lives exactly where a Google user already expects to find it, which means it reads as recognition, not a feature to learn.</p>
-				</div>
-				<div class="project-section__bleed">
-				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/google-audit.png" alt="The shared Google pattern — Calendar and Gmail" loading="lazy">
-				</figure>
-				</div>
-			</section>
-			<section class="project-section">
-				<h2>Design — Consistency</h2>
-				<div class="project-section__body">
-				<p>Small changes, big legibility. Aligning Tasks with the wider Google system — the navigation, the headings, the add action — turned a flat, ambiguous list into a screen whose structure you can read at a glance.</p>
-				</div>
-				<div class="project-section__bleed">
-				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/consistency.png" alt="Before and after aligning Tasks with Google&#x27;s design language" loading="lazy">
-				</figure>
-				</div>
-			</section>
-			<section class="project-section">
-				<h2>Design — Flexible Organization</h2>
-				<div class="project-section__body">
-				<p>Group it your way. Tasks can now be organized by list or by due date, and switched between the two in a tap — the same tasks, reshaped around whatever today needs. Sorting is available on demand rather than baked into the view, so control is there when you want it and out of the way when you don&#x27;t.</p>
-				</div>
-				<div class="project-section__bleed">
-				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/organize-views.png" alt="The same tasks organized by list, then by due date" loading="lazy">
+					<img src="../assets/media/tasks/consistency-annotated.png" alt="Design consistency, before and after — navigation and the add button move to match the Google app family" loading="lazy">
 				</figure>
 				</div>
 				<div class="project-section__bleed">
 				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/sort-on-demand.png" alt="An organized list, with sorting on demand through Google&#x27;s own menu pattern" loading="lazy">
+					<img src="../assets/media/tasks/consistency-screens.png" alt="Design consistency — the existing Google Calendar and Gmail UI beside the redesigned Tasks" loading="lazy">
+				</figure>
+				</div>
+				<div class="project-section__bleed">
+				<figure class="project-media project-media--flush">
+					<img src="../assets/media/tasks/my-tasks-annotated.png" alt="My Tasks becomes Tasks — before and after" loading="lazy">
+				</figure>
+				</div>
+				<div class="project-section__body">
+				<p>Group it your way. Tasks can now be organized by list or by due date, and switched between the two without changing the underlying task structure — the same tasks, reshaped around whatever today needs. Sorting moves into Google&#x27;s own sort-by menu, which both widens the options and makes them findable.</p>
+				</div>
+				<div class="project-section__bleed">
+				<figure class="project-media project-media--flush">
+					<img src="../assets/media/tasks/org-system-annotated.png" alt="The organizational system, before and after — an unclear sort menu becomes Google&#x27;s standard sort-by pattern" loading="lazy">
+				</figure>
+				</div>
+				<div class="project-section__bleed">
+				<figure class="project-media project-media--flush">
+					<img src="../assets/media/tasks/org-by-list-due-date.png" alt="The same tasks organized by list, then by due date" loading="lazy">
 				</figure>
 				</div>
 			</section>
 			<section class="project-section">
-				<h2>Interactions</h2>
+				<h2>Process</h2>
+				<div class="project-section__body">
+				<p>I ran four types of research before designing anything: user interviews, an audit of Google Tasks, a competitor audit, and secondary research across Reddit and published case studies. Four participants across Google Tasks, Apple Reminders, and Notion showed a consistent pattern — everyone captured quickly, everyone planned mentally, and no one felt their app helped them choose what mattered now.</p>
+				<p>The competitors drew the boundaries of the problem. TickTick buys flexibility at the cost of simplicity; Apple Reminders hides its power behind complexity. Neither offered flexible and simple at once. Google Tasks&#x27; simplicity wasn&#x27;t a weakness to fix — it was the thing to protect.</p>
+				</div>
+				<div class="project-section__bleed">
+				<figure class="project-media project-media--flush">
+					<img src="../assets/media/tasks/process-board.png" alt="Competitor audit — annotated teardowns of Apple Reminders and TickTick" loading="lazy">
+				</figure>
+				</div>
+				<div class="project-section__body">
+				<p>That research converged into three insights, each driving a design question:</p>
+				</div>
+				<div class="project-section__body">
+				<ol class="project-list">
+					<li>Organization isn&#x27;t static — needs shift day to day. How might we build a system that adapts to changing priorities?</li>
+					<li>Discoverability follows familiarity — people look for organization where Google usually puts it. How might we align with existing Google navigation patterns?</li>
+					<li>Control and simplicity are in tension — people want more say without more clutter. How might we offer flexibility without complexity?</li>
+				</ol>
+				</div>
+				<div class="project-section__body">
+				<p>Then I tested in two rounds — three participants early, two more once the organizational system took shape — spanning students, working professionals, and parents. Phase one confirmed the appetite for flexible views. Phase two pressure-tested whether the Google-borrowed patterns actually made those views discoverable. They did: people reached for organization where they expected it, without being told it was there.</p>
+				</div>
+			</section>
+			<section class="project-section">
+				<h2>Design Documentation</h2>
 				<div class="project-section__body">
 				<p>The details carry the feeling. Swipe to complete gives a task a satisfying, unmistakable close — and moving a task from one list to another is a direct drag, no menus, no dialogs.</p>
 				</div>
 				<div class="project-section__bleed">
 				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/swipe-complete.png" alt="Swipe to complete a task" loading="lazy">
+					<img src="../assets/media/tasks/doc-swipe-complete.png" alt="Swipe to complete a task, frame by frame" loading="lazy">
 				</figure>
 				</div>
 				<div class="project-section__bleed">
 				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/move-task.png" alt="Dragging a task from one list to another" loading="lazy">
+					<img src="../assets/media/tasks/doc-move-task-1.png" alt="Moving a task from one list to another, frame by frame" loading="lazy">
+				</figure>
+				</div>
+				<div class="project-section__bleed">
+				<figure class="project-media project-media--flush">
+					<img src="../assets/media/tasks/doc-move-task-2.png" alt="Moving a task from one list to another, continued" loading="lazy">
 				</figure>
 				</div>
 			</section>
 			<section class="project-section">
-				<h2>Testing</h2>
+				<h2>Reflection</h2>
 				<div class="project-section__body">
-				<p>I tested in two rounds — three participants early, two more once the organizational system took shape — spanning students, working professionals, and parents. Phase one confirmed the appetite for flexible views; phase two pressure-tested whether the Google-borrowed patterns actually made those views discoverable. They did: people reached for organization where they expected it, without being told it was there.</p>
+				<p>Organization isn&#x27;t one thing. Needs change day to day, so people don&#x27;t want the one right structure handed to them — they want to switch structures without friction. As one tester, Riya, put it: &quot;I change my view on tasks every day. Sometimes I want to see the ones due in the next week, sometimes I want to see them by class. It changes every day.&quot;</p>
+				<p>Two more findings shaped the direction, and both still guide where this goes next: users lean on familiar Google interaction patterns to know where organization lives, and when those patterns are missing, features simply go undiscovered — but pile on too many options at once and the whole thing feels overwhelming. Restraint was the hardest part of the work.</p>
 				</div>
-			</section>
-			<section class="project-section">
-				<h2>Next Steps</h2>
 				<div class="project-section__body">
 				<ol class="project-list">
 					<li>Deeper integration with Google Calendar for time-based task planning</li>
@@ -171,11 +179,6 @@
 				<h2>Outcome</h2>
 				<div class="project-section__body">
 				<p>Structure that keeps up. Tasks stopped being one long stream and became a view you can reshape in a tap — more control, no new vocabulary. It stays loyal to Google&#x27;s design language while finally answering the question users were really asking: not &quot;what&#x27;s on my list,&quot; but &quot;what should I look at right now.&quot;</p>
-				</div>
-				<div class="project-section__bleed">
-				<figure class="project-media project-media--flush">
-					<img src="../assets/media/tasks/welcome.png" alt="A calmer, clearer entry into Tasks" loading="lazy">
-				</figure>
 				</div>
 			</section>
 			<aside class="project-related">
@@ -204,14 +207,9 @@
 				</li>
 				</ul>
 			</aside>
-			<footer class="site-footer">
-				<p>&copy; 2026 Zarah Yaqub</p>
-			</footer>
+			<div data-site-footer></div>
 		</main>
 	</div>
 
-	<script src="../js/site-base.js" defer></script>
-	<script src="../js/site-menu.js" defer></script>
-	<script src="../js/cursor.js" defer></script>
 </body>
 </html>

@@ -39,6 +39,7 @@ IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; clipboard-write; encry
 VIMEO_TAG_RE = re.compile(r"^\[vimeo:(\d+)(?:\s+(.*))?\]$")
 YOUTUBE_TAG_RE = re.compile(r"^\[youtube:([\w-]{11})(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
+CALLOUT_TAG_RE = re.compile(r"^\[callout:\s*(.+)\]$")
 ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
 
 
@@ -347,6 +348,21 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
 
         flush_ordered_list()
 
+        callout = CALLOUT_TAG_RE.match(stripped)
+        if callout:
+            flush_paragraphs()
+            flush_media()
+            text_html = html.escape(callout.group(1).strip())
+            blocks.append(
+                (
+                    "bleed",
+                    '\t\t\t\t<aside class="project-callout">\n'
+                    f"\t\t\t\t\t<p>{text_html}</p>\n"
+                    "\t\t\t\t</aside>",
+                )
+            )
+            continue
+
         parsed = parse_vimeo_tag(stripped, section_title)
         if parsed:
             flush_paragraphs()
@@ -641,6 +657,14 @@ def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: s
     narrative_html = paragraphs_to_html(about_body, indent="\t\t\t\t\t\t")
     if narrative_html:
         lines.append(narrative_html)
+
+    presentation = meta.get("presentation", "").strip()
+    if presentation:
+        lines.append(
+            f'\t\t\t\t\t\t<a class="project-lead__link" href="{html.escape(presentation)}"'
+            f' target="_blank" rel="noopener">See the Presentation</a>'
+        )
+
     lines.append("\t\t\t\t\t</div>")
 
     details = render_details(meta, indent="\t\t\t\t\t")
