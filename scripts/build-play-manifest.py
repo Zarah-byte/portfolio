@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build content/play/manifest.json from images and video markdown files."""
+"""Build content/play/manifest.json from archive.md (+ loose media fallbacks)."""
 
 from __future__ import annotations
 
@@ -11,13 +11,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLAY_DIR = ROOT / "content" / "play"
 MANIFEST = PLAY_DIR / "manifest.json"
+ARCHIVE = PLAY_DIR / "archive.md"
 
 IMAGE_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
 VIDEO_EXT = {".mp4", ".webm", ".mov"}
-SKIP_NAMES = {"manifest.json", "README.md", ".DS_Store"}
+SKIP_NAMES = {
+    "manifest.json",
+    "README.md",
+    "archive.md",
+    ".DS_Store",
+}
 SIZE_VALUES = {"sm", "md", "lg", "wide"}
 URL_RE = re.compile(r"https?://[^\s<>\"')\\]]+")
-META_KEYS = ("title", "date", "tag", "link", "linkLabel", "alt", "size")
+META_KEYS = ("title", "date", "tag", "link", "linkLabel", "alt", "size", "order")
+FIELD_RE = re.compile(
+    r"^(image|src|url|poster|date|tag|order|link|linkLabel|alt|size)\s*:\s*(.+?)\s*$",
+    re.I,
+)
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -78,7 +88,7 @@ def apply_metadata(item: dict, meta: dict[str, str], body: str) -> None:
 
 def load_sidecar(stem: str) -> tuple[dict[str, str], str]:
     path = PLAY_DIR / f"{stem}.md"
-    if not path.is_file():
+    if not path.is_file() or path.name in SKIP_NAMES:
         return {}, ""
     return parse_frontmatter(path.read_text(encoding="utf-8"))
 
@@ -129,6 +139,123 @@ def normalize_video_url(url: str) -> tuple[str, str, str | None]:
         return url, "file", url
 
     return url, "embed", url
+
+
+def find_media_file(filename: str) -> Path | None:
+    path = PLAY_DIR / filename
+    if path.is_file():
+        return path
+
+    stem = Path(filename).stem
+    for ext in IMAGE_EXT | VIDEO_EXT:
+        candidate = PLAY_DIR / f"{stem}{ext}"
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def parse_archive_entries(text: str) -> list[dict[str, str]]:
+    """Parse content/play/archive.md into entry dicts."""
+    # Drop leading instructions before the first entry heading.
+    parts = re.split(r"\n---\n+", text)
+    entries: list[dict[str, str]] = []
+
+    for part in parts:
+        stripped = part.strip()
+        if not stripped:
+            continue
+
+        heading = re.search(r"^##\s+(.+)$", stripped, re.M)
+        if not heading:
+            continue
+
+        title = heading.group(1).strip()
+        after = stripped[heading.end() :].lstrip("\n")
+
+        meta: dict[str, str] = {"title": title}
+        body_lines: list[str] = []
+        in_body = False
+
+        for line in after.splitlines():
+            if not in_body:
+                match = FIELD_RE.match(line.strip())
+                if match:
+                    meta[match.group(1)] = match.group(2).strip().strip("\"'")
+                    continue
+                if not line.strip():
+                    # Blank line after fields starts the description body.
+                    if any(k in meta for k in ("image", "src", "url", "date", "tag", "order")):
+                        in_body = True
+                    continue
+                # Non-field, non-blank before fields finished — treat as body.
+                in_body = True
+                body_lines.append(line)
+                continue
+            body_lines.append(line)
+
+        meta["body"] = "\n".join(body_lines).strip()
+        entries.append(meta)
+
+    return entries
+
+
+def item_from_archive_entry(entry: dict[str, str]) -> dict | None:
+    image = entry.get("image", "").strip()
+    raw_url = entry.get("src") or entry.get("url") or ""
+    body = entry.get("body", "")
+
+    if not raw_url:
+        urls = URL_RE.findall(body)
+        # Only treat body URL as media src when there is no image file.
+        if not image and urls:
+            raw_url = urls[0]
+
+    meta = {k: entry[k] for k in META_KEYS if entry.get(k)}
+
+    if image:
+        media = find_media_file(image)
+        if not media:
+            print(f"skip archive entry '{entry.get('title')}': missing media {image}", file=sys.stderr)
+            return None
+
+        web_path = f"content/play/{media.name}"
+        ext = media.suffix.lower()
+        if ext in VIDEO_EXT:
+            item: dict = {
+                "id": media.stem,
+                "type": "video",
+                "kind": "file",
+                "src": web_path,
+                "modalSrc": web_path,
+            }
+        else:
+            item = {
+                "id": media.stem,
+                "type": "image",
+                "src": web_path,
+                "modalSrc": web_path,
+                "alt": "",
+            }
+        apply_metadata(item, meta, body)
+        return item
+
+    if raw_url:
+        src, kind, modal_src = normalize_video_url(raw_url)
+        item = {
+            "id": re.sub(r"[^A-Za-z0-9_-]+", "-", meta.get("title", "video")).strip("-") or "video",
+            "type": "video",
+            "kind": kind,
+            "src": src,
+            "modalSrc": modal_src,
+        }
+        apply_metadata(item, meta, body)
+        poster = entry.get("poster")
+        if poster:
+            item["poster"] = f"content/play/{poster}"
+        return item
+
+    print(f"skip archive entry '{entry.get('title')}': needs image: or src:", file=sys.stderr)
+    return None
 
 
 def item_from_markdown(path: Path) -> dict | None:
@@ -192,9 +319,35 @@ def build_manifest() -> dict:
     if not PLAY_DIR.is_dir():
         raise SystemExit(f"Missing directory: {PLAY_DIR}")
 
+    # Preferred source: single archive.md
+    if ARCHIVE.is_file():
+        entries = parse_archive_entries(ARCHIVE.read_text(encoding="utf-8"))
+        items: list[dict] = []
+        claimed_media: set[str] = set()
+
+        for entry in entries:
+            item = item_from_archive_entry(entry)
+            if not item:
+                continue
+            items.append(item)
+            claimed_media.add(Path(item["src"]).name)
+
+        # Optional: leftover media files without an archive entry still appear.
+        for path in sorted(PLAY_DIR.iterdir()):
+            if not path.is_file() or path.name in SKIP_NAMES:
+                continue
+            ext = path.suffix.lower()
+            if ext not in IMAGE_EXT and ext not in VIDEO_EXT:
+                continue
+            if path.name in claimed_media:
+                continue
+            items.append(item_from_media(path))
+
+        return {"items": items}
+
+    # Legacy fallback: sidecar .md files + media scan
     poster_files: set[str] = set()
     md_items: list[dict] = []
-    sidecar_stems: set[str] = set()
 
     for path in sorted(PLAY_DIR.glob("*.md")):
         if path.name in SKIP_NAMES or path.name.startswith("_"):
@@ -204,7 +357,6 @@ def build_manifest() -> dict:
             (PLAY_DIR / f"{path.stem}{ext}").exists() for ext in IMAGE_EXT | VIDEO_EXT
         )
         if media_match:
-            sidecar_stems.add(path.stem)
             continue
 
         item = item_from_markdown(path)

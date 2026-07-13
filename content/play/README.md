@@ -1,68 +1,45 @@
 # Play gallery content
 
-Drop media here and run `python3 scripts/build-play-manifest.py` to refresh the gallery.
+**Edit archive titles, tags, order, links, and popup copy in one place:**
 
-## Images & video files
+[`archive.md`](./archive.md)
 
-Add files directly to this folder:
-
-- **Images:** `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg`
-- **Video files:** `.mp4`, `.webm`, `.mov`
-
-Each file becomes one gallery tile. Optional size prefix in the filename is not used — set size in a markdown file if needed, or let the gallery cycle sizes automatically.
-
-## Image metadata (optional)
-
-Add a markdown file with the **same name** as the image to populate the detail popup:
-
-`Genie.png` → `Genie.md`
-
-```md
----
-title: Genie interface exploration
-date: 2026
-tag: UI Study
-link: https://example.com
-linkLabel: See it live
----
-Description shown in the popup. Supports multiple paragraphs.
-```
-
-## Video links (markdown)
-
-Create a `.md` file per embed. Use frontmatter for options and put the URL in the body or `src` field.
-
-```md
----
-title: Motion study
-date: 2026
-tag: Side Project
-link: https://example.com
-size: wide
----
-https://vimeo.com/123456789
-
-Optional description shown in the popup below the title.
-```
-
-```md
----
-src: https://www.youtube.com/watch?v=VIDEO_ID
-size: md
-poster: my-poster-frame.png
----
-```
-
-**`size`** (optional): `sm`, `md`, `lg`, or `wide`
-
-**`poster`** (optional): image filename in this folder, used as a preview frame for embeds
-
-**Supported URLs:** Vimeo, YouTube, direct `.mp4` / `.webm` links
-
-## Build
+Then refresh:
 
 ```bash
 python3 scripts/build-play-manifest.py
 ```
 
-This writes `manifest.json`, which the Play page loads at runtime.
+That writes `manifest.json`, which the Play page loads at runtime.
+
+## Images
+
+Drop image / video files in this folder and reference them from `archive.md` with `image: Your-File.png`.
+
+Supported: `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg`, `.mp4`, `.webm`, `.mov`
+
+## Entry example
+
+In `archive.md`:
+
+```md
+## Project name
+image: Project-Name.png
+date: 2026
+tag: Branding
+order: 1
+link: https://example.com
+linkLabel: See it live
+
+Popup description goes here. Multiple paragraphs are fine.
+```
+
+Omit `link` / `linkLabel` when there is no external link.
+
+For a video embed instead of a local image, use `src:` with a Vimeo / YouTube / direct media URL.
+
+## Optional fields
+
+- **`size`:** `sm`, `md`, `lg`, or `wide`
+- **`alt`:** image alt text for the popup media
+- **`poster`:** preview image filename for video embeds
