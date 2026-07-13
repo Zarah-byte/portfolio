@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAY_DIR = ROOT / "content" / "play"
@@ -142,11 +143,17 @@ def normalize_video_url(url: str) -> tuple[str, str, str | None]:
 
 
 def find_media_file(filename: str) -> Path | None:
-    path = PLAY_DIR / filename
+    """Resolve a play/ filename or a repo-relative path (e.g. assets/media/archive/...)."""
+    cleaned = filename.strip().lstrip("./")
+    if "/" in cleaned:
+        path = ROOT / cleaned
+        return path if path.is_file() else None
+
+    path = PLAY_DIR / cleaned
     if path.is_file():
         return path
 
-    stem = Path(filename).stem
+    stem = Path(cleaned).stem
     for ext in IMAGE_EXT | VIDEO_EXT:
         candidate = PLAY_DIR / f"{stem}{ext}"
         if candidate.is_file():
@@ -218,11 +225,23 @@ def item_from_archive_entry(entry: dict[str, str]) -> dict | None:
             print(f"skip archive entry '{entry.get('title')}': missing media {image}", file=sys.stderr)
             return None
 
-        web_path = f"content/play/{media.name}"
+        try:
+            relative = media.relative_to(ROOT).as_posix()
+        except ValueError:
+            relative = f"content/play/{media.name}"
+        web_path = quote(relative, safe="/")
+
+        # Prefer the archive title for a stable id (image filename can change).
+        item_id = re.sub(
+            r"[^A-Za-z0-9_-]+",
+            "-",
+            meta.get("title") or media.stem,
+        ).strip("-") or media.stem
+
         ext = media.suffix.lower()
         if ext in VIDEO_EXT:
             item: dict = {
-                "id": media.stem,
+                "id": item_id,
                 "type": "video",
                 "kind": "file",
                 "src": web_path,
@@ -230,7 +249,7 @@ def item_from_archive_entry(entry: dict[str, str]) -> dict | None:
             }
         else:
             item = {
-                "id": media.stem,
+                "id": item_id,
                 "type": "image",
                 "src": web_path,
                 "modalSrc": web_path,
@@ -323,26 +342,14 @@ def build_manifest() -> dict:
     if ARCHIVE.is_file():
         entries = parse_archive_entries(ARCHIVE.read_text(encoding="utf-8"))
         items: list[dict] = []
-        claimed_media: set[str] = set()
 
         for entry in entries:
             item = item_from_archive_entry(entry)
             if not item:
                 continue
             items.append(item)
-            claimed_media.add(Path(item["src"]).name)
 
-        # Optional: leftover media files without an archive entry still appear.
-        for path in sorted(PLAY_DIR.iterdir()):
-            if not path.is_file() or path.name in SKIP_NAMES:
-                continue
-            ext = path.suffix.lower()
-            if ext not in IMAGE_EXT and ext not in VIDEO_EXT:
-                continue
-            if path.name in claimed_media:
-                continue
-            items.append(item_from_media(path))
-
+        # archive.md is the source of truth — do not auto-add unlisted play media.
         return {"items": items}
 
     # Legacy fallback: sidecar .md files + media scan

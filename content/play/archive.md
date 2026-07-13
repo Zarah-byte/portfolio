@@ -40,7 +40,7 @@ order: 2
 link: https://zarah-byte.github.io/01_manuscript/
 linkLabel: See it live
 
-Interactive manuscript experience.
+a seminal design text, Mismatch: How Inclusion shapes design by Kat Holmes and my response to it type set together.
 
 ---
 
@@ -50,7 +50,7 @@ date: 2025
 tag: Branding
 order: 3
 
-Wordmark exploration for a home fragrance brand centered on warmth and ritual.
+Wordmark exploration for a candle brand centered on warmth and ritual.
 
 ---
 
@@ -75,14 +75,14 @@ Editorial poster exploring cultural discourse through collage and type.
 ---
 
 ## Raise Your Glass
-image: Raise-Your-Glass.png
+image: Links.png
 date: 2025
 tag: Web
 order: 6
 link: https://zarah-byte.github.io/links/
 linkLabel: See it live
 
-Editorial link hub study.
+An Are.na-powered collection site exploring glassware through images, videos, text, links, and audio.
 
 ---
 
@@ -101,6 +101,8 @@ image: Mirae.png
 date: 2026
 tag: Speculative
 order: 8
+link: https://devpost.com/software/mirae-pt2s4i
+linkLabel: See submission
 alt: Mirae — speculative bio-adaptive sensing patch and companion interface
 
 A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam — a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.
@@ -118,3 +120,14 @@ link: https://www.figma.com/proto/cTVZZJDPQk7Yd44iCH2Ltp/SPARK?p=f&viewport=676%
 linkLabel: View prototype
 
 Spark is a fintech app designed to simplify financial transactions for a younger demographic. Created as part of an Advanced UI/UX course.
+
+---
+
+## Genie
+image: Genie Cover.png
+date: 2026
+tag: UI Study
+order: 10
+alt: Genie
+
+A live site to achive and memorialize your family history (coming soon)

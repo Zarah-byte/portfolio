@@ -24,7 +24,7 @@
       "link": "https://zarah-byte.github.io/01_manuscript/",
       "linkLabel": "See it live",
       "order": "2",
-      "description": "Interactive manuscript experience."
+      "description": "a seminal design text, Mismatch: How Inclusion shapes design by Kat Holmes and my response to it type set together."
     },
     {
       "id": "Homebodies",
@@ -36,10 +36,10 @@
       "date": "2025",
       "tag": "Branding",
       "order": "3",
-      "description": "Wordmark exploration for a home fragrance brand centered on warmth and ritual."
+      "description": "Wordmark exploration for a candle brand centered on warmth and ritual."
     },
     {
-      "id": "Homebodies-Candles",
+      "id": "Homebodies-candles",
       "type": "image",
       "src": "content/play/Homebodies-Candles.png",
       "modalSrc": "content/play/Homebodies-Candles.png",
@@ -65,8 +65,8 @@
     {
       "id": "Raise-Your-Glass",
       "type": "image",
-      "src": "content/play/Raise-Your-Glass.png",
-      "modalSrc": "content/play/Raise-Your-Glass.png",
+      "src": "content/play/Links.png",
+      "modalSrc": "content/play/Links.png",
       "alt": "",
       "title": "Raise Your Glass",
       "date": "2025",
@@ -74,10 +74,10 @@
       "link": "https://zarah-byte.github.io/links/",
       "linkLabel": "See it live",
       "order": "6",
-      "description": "Editorial link hub study."
+      "description": "An Are.na-powered collection site exploring glassware through images, videos, text, links, and audio."
     },
     {
-      "id": "Karachi-Run-Club-Tees",
+      "id": "Karachi-Run-Club-tees",
       "type": "image",
       "src": "content/play/Karachi-Run-Club-Tees.png",
       "modalSrc": "content/play/Karachi-Run-Club-Tees.png",
@@ -97,6 +97,8 @@
       "title": "Mirae",
       "date": "2026",
       "tag": "Speculative",
+      "link": "https://devpost.com/software/mirae-pt2s4i",
+      "linkLabel": "See submission",
       "order": "8",
       "description": "A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam \u2014 a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.\n\nMost wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge \u2014 a prompt to breathe, pause, or notice the loop you're about to repeat."
     },
@@ -113,6 +115,18 @@
       "linkLabel": "View prototype",
       "order": "9",
       "description": "Spark is a fintech app designed to simplify financial transactions for a younger demographic. Created as part of an Advanced UI/UX course."
+    },
+    {
+      "id": "Genie",
+      "type": "image",
+      "src": "content/play/Genie%20Cover.png",
+      "modalSrc": "content/play/Genie%20Cover.png",
+      "alt": "Genie",
+      "title": "Genie",
+      "date": "2026",
+      "tag": "UI Study",
+      "order": "10",
+      "description": "A live site to achive and memorialize your family history (coming soon)"
     }
   ]
 }
