@@ -22,66 +22,103 @@ The answer wasn't more features. It was organization that bends to the day you'r
 
 ## Problem Space
 
-One list, every kind of life. Work, errands, coursework, and someday-maybes all pile into a single stream with no way to group them, sort them, or shift focus.
+[deck] People capture tasks in Tasks quickly, but the app offers almost no way to organize them afterward.
 
-Every person I spoke to said a version of the same thing: the app is great at catching a task and useless at helping them decide what to actually do next. So the real planning happened in their heads — the tool held the list, but never the priorities.
+Sorting is limited, lists don't talk to each other, and there's no way to see the same tasks a different way on a different day.
 
-[callout: How can I introduce a flexible organizational system while remaining loyal to Google's brand, interaction patterns, and design language?]
+I ran four user interviews, audited two competitors and four Google apps, and tested two prototype rounds with five participants — designing a flexible sorting and organizational system that feels native to Google.
+
+[image:../assets/media/tasks/tasks-problem-space.png Google Tasks today — capture, lists, sorting, and onboarding across the app flush]
 
 ## Solution
 
-Familiar on top, flexible underneath. I audited Calendar, Gmail, and Keep and found one consistent grammar — side-panel navigation, small section headings, and a persistent "+" for adding things. Google Tasks was the outlier that had never adopted it. So the redesign borrows that grammar wholesale, which means new organization lives exactly where a Google user already expects to find it. It reads as recognition, not a feature to learn.
+[deck] Instead of an overhaul, I introduced small, meaningful changes that kept the user at the forefront.
 
-Small changes, big legibility. Moving to the top-left hamburger menu and relocating the add button turned a flat, ambiguous list into a screen whose structure you can read at a glance — and put both controls where every other Google app already keeps them.
+Google Tasks doesn't need more features. It needs the ones it has to be findable, flexible, and consistent with the rest of the Google ecosystem.
 
-[image:../assets/media/tasks/consistency-annotated.png Design consistency, before and after — navigation and the add button move to match the Google app family flush]
+Rather than adding tags, projects, or a new taxonomy users would have to learn, I borrowed patterns they already knew: a top-left menu, a bottom-right "+", and a sort panel that behaves like Gmail's. Familiar structure, expanded capability.
 
-[image:../assets/media/tasks/consistency-screens.png Design consistency — the existing Google Calendar and Gmail UI beside the redesigned Tasks flush]
+The core change is that organization became a lens, not a commitment. Users can sort by date, list, or creation time — switching views without ever restructuring the tasks underneath.
 
-[image:../assets/media/tasks/my-tasks-annotated.png My Tasks becomes Tasks — before and after flush]
+[image:../assets/media/tasks/tasks-solution-consistency.png Design consistency — moving navigation and the add button to match the Google app family flush]
 
-Group it your way. Tasks can now be organized by list or by due date, and switched between the two without changing the underlying task structure — the same tasks, reshaped around whatever today needs. Sorting moves into Google's own sort-by menu, which both widens the options and makes them findable.
+[image:../assets/media/tasks/tasks-solution-2.png The existing Google Calendar and Gmail UI beside the redesigned Tasks flush]
 
-[image:../assets/media/tasks/org-system-annotated.png The organizational system, before and after — an unclear sort menu becomes Google's standard sort-by pattern flush]
+[image:../assets/media/tasks/tasks-solution-3.png My Tasks becomes Tasks — before and after flush]
 
-[image:../assets/media/tasks/org-by-list-due-date.png The same tasks organized by list, then by due date flush]
-
-## Process
-
-I ran four types of research before designing anything: user interviews, an audit of Google Tasks, a competitor audit, and secondary research across Reddit and published case studies. Four participants across Google Tasks, Apple Reminders, and Notion showed a consistent pattern — everyone captured quickly, everyone planned mentally, and no one felt their app helped them choose what mattered now.
-
-The competitors drew the boundaries of the problem. TickTick buys flexibility at the cost of simplicity; Apple Reminders hides its power behind complexity. Neither offered flexible and simple at once. Google Tasks' simplicity wasn't a weakness to fix — it was the thing to protect.
-
-[image:../assets/media/tasks/process-board.png Competitor audit — annotated teardowns of Apple Reminders and TickTick flush]
-
-That research converged into three insights, each driving a design question:
-
-1. Organization isn't static — needs shift day to day. How might we build a system that adapts to changing priorities?
-2. Discoverability follows familiarity — people look for organization where Google usually puts it. How might we align with existing Google navigation patterns?
-3. Control and simplicity are in tension — people want more say without more clutter. How might we offer flexibility without complexity?
-
-Then I tested in two rounds — three participants early, two more once the organizational system took shape — spanning students, working professionals, and parents. Phase one confirmed the appetite for flexible views. Phase two pressure-tested whether the Google-borrowed patterns actually made those views discoverable. They did: people reached for organization where they expected it, without being told it was there.
+[image:../assets/media/tasks/tasks-solution-4.png The same tasks organized by list, then by due date flush]
 
 ## Design Documentation
 
-The details carry the feeling. Swipe to complete gives a task a satisfying, unmistakable close — and moving a task from one list to another is a direct drag, no menus, no dialogs.
+Beyond the screens, I documented the interaction behaviors — such as:
 
-[image:../assets/media/tasks/doc-swipe-complete.png Swipe to complete a task, frame by frame flush]
+1. Moving a Task from one list to another
+2. Swiping to complete a task
 
-[image:../assets/media/tasks/doc-move-task-1.png Moving a task from one list to another, frame by frame flush]
+[vimeo:1209358148 tasks-design doc 2 685x804 background]
+[vimeo:1209354864 tasks-design doc 1 685x804 background]
 
-[image:../assets/media/tasks/doc-move-task-2.png Moving a task from one list to another, continued flush]
+## Process
+
+[deck] What I needed to know
+
+How do people actually organize their to-dos? Where does Google Tasks stop being useful? And what makes an organizational feature feel native to Google rather than bolted on?
+
+I conducted two stages of user interviews, a competitor audit and employed secondary research to better understand the problem.
+
+[image:../assets/media/tasks/process-board.png Process board flush]
+
+## Interviews
+
+I interviewed four people aged 22–25 across Google Tasks, Notion, and Apple Reminders — students and early professionals juggling coursework and work tasks. I wanted to understand not just what they clicked, but where the app stopped and their brain took over.
+
+## Key Findings
+
+[finding:edit Users rely on apps to capture tasks quickly.]
+[finding:low_priority Prioritization and planning happens mentally, outside the app.]
+[finding:sentiment_dissatisfied No participant felt the app actively helped them decide what to do next.]
+
+## Competitor Audit
+
+I also audited two apps to see how each solved for organization:
+
+**Apple Reminders:** offers multiple views and tags, but buries them. Powerful, hidden, confusing.
+
+**TickTick:** offers extensive grouping and sorting, but front-loads it — long onboarding, too many features at once, overwhelming.
+
+[image:../assets/media/tasks/tasks-audit-overview.png Competitor audit — Apple Reminders' many views and tags for organization flush]
+
+[image:../assets/media/tasks/tasks-audit-reminders.png Competitor audit — annotated teardown of Apple Reminders flush]
+
+[image:../assets/media/tasks/tasks-audit-2.png Competitor audit — annotated teardown of TickTick flush]
+
+[image:../assets/media/tasks/tasks-audit-3.png Competitor audit — TickTick grouping and sorting options flush]
+
+## Ideation & Testing
+
+My first direction put organization in onboarding: ask users up front how they wanted their tasks structured, then build the app around that answer. It seemed efficient. It failed immediately.
+
+Organization can't be a one-time decision. It has to be an ongoing, low-friction action — and it has to live somewhere users already know to look.
+
+[image:../assets/media/tasks/tasks-ideation.png The onboarding-first direction, with tester feedback that it felt unnatural flush]
+
+## Auditing Existing Apps
+
+If the feature needed to feel native, I needed to know what "native" meant. I audited Gmail, Google Calendar, and Google Keep and found consistent patterns.
+
+[image:../assets/media/tasks/tasks-auditing-apps.png Auditing Gmail and Google Calendar for shared organizational patterns flush]
+
+## Testing
+
+I tested the revised sort menu with two participants outside my original demographic — Aisha (29, mother, Reminders + Siri) and Shazia (56, working professional, Google Keep) — to check whether the pattern held for people who weren't students. I asked them what sorting options they'd actually want, rather than validating a list I'd already written.
+
+[image:../assets/media/tasks/tasks-testing-findings.png Testing findings flush]
+[vimeo:1209340976 Tasks sort menu 685x804 background]
 
 ## Reflection
 
-Organization isn't one thing. Needs change day to day, so people don't want the one right structure handed to them — they want to switch structures without friction. As one tester, Riya, put it: "I change my view on tasks every day. Sometimes I want to see the ones due in the next week, sometimes I want to see them by class. It changes every day."
+Consistency turned out to be a feature, not a constraint. I first treated "make it look like Google" as a restriction — until auditing Gmail, Calendar, and Keep flipped it. The existing pattern was free discoverability. Users already knew where to look; Tasks just wasn't putting anything there. My most useful decision was my least original one.
 
-Two more findings shaped the direction, and both still guide where this goes next: users lean on familiar Google interaction patterns to know where organization lives, and when those patterns are missing, features simply go undiscovered — but pile on too many options at once and the whole thing feels overwhelming. Restraint was the hardest part of the work.
+I also designed a setting when I should have designed a behavior. Asking users to configure their organization up front is tidy, and wrong. Organization isn't a decision made once — it's something people redo constantly, differently, without much thought.
 
-1. Deeper integration with Google Calendar for time-based task planning
-2. Subtle task-completion feedback to reinforce a sense of progress
-3. Further testing to refine the default organizational behavior
-
-## Outcome
-
-Structure that keeps up. Tasks stopped being one long stream and became a view you can reshape in a tap — more control, no new vocabulary. It stays loyal to Google's design language while finally answering the question users were really asking: not "what's on my list," but "what should I look at right now."
+Next time, I'd audit the design system before wireframing rather than spending a testing round to learn my screens didn't feel like Google.

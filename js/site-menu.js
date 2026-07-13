@@ -44,6 +44,11 @@
 		toggle.setAttribute('data-cursor-magnetic', '');
 		toggle.innerHTML = '<span class="site-menu__toggle-icon" aria-hidden="true"></span>';
 
+		const toggleLabel = document.createElement('span');
+		toggleLabel.className = 'site-menu__toggle-label';
+		toggleLabel.setAttribute('aria-hidden', 'true');
+		toggleLabel.textContent = 'Menu';
+
 		const panel = document.createElement('div');
 		panel.className = 'site-menu__panel';
 		panel.id = panelId;
@@ -93,7 +98,7 @@
 		});
 
 		panel.append(primary, secondary, socials);
-		trigger.append(toggle, panel);
+		trigger.append(toggleLabel, toggle, panel);
 		header.append(trigger);
 
 		// ---- Behaviour --------------------------------------------------------

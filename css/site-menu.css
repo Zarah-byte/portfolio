@@ -53,6 +53,19 @@
 	display: block;
 }
 
+/* Updated nav (Figma ref): purple star mark only, no wordmark text.
+   Star sized to match the "+" toggle; wordmark keeps its 50% opacity so the
+   #9036FF renders as the lilac in the reference. */
+.site-menu__wordmark .wordmark-text {
+	display: none;
+}
+
+.site-menu__wordmark .wordmark-star {
+	width: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
+	height: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
+	color: #9036ff;
+}
+
 /* Trigger anchors the dropdown panel to the toggle's top-right corner. */
 .site-menu__trigger {
 	position: relative;
@@ -81,6 +94,30 @@
 
 .site-menu__toggle:hover {
 	background: #3c403e;
+}
+
+/* "Menu" label fades in when the toggle is hovered/focused. */
+.site-menu__toggle-label {
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	margin-right: 0.75rem;
+	font-family: var(--font-sans);
+	font-size: var(--text-md);
+	color: var(--ink, #0a0a0a);
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transform: translateY(-50%) translateX(0.75rem);
+	transition: opacity var(--duration-fast, 0.15s) var(--ease-base, ease),
+		transform var(--duration-base, 0.25s) var(--ease-base, ease);
+}
+
+.site-menu__trigger:has(.site-menu__toggle:hover) .site-menu__toggle-label,
+.site-menu__trigger:has(.site-menu__toggle:focus-visible) .site-menu__toggle-label {
+	opacity: 1;
+	transform: translateY(-50%) translateX(0);
 }
 
 .site-menu__toggle:focus-visible {

@@ -44,7 +44,28 @@ YOUTUBE_TAG_RE = re.compile(r"^\[youtube:([\w-]{11})(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
 CALLOUT_TAG_RE = re.compile(r"^\[callout:\s*(.+)\]$")
 PLACEHOLDER_TAG_RE = re.compile(r"^\[placeholder:\s*(.+)\]$")
+FINDING_TAG_RE = re.compile(r"^\[finding:([\w-]+)\s+(.+)\]$")
+DECK_TAG_RE = re.compile(r"^\[deck\]\s+(.+)$")
 ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
+BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+
+# Inline Material Symbols icon paths for the [finding:] rows (24x24 viewBox).
+FINDING_ICONS = {
+    "edit": (
+        "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41"
+        "l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+    ),
+    "low_priority": (
+        "M14 5h8v2h-8zM14 10.5h8v2h-8zM14 16h8v2h-8zM2 11.5C2 15.08 4.92 18 8.5 18H9v2l3-3-3-3v2"
+        "h-.5C6.02 16 4 13.98 4 11.5S6.02 7 8.5 7H12V5H8.5C4.92 5 2 7.92 2 11.5z"
+    ),
+    "sentiment_dissatisfied": (
+        "M15.5 11c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0"
+        " 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 1.5c-2.33 0-4.31 1.46-5.11"
+        " 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5zM11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22"
+        " 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+    ),
+}
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -115,11 +136,23 @@ def markdown_paragraphs(text: str) -> list[str]:
     return paragraphs
 
 
+def inline_markdown_to_html(text: str) -> str:
+    """Escape HTML, then restore a minimal **bold** subset."""
+    escaped = html.escape(text)
+    return BOLD_RE.sub(r"<strong>\1</strong>", escaped)
+
+
 def paragraphs_to_html(text: str, *, indent: str = "\t\t\t\t") -> str:
     parts = markdown_paragraphs(text)
     if not parts:
         return ""
-    return "\n".join(f"{indent}<p>{html.escape(part)}</p>" for part in parts)
+    return "\n".join(
+        f"{indent}<p>{inline_markdown_to_html(part)}</p>" for part in parts
+    )
+
+
+def deck_to_html(text: str, *, indent: str = "\t\t\t\t") -> str:
+    return f'{indent}<p class="project-deck">{inline_markdown_to_html(text)}</p>'
 
 
 def ordered_list_to_html(items: list[str], *, indent: str = "\t\t\t\t") -> str:
@@ -130,6 +163,25 @@ def ordered_list_to_html(items: list[str], *, indent: str = "\t\t\t\t") -> str:
         cleaned = ORDERED_ITEM_RE.sub("", item, count=1).strip()
         lines.append(f"{indent}\t<li>{html.escape(cleaned)}</li>")
     lines.append(f"{indent}</ol>")
+    return "\n".join(lines)
+
+
+def findings_to_html(items: list[tuple[str, str]], *, indent: str = "\t\t\t\t") -> str:
+    """Icon + text rows for the Key Findings section (Figma design)."""
+    if not items:
+        return ""
+    lines = [f'{indent}<ul class="project-findings">']
+    for icon_name, text in items:
+        path = FINDING_ICONS.get(icon_name, "")
+        icon = (
+            f'<svg class="project-finding__icon" viewBox="0 0 24 24" '
+            f'aria-hidden="true" focusable="false"><path d="{path}"/></svg>'
+        )
+        lines.append(
+            f'{indent}\t<li class="project-finding">{icon}'
+            f"<p>{html.escape(text)}</p></li>"
+        )
+    lines.append(f"{indent}</ul>")
     return "\n".join(lines)
 
 
@@ -169,11 +221,14 @@ def parse_vimeo_tag(stripped: str, section_title: str) -> tuple[str, str, str, b
         tokens = rest.split()
         while tokens:
             last = tokens[-1].lower()
-            if last in ("16x9", "3x2"):
+            if last in ("16x9", "3x2", "4x5", "685x804"):
                 ratio = last
                 tokens.pop()
             elif last == "controls":
                 background = False
+                tokens.pop()
+            elif last == "background":
+                background = True
                 tokens.pop()
             else:
                 break
@@ -315,6 +370,7 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
     blocks: list[tuple[str, str]] = []
     paragraph_lines: list[str] = []
     ordered_lines: list[str] = []
+    finding_lines: list[tuple[str, str]] = []
     media_run: list[str] = []
 
     def flush_media() -> None:
@@ -334,11 +390,22 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
             blocks.append(("prose", html_block))
         ordered_lines = []
 
+    def flush_findings() -> None:
+        nonlocal finding_lines
+        if not finding_lines:
+            return
+        flush_media()
+        html_block = findings_to_html(finding_lines)
+        if html_block:
+            blocks.append(("prose", html_block))
+        finding_lines = []
+
     def flush_paragraphs() -> None:
         nonlocal paragraph_lines
         if not paragraph_lines:
             return
         flush_ordered_list()
+        flush_findings()
         flush_media()
         html_block = paragraphs_to_html("\n".join(paragraph_lines))
         if html_block:
@@ -351,6 +418,7 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
             if paragraph_lines:
                 paragraph_lines.append("")
             flush_ordered_list()
+            flush_findings()
             flush_media()
             continue
 
@@ -359,7 +427,21 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
             ordered_lines.append(stripped)
             continue
 
+        finding = FINDING_TAG_RE.match(stripped)
+        if finding:
+            flush_paragraphs()
+            finding_lines.append((finding.group(1), finding.group(2).strip()))
+            continue
+
+        deck = DECK_TAG_RE.match(stripped)
+        if deck:
+            flush_paragraphs()
+            flush_media()
+            blocks.append(("prose", deck_to_html(deck.group(1).strip())))
+            continue
+
         flush_ordered_list()
+        flush_findings()
 
         callout = CALLOUT_TAG_RE.match(stripped)
         if callout:
@@ -416,6 +498,7 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
 
     flush_paragraphs()
     flush_ordered_list()
+    flush_findings()
     flush_media()
     return blocks
 
@@ -782,6 +865,7 @@ def build_page(path: Path, template: str, all_projects: list[tuple[str, dict[str
         .replace("{{description}}", html.escape(description, quote=True))
         .replace("{{canonical}}", f"{SITE_URL}/projects/{slug}.html")
         .replace("{{og_image}}", og_image_url(meta, slug))
+        .replace("{{body_class}}", f"work-{slug}")
         .replace("{{content}}", content)
     )
 

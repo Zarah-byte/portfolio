@@ -2,7 +2,7 @@
 
 .shell {
 	width: 100%;
-	max-width: 130rem;
+	max-width: var(--frame-width); /* 1400px — header, content, and footer share one frame */
 	margin-inline: auto;
 	padding: var(--space-md) clamp(1rem, 2vw, 2rem);
 }
