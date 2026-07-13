@@ -661,18 +661,28 @@ def render_section(title: str, body: str) -> str:
         '\t\t\t<section class="project-section">',
         f"\t\t\t\t<h2>{html.escape(title)}</h2>",
     ]
+    prose_run: list[str] = []
+
+    def flush_prose() -> None:
+        nonlocal prose_run
+        if not prose_run:
+            return
+        parts.append('\t\t\t\t<div class="project-section__body">')
+        parts.extend(prose_run)
+        parts.append("\t\t\t\t</div>")
+        prose_run = []
 
     for kind, html_block in blocks:
         if kind == "bleed":
+            flush_prose()
             parts.append('\t\t\t\t<div class="project-section__bleed">')
             parts.append(html_block)
             parts.append("\t\t\t\t</div>")
             continue
 
-        parts.append('\t\t\t\t<div class="project-section__body">')
-        parts.append(html_block)
-        parts.append("\t\t\t\t</div>")
+        prose_run.append(html_block)
 
+    flush_prose()
     parts.append("\t\t\t</section>")
     return "\n".join(parts)
 
