@@ -3,6 +3,8 @@
 
 .page-about {
 	font-family: var(--font-sans);
+	/* One body-copy size for every non-heading paragraph on the page. */
+	--about-body: 1.125rem; /* 18px, flat */
 }
 
 .page-about .about-content {
@@ -15,7 +17,7 @@
 	align-items: flex-start;
 	gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
 	width: 100%;
-	max-width: 87.5rem; /* 1400px — matches the site-menu frame */
+	max-width: var(--frame-width);
 	margin-inline: auto;
 }
 
@@ -30,7 +32,7 @@
 	flex: 0 1 577px;
 	min-width: 0;
 	margin: 0;
-	border-radius: 3.125rem; /* 50px — flat to match the reference */
+	border-radius: var(--radius-portrait);
 	overflow: hidden;
 }
 
@@ -51,7 +53,7 @@
 }
 
 .page-about .about-prose p {
-	font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5625rem); /* ~18 → 25px */
+	font-size: var(--about-body);
 	font-weight: 400;
 	line-height: 1.6; /* 40 / 25 */
 	letter-spacing: -0.026em;
@@ -61,7 +63,7 @@
 
 .page-about .about-prose strong {
 	font-weight: 600;
-	color: #000;
+	color: var(--ink);
 	cursor: default;
 }
 
@@ -97,7 +99,199 @@
 }
 
 .page-about .about-meta p {
+	font-size: var(--about-body);
 	font-weight: 400;
+}
+
+/* ---- Experience + Stack sections ---------------------------------------- */
+
+.page-about .about-section {
+	margin-top: clamp(3rem, 2rem + 3vw, 5rem);
+	font-family: var(--font-sans);
+}
+
+/* Label-left / content-right — the section heading sits in a narrow left column
+   beside its content. (Layout ref: gabrielvaldivia.com/about) */
+.page-about .about-section,
+.page-about .about-meta {
+	display: grid;
+	grid-template-columns: 8.75rem minmax(0, 1fr); /* fixed 140px label so content aligns across all sections */
+	column-gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+	align-items: start;
+}
+
+.page-about .about-section__heading,
+.page-about .about-meta__heading {
+	grid-column: 1;
+	grid-row: 1;
+	font-size: var(--about-body); /* 18px — a label, not a display heading */
+	font-weight: 600;
+	letter-spacing: var(--tracking-snug);
+	line-height: 1.6;
+	color: var(--ink);
+	margin: 0;
+}
+
+.page-about .about-section > :not(.about-section__heading),
+.page-about .about-meta > :not(.about-meta__heading) {
+	grid-column: 2;
+}
+
+/* Collapse to a single stacked column on narrow screens.
+   Match :not() specificity so grid-column: 2 from the desktop rule loses. */
+@media (max-width: 40rem) {
+	.page-about .about-section,
+	.page-about .about-meta {
+		grid-template-columns: 1fr;
+		row-gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+	}
+
+	.page-about .about-section > :not(.about-section__heading),
+	.page-about .about-meta > :not(.about-meta__heading),
+	.page-about .about-section > *,
+	.page-about .about-meta > * {
+		grid-column: 1;
+	}
+
+	.page-about .about-section__heading,
+	.page-about .about-meta__heading {
+		grid-row: auto;
+	}
+}
+
+/* Experience + Awards — title left, mono meta (dates / result) right. */
+
+.page-about .experience-list,
+.page-about .awards-list {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .awards-list {
+	gap: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+}
+
+.page-about .experience-item__head,
+.page-about .award-item__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.25rem 1rem;
+}
+
+.page-about .experience-item__role,
+.page-about .award-item__name {
+	font-size: var(--text-md); /* 18px */
+	font-weight: 600;
+	letter-spacing: var(--tracking-snug);
+	color: var(--ink);
+}
+
+.page-about .experience-item__dates,
+.page-about .award-item__result {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+	white-space: nowrap;
+}
+
+.page-about .experience-item__summary {
+	margin-top: 0.4rem;
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+/* Résumé — solid pill button, the one prominent call to action on the page. */
+.page-about .about-resume {
+	margin-top: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .about-resume a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.7rem 1.5rem;
+	font-size: var(--text-base);
+	font-weight: 600;
+	color: var(--bg);
+	background: var(--ink);
+	border-radius: var(--radius-full);
+	text-decoration: none;
+	transition: opacity var(--duration-base) var(--ease-base);
+}
+
+.page-about .about-resume a:hover,
+.page-about .about-resume a:focus-visible {
+	opacity: 0.8;
+}
+
+/* Approach — short prose in the content column. */
+.page-about .about-approach__body {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+}
+
+.page-about .about-approach__body p {
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+/* Stack — mono group labels over rows of monochrome, currentColor-masked marks
+   (same masking approach as the footer social icons). */
+
+.page-about .stack-groups {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .stack-group__label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+	margin-bottom: 0.9rem;
+}
+
+.page-about .stack-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+/* Pill chip — same shape as the case-study tools pills (.project-meta__pill):
+   hairline border, fully rounded, white fill. */
+.page-about .stack-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.45rem 0.9rem;
+	font-size: var(--text-sm);
+	font-weight: 500;
+	color: var(--ink);
+	background: var(--chip-bg);
+	border: 1px solid var(--chip-rule);
+	border-radius: var(--radius-full);
+}
+
+.page-about .stack-icon {
+	flex: none;
+	width: 1.125rem;  /* 18px */
+	height: 1.125rem;
+	background: currentColor;
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
 }
 
 /* Footer — shared .site-footer component (see css/site-chrome.css). */

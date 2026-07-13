@@ -22,13 +22,22 @@
 
 	const modal = createModal();
 
-	function shuffle(list) {
-		const copy = [...list];
-		for (let i = copy.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[copy[i], copy[j]] = [copy[j], copy[i]];
-		}
-		return copy;
+	function sortArchiveItems(list) {
+		return [...list].sort((a, b) => {
+			const orderA = Number.parseInt(a.order, 10);
+			const orderB = Number.parseInt(b.order, 10);
+			const hasOrderA = Number.isFinite(orderA);
+			const hasOrderB = Number.isFinite(orderB);
+			if (hasOrderA && hasOrderB && orderA !== orderB) return orderA - orderB;
+			if (hasOrderA !== hasOrderB) return hasOrderA ? -1 : 1;
+
+			const dateA = a.date || '';
+			const dateB = b.date || '';
+			if (dateA !== dateB) return dateB.localeCompare(dateA);
+			const titleA = a.title || a.id || '';
+			const titleB = b.title || b.id || '';
+			return titleA.localeCompare(titleB);
+		});
 	}
 
 	function createModal() {
@@ -570,7 +579,7 @@
 	}
 
 	function buildGallery(manifestItems) {
-		items = shuffle(manifestItems);
+		items = sortArchiveItems(manifestItems);
 		cardById.clear();
 		const fragment = document.createDocumentFragment();
 

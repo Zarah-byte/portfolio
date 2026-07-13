@@ -68,7 +68,7 @@ Font `<link>` tags (place in every page `<head>`):
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 ```
 
-`about.html` loads Manrope only (no mono elements on that page).
+All pages load Manrope + Fira Code (About uses mono for dates, awards, and stack labels).
 
 ---
 
@@ -142,7 +142,7 @@ The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body con
 }
 ```
 
-Applied globally: `h1, h2` ride `--tracking-tighter`; `h3, h4` use `--tracking-tight`; `h5, h6` ease off to `--tracking-snug`. Project mastheads use `--text-display` + `--tracking-tighter` for the giant editorial title.
+Applied globally: `h1, h2` ride `--tracking-tighter`; `h3, h4` use `--tracking-tight`; `h5, h6` ease off to `--tracking-snug`. Project mastheads use a page-local display clamp (larger than `--text-display`) with `--tracking-tighter`. `--text-display` remains available for future oversized titles.
 
 ---
 
@@ -170,7 +170,8 @@ Base spacing unit: `8px`. Larger steps use `clamp()` so sections breathe more on
 ```css
 :root {
 	--frame-width: 87.5rem;         /* 1400px — shared content frame */
-	--card-aspect-ratio: 858 / 555; /* work feed project card media */
+	--shell-pad-x: clamp(1rem, 2vw, 2rem); /* shared .shell horizontal inset */
+	--card-aspect-ratio: 858 / 555; /* defined; home rail uses fixed card sizes */
 	--text-width: 720px;
 	--bp-sm: 640px;
 	--bp-md: 768px;
@@ -178,9 +179,13 @@ Base spacing unit: `8px`. Larger steps use `clamp()` so sections breathe more on
 }
 ```
 
-The `--bp-*` values document the breakpoints; `@media` cannot read custom properties, so the queries repeat the literals.
+`--shell-pad-x` is the one horizontal pad for every page (home / about / play / projects). The home work rail bleeds past it on purpose so cards can scroll edge-to-edge; chrome and footer stay inset.
 
-The home layout is a single centered column: a full-width editorial hero above the "Selected Works" feed, whose cards sit in a `53.625rem` column centered inside `--frame-width`.
+The `--bp-*` values document the breakpoints; `@media` cannot read custom properties, so the queries repeat the literals. They are not mirrored into `common.css`.
+
+Home is a horizontal portrait-card rail under a two-line editorial intro — not a centered vertical feed. The old `53.625rem` column description is obsolete.
+
+Unused-but-kept type tokens (available for future roles): `--text-2xs`, `--text-4xl`, `--text-display`. Prefer them over new literals when a role needs that step.
 
 ---
 
@@ -188,10 +193,12 @@ The home layout is a single centered column: a full-width editorial hero above t
 
 ```css
 :root {
-	--radius-sm: 0.375rem;  /* squared year chip */
+	--radius-sm: 0.375rem;      /* squared year chip */
 	--radius-md: 1rem;
-	--radius-lg: 1.5rem;    /* project cards */
-	--radius-full: 999px;   /* pill chips */
+	--radius-lg: 1.5rem;        /* larger surface rounding */
+	--radius-xl: 1.75rem;       /* media cards — home / play / project */
+	--radius-portrait: 3.125rem; /* about portrait soft crop */
+	--radius-full: 999px;       /* pill chips */
 }
 ```
 
@@ -246,5 +253,6 @@ Use tokens instead of hardcoded values everywhere — e.g. `padding: var(--space
 
 ## Other
 
-- Border radius preference: rounded — `1.5rem` cards, pill chips, `0.375rem` squared year label.
+- Border radius preference: `--radius-xl` for media cards, pills via `--radius-full`, soft about portrait via `--radius-portrait`.
+- Cover assets live under `assets/media/covers/` as kebab PNGs (`iris-cover.png`, `micdrop-cover.png`, `nura-cover.png`, `tasks-cover.png`). Use those paths for home, heroes, related thumbs, and `og:image`.
 - Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; Manrope carries the personality; tag chips stay white with subtle borders for contrast on project media.

@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Zarah Yaqub | Archive</title>
+	<title>Zarah Yaqub | Project Archive</title>
 	<meta name="description" content="An archive of experiments, side projects, and visual studies by Zarah Yaqub.">
 	<link rel="canonical" href="https://zarahyaqub.com/play.html">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="Zarah Yaqub">
 	<meta property="og:url" content="https://zarahyaqub.com/play.html">
-	<meta property="og:title" content="Zarah Yaqub | Archive">
+	<meta property="og:title" content="Zarah Yaqub | Project Archive">
 	<meta property="og:description" content="An archive of experiments, side projects, and visual studies by Zarah Yaqub.">
 	<meta property="og:image" content="https://zarahyaqub.com/content/play/Mirae.png">
 	<meta name="twitter:card" content="summary_large_image">
@@ -26,13 +26,6 @@
 	<link href="css/site-menu.css" rel="stylesheet">
 	<link href="css/play.css" rel="stylesheet">
 
-	<!-- Gate the archive before render to avoid a flash of content. Client-side only; obscures, not secures. -->
-	<script>
-		if (localStorage.getItem('archive-unlocked') !== '1') {
-			document.documentElement.classList.add('archive-locked');
-		}
-	</script>
-
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -41,27 +34,17 @@
 	<script src="js/site-menu.js" defer></script>
 	<script src="js/cursor.js" defer></script>
 	<script src="js/play-gallery.js" defer></script>
-	<script src="js/play-gate.js" defer></script>
 </head>
 <body class="page-play">
 	<div class="shell">
 		<div data-site-menu="play"></div>
 
-		<main>
-			<h1 class="visually-hidden">Archive</h1>
+		<main class="play-content">
+			<header class="play-intro">
+				<h1 class="play-title">Project Archive</h1>
+			</header>
 			<div class="play-gallery" id="play-gallery"></div>
 		</main>
-
-		<div class="archive-gate">
-			<form class="archive-gate__form" id="archive-gate-form">
-				<label class="archive-gate__label" for="archive-gate-input">This archive is private</label>
-				<div class="archive-gate__row">
-					<input class="archive-gate__input" id="archive-gate-input" name="password" type="password" autocomplete="off" autofocus placeholder="Password">
-					<button class="archive-gate__submit" type="submit">Enter</button>
-				</div>
-				<p class="archive-gate__error" id="archive-gate-error" role="alert" hidden>Incorrect password.</p>
-			</form>
-		</div>
 
 		<div data-site-footer></div>
 	</div>

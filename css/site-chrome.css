@@ -4,7 +4,7 @@
 	width: 100%;
 	max-width: var(--frame-width); /* 1400px — header, content, and footer share one frame */
 	margin-inline: auto;
-	padding: var(--space-md) clamp(1rem, 2vw, 2rem);
+	padding: var(--space-md) var(--shell-pad-x);
 }
 
 .wordmark-star {
@@ -50,7 +50,7 @@
 
 .site-footer p {
 	font-family: var(--font-sans);
-	font-size: 0.9375rem; /* 15px */
+	font-size: var(--text-sm);
 	letter-spacing: -0.043em;
 	color: var(--ink-muted);
 	max-width: none;

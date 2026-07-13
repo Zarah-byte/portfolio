@@ -1,15 +1,35 @@
-/* Play page — responsive masonry grid */
+/* Play page — square CSS grid archive */
 
-.page-play .play-gallery {
-	columns: 1;
-	column-gap: var(--space-md);
+.page-play .play-content {
 	width: 100%;
 	max-width: var(--frame-width);
 	margin-inline: auto;
-	padding-block: var(--space-sm) 0;
+}
+
+.page-play .play-intro {
+	padding-block: var(--space-lg) var(--space-md);
+}
+
+.page-play .play-title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2.75rem, 2rem + 5vw, 6.25rem);
+	font-weight: 700;
+	letter-spacing: -0.05em;
+	line-height: 1.1;
+	color: var(--ink);
+}
+
+.page-play .play-gallery {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.25rem;
+	width: 100%;
+	padding-block: 0 var(--space-sm);
 }
 
 .page-play .play-gallery__empty {
+	grid-column: 1 / -1;
 	margin: var(--space-xl) auto;
 	max-width: 36ch;
 	text-align: center;
@@ -17,14 +37,11 @@
 }
 
 .page-play .play-card {
-	break-inside: avoid;
-	margin-bottom: var(--space-md);
-	border-radius: var(--radius-lg);
-	overflow: hidden;
-	background: var(--thumb-bg);
+	display: block;
 	border: 0;
 	padding: 0;
 	width: 100%;
+	background: transparent;
 	text-align: inherit;
 	cursor: pointer;
 	transition: transform var(--duration-base) var(--ease-base);
@@ -36,8 +53,9 @@
 
 .page-play .play-card__media {
 	position: relative;
+	aspect-ratio: 427 / 441;
 	overflow: hidden;
-	border-radius: var(--radius-lg);
+	border-radius: var(--radius-xl);
 	background: var(--thumb-bg);
 	line-height: 0;
 	transition: opacity var(--duration-base) var(--ease-base);
@@ -50,16 +68,16 @@
 .page-play .play-card__img {
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 100%;
+	object-fit: cover;
 }
 
 .page-play .play-card--video .play-card__media video,
 .page-play .play-card--video .play-card__media iframe {
 	display: block;
 	width: 100%;
-	height: auto;
-	aspect-ratio: 16 / 9;
-	object-fit: contain;
+	height: 100%;
+	object-fit: cover;
 	background: var(--surface);
 }
 
@@ -71,7 +89,7 @@
 .page-play .play-card__placeholder {
 	display: block;
 	width: 100%;
-	aspect-ratio: 3 / 4;
+	height: 100%;
 	background: linear-gradient(
 		145deg,
 		var(--thumb-bg) 0%,
@@ -82,13 +100,13 @@
 
 @media (min-width: 640px) {
 	.page-play .play-gallery {
-		columns: 2;
+		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (min-width: 1024px) {
 	.page-play .play-gallery {
-		columns: 3;
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
@@ -125,7 +143,7 @@ body.play-modal-open {
 	--modal-ink: var(--ink);
 	--modal-muted: var(--ink-muted);
 	--modal-rule: var(--rule);
-	--modal-radius: 2rem;
+	--modal-radius: var(--radius-xl);
 
 	position: fixed;
 	inset: 0;
@@ -438,77 +456,4 @@ body.play-modal-open {
 	.play-modal__nav {
 		display: none;
 	}
-}
-
-/* Archive password gate — client-side obscuring only, not real security */
-.archive-gate {
-	display: none;
-}
-
-.archive-locked main {
-	display: none;
-}
-
-.archive-locked .archive-gate {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 60vh;
-	padding: var(--space-lg) var(--space-md);
-}
-
-.archive-gate__form {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-sm);
-	width: 100%;
-	max-width: 26rem;
-}
-
-.archive-gate__label {
-	font-family: var(--font-mono);
-	font-size: var(--text-xs);
-	letter-spacing: var(--tracking-wide);
-	text-transform: uppercase;
-	color: var(--ink-muted);
-}
-
-.archive-gate__row {
-	display: flex;
-	gap: var(--space-xs);
-}
-
-.archive-gate__input {
-	flex: 1;
-	padding: 0.75rem 1rem;
-	font-size: var(--text-base);
-	color: var(--ink);
-	background: var(--surface);
-	border: 1px solid var(--rule);
-	border-radius: var(--radius-md);
-}
-
-.archive-gate__input:focus-visible {
-	outline: 2px solid var(--ink);
-	outline-offset: 2px;
-}
-
-.archive-gate__submit {
-	padding: 0.75rem 1.25rem;
-	font-size: var(--text-base);
-	color: var(--bg);
-	background: var(--ink);
-	border: 0;
-	border-radius: var(--radius-md);
-	cursor: pointer;
-	transition: opacity var(--duration-base) var(--ease-base);
-}
-
-.archive-gate__submit:hover {
-	opacity: 0.85;
-}
-
-.archive-gate__error {
-	font-size: var(--text-sm);
-	color: #b00020;
 }

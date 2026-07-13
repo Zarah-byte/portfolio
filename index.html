@@ -34,6 +34,7 @@
 	<script src="js/site-base.js" defer></script>
 	<script src="js/site-footer.js" defer></script>
 	<script src="js/site-menu.js" defer></script>
+	<script src="js/home-gallery.js" defer></script>
 	<script src="js/cursor.js" defer></script>
 </head>
 <body class="page-home">
@@ -44,82 +45,94 @@
 			<h1 class="visually-hidden">Zarah Yaqub — Selected Work</h1>
 
 			<section class="home-intro" aria-label="Introduction">
-				<p class="hero-intro">Hi there! <img class="hero-wave" src="assets/icons/wave.svg" alt="" aria-hidden="true"><br>I'm Zarah, a <strong>brand</strong> and <strong>product designer</strong> working at the intersection of <strong>intention &amp; interfaces</strong> — from branding to screens. Based in NYC. <a class="scroll-cue" href="#work" data-cursor-magnetic>Scroll down to see my work <svg class="scroll-cue__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a></p>
+				<p class="hero-line hero-line--lead">
+					I'm Zarah a <strong>brand</strong> and <strong>product designer</strong>
+				</p>
+				<p class="hero-line hero-line--sub">
+					working at the intersection of <strong>intention &amp; interfaces</strong> — from branding to screens. Based in NYC.
+				</p>
 			</section>
 
 			<section class="work" id="work" aria-label="Selected work">
-				<div class="work-head">
-					<h2 class="work-title">Selected Works</h2>
-				</div>
-				<ul class="work-list">
+				<ul class="work-rail" data-home-rail>
 					<li>
-						<article class="card">
+						<article class="card card--dark">
 							<a href="projects/iris.html" class="card-link">
-								<ul class="tags">
-									<li class="tag tag-year">2026</li>
-									<li class="tag">Competition Winner</li>
-									<li class="tag">AI</li>
-								</ul>
 								<figure class="card-media">
-									<img src="assets/media/covers/iris-cover.png" alt="Iris cover" class="card-img">
+									<img src="assets/media/covers/iris-cover.png" alt="Iris — smart glasses with AR interface overlays" class="card-img" width="1236" height="1764">
 								</figure>
-								<div class="card-caption">
-									<h3 class="card-title">Iris</h3>
-									<p class="card-desc">Wearable intelligence shaped in 24 hours</p>
+								<div class="card-meta">
+									<h2 class="card-title">Iris</h2>
+									<ul class="tags">
+										<li class="tag">2026</li>
+										<li class="tag">Competition Winner</li>
+										<li class="tag">AI</li>
+									</ul>
 								</div>
 							</a>
 						</article>
 					</li>
 
 					<li>
-						<article class="card">
+						<article class="card card--dark">
 							<a href="projects/tasks.html" class="card-link">
-								<ul class="tags">
-									<li class="tag tag-year">2025</li>
-									<li class="tag">Feature</li>
-								</ul>
 								<figure class="card-media">
-									<img src="assets/media/covers/tasks-cover.png" alt="Google Tasks cover" class="card-img">
+									<img src="assets/media/covers/tasks-cover.png" alt="Google Tasks — phone showing Welcome to Tasks onboarding" class="card-img" width="1236" height="1764">
 								</figure>
-								<div class="card-caption">
-									<h3 class="card-title">Google Tasks</h3>
-									<p class="card-desc">Reimagining functionality for everyday task management</p>
+								<div class="card-meta">
+									<h2 class="card-title">Google Tasks</h2>
+									<ul class="tags">
+										<li class="tag">2025</li>
+										<li class="tag">Feature</li>
+									</ul>
 								</div>
 							</a>
 						</article>
 					</li>
 
 					<li>
-						<article class="card">
-							<a href="projects/nura.html" class="card-link">
-								<ul class="tags">
-									<li class="tag tag-year">2024</li>
-									<li class="tag">Healthcare</li>
-								</ul>
-								<figure class="card-media">
-									<img src="assets/media/covers/nura cover.jpg" alt="Nura cover" class="card-img">
-								</figure>
-								<div class="card-caption">
-									<h3 class="card-title">Nura</h3>
-									<p class="card-desc">Designing to ease the burden of dementia caregiving</p>
-								</div>
-							</a>
-						</article>
-					</li>
-
-					<li>
-						<article class="card">
+						<article class="card card--dark">
 							<a href="projects/micdrop.html" class="card-link">
-								<ul class="tags">
-									<li class="tag tag-year">2025</li>
-									<li class="tag">Print</li>
-								</ul>
 								<figure class="card-media">
-									<img src="assets/media/covers/Micdrop cover.png" alt="Micdrop Magazine cover" class="card-img">
+									<img src="assets/media/covers/micdrop-cover.png" alt="Micdrop Magazine cover wrapped in plastic" class="card-img" width="1236" height="1764">
 								</figure>
-								<div class="card-caption">
-									<h3 class="card-title">Micdrop Magazine</h3>
-									<p class="card-desc">A South Asian music magazine celebrating South Asian talent and artistry</p>
+								<div class="card-meta">
+									<h2 class="card-title">Micdrop</h2>
+									<ul class="tags">
+										<li class="tag">2026</li>
+										<li class="tag">Print</li>
+									</ul>
+								</div>
+							</a>
+						</article>
+					</li>
+
+					<li>
+						<article class="card card--dark">
+							<a href="projects/nura.html" class="card-link">
+								<figure class="card-media">
+									<img src="assets/media/covers/nura-cover.png" alt="Nura — healthcare app on a phone" class="card-img" width="2139" height="1764">
+								</figure>
+								<div class="card-meta">
+									<h2 class="card-title">Nura</h2>
+									<ul class="tags">
+										<li class="tag">2025</li>
+										<li class="tag">Healthcare</li>
+									</ul>
+								</div>
+							</a>
+						</article>
+					</li>
+
+					<li>
+						<article class="card card--archive">
+							<a href="play.html" class="card-link" data-cursor-label="View<br>Archive">
+								<div class="card-archive-mark" aria-hidden="true">
+									<img src="assets/icons/logo-star.svg" alt="">
+								</div>
+								<div class="card-meta">
+									<h2 class="card-title">Project Archive</h2>
+									<p class="card-archive-note">Select snippets from 2023—Present</p>
 								</div>
 							</a>
 						</article>

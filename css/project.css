@@ -7,31 +7,30 @@
 	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
 	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
-	--shell-pad-x: clamp(1rem, 2vw, 2rem);
 
 	font-family: var(--font-body);
 	color: var(--ink);
 	background: var(--bg);
 	overflow-x: clip;
 
-	/* Local tokens — inspiration-aligned, scoped to project pages */
+	/* Local aliases — map to global tokens where values match */
 	--pc-ink: var(--ink);
 	--pc-muted: var(--ink-muted);
-	--pc-rule: rgb(0 0 0 / 0.05);
-	--pc-border: rgb(0 0 0 / 0.05);
-	--pc-surface: rgb(0 0 0 / 0.03);
+	--pc-rule: var(--rule);
+	--pc-border: var(--chip-rule);
+	--pc-surface: rgb(0 0 0 / 0.03); /* subtle wash — not full --surface fill */
 	--pc-surface-hover: rgb(0 0 0 / 0.06);
-	--pc-radius: 0.75rem;
-	--pc-radius-sm: 0.5rem;
-	--pc-radius-lg: 1rem;
-	--pc-media-radius: clamp(1.5rem, 1rem + 3vw, 3rem); /* 24 → 48px — matches Figma media corners */
+	--pc-radius: var(--radius-md);
+	--pc-radius-sm: var(--radius-sm);
+	--pc-radius-lg: var(--radius-lg);
+	--pc-media-radius: var(--radius-xl);
 
 	--pc-frame: var(--frame-width); /* 1400px — matches the Figma design frame */
 
 	--pc-max: none;
 	--pc-text: 42rem;
-	--pc-body: 1.125rem;
-	--pc-caption: 0.875rem;
+	--pc-body: var(--text-md);
+	--pc-caption: var(--text-sm);
 	--pc-section-gap: clamp(3.5rem, 7vw, 5rem); /* section rhythm — tightened toward the Figma reference */
 	--pc-label-col: clamp(9rem, 20vw, 20rem); /* rail hugs the ≤14ch heading instead of leaving a wide void beside it */
 	--pc-gutter: clamp(1.25rem, 2.5vw, 2rem);
@@ -40,11 +39,9 @@
 }
 
 /* Cap the shell to the Figma frame so the header and content share one
-   centered column (≈1320px of content inside ~40px side margins). */
+   centered column. Side padding uses the shared --shell-pad-x. */
 .page-project .shell {
-	/* max-width comes from the global .shell (--frame-width); only the wider
-	   side padding is project-specific. */
-	padding-inline: clamp(1rem, 3vw, 2.5rem);
+	padding-inline: var(--shell-pad-x);
 }
 
 /* ---- Content column ------------------------------------------------------ */
@@ -848,157 +845,171 @@
 	border-radius: var(--pc-media-radius);
 }
 
-/* ---- Google Tasks — align structure & pacing with the Figma reference -----
-   The Tasks case study is designed to a specific ref: balanced 50/50 columns
-   with the section title indented into the left half, a 20px gutter, and
-   tightly stacked full-bleed media. Scoped to the page via the work-tasks
-   body class so the other case studies keep their narrow-rail house style.
+/* ---- Case-study treatment — shared structure & pacing --------------------
+   Originally designed to the Google Tasks Figma reference, now the house
+   style for every case study: balanced 50/50 columns with the section title
+   indented into the left half, a ~20px gutter, tightly stacked full-bleed
+   media, cream-framed media cards, and grey section headings. Layered over
+   the base .page-project rules by source order.
 
-   Spacing is scaled down from the house project template (~0.65–0.75) while
-   preserving ratios: 1:1 columns, ~20px gutters, 685×804 half-frames, and
-   title indent as a fraction of the left rail. */
+   Spacing is scaled from the older template (~0.65–0.75) while preserving
+   ratios: 1:1 columns, ~20px gutters, and title indent as a fraction of the
+   left rail. The 685×804 gallery frames stay scoped to .work-tasks — those
+   dimensions are specific to the Tasks design-doc/testing clips, and forcing
+   them on other pages' landscape media would crop it into portrait. */
 
 /* Full-bleed media stacks on the section's grid row-gap alone (no extra
-   margin), so Figma's tight ~20px stacking isn't doubled up. */
-.page-project.work-tasks .project-section__bleed > .project-media,
-.page-project.work-tasks .project-section__bleed > .project-gallery {
+   margin), so the tight ~20px stacking isn't doubled up. */
+.page-project .project-section__bleed > .project-media,
+.page-project .project-section__bleed > .project-gallery {
 	margin-top: 0;
 }
 
-.page-project.work-tasks {
-	--pc-media-radius: 23px;
-	--pc-body: 1.125rem; /* 18px — matches updated Figma body */
+.page-project {
+	--pc-media-radius: var(--radius-xl);
+	--pc-body: 1.25rem; /* 20px — Dex */
 	--pc-text: none;
-	--pc-muted: #505451;
-	/* External stack gap ≈ Figma's 20px between frames */
-	--pc-section-gap: clamp(1rem, 1.5vw, 1.25rem);
-	--pc-gutter: clamp(0.75rem, 1.5vw, 1.25rem);
-	--pc-gallery-gap: clamp(0.75rem, 1.5vw, 1.25rem);
-	/* Internal text inset — Figma 135px scaled ~0.65 */
-	--pc-section-inset: clamp(2.5rem, 5vw, 5.5rem);
+	--pc-muted: rgb(0 0 0 / 0.6); /* Dex body ink */
+	/* Section rhythm — Dex py-8/12/20 (32 → 80px) */
+	--pc-section-gap: clamp(2rem, 5vw, 5rem);
+	/* Column gutter + media stacking — Dex gap-6 → gap-10 (24 → 40px) */
+	--pc-gutter: clamp(1.5rem, 3vw, 2.5rem);
+	--pc-gallery-gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.page-project.work-tasks .shell {
-	padding-inline: clamp(1rem, 2.5vw, 2.5rem); /* Figma 40px side margin */
+.page-project .shell {
+	padding-inline: var(--shell-pad-x);
 }
 
-.page-project.work-tasks .project-content {
+.page-project .project-content {
 	padding: clamp(1rem, 2.5vw, 2rem) 0 clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.page-project.work-tasks .project-title {
-	/* Figma display ≈ 192px; keep the same weight/tracking ratio */
-	font-size: clamp(2.5rem, 0.75rem + 10vw, 12rem);
+.page-project .project-title {
+	font-size: clamp(2.5rem, 0.75rem + 8vw, 6.5rem); /* Dex ~100px */
+	font-weight: 400;
+	line-height: 1.1;
+	letter-spacing: -0.04em;
 }
 
-.page-project.work-tasks .project-masthead {
+.page-project .project-masthead {
 	margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
 }
 
-.page-project.work-tasks .project-masthead__row {
-	margin-top: clamp(1.75rem, 3.5vw, 4.5rem); /* Figma 72px after title */
+.page-project .project-masthead__row {
+	margin-top: clamp(1.75rem, 3.5vw, 4.5rem); /* 72px after title */
 	gap: clamp(1.5rem, 3vw, 3rem);
 }
 
-.page-project.work-tasks .project-lead,
-.page-project.work-tasks .project-tagline,
-.page-project.work-tasks .project-lead p:not(.project-tagline) {
+.page-project .project-lead,
+.page-project .project-tagline,
+.page-project .project-lead p:not(.project-tagline) {
 	font-size: 1.125rem;
 	line-height: 1.55;
 	color: var(--ink-muted);
 }
 
-.page-project.work-tasks .project-hero {
+.page-project .project-hero {
 	margin-bottom: var(--pc-section-gap);
 }
 
-.page-project.work-tasks .project-media {
-	border: 1px solid #a0a0a0;
-	background: #f9f7f2;
+/* Flush media — bare rounded image, no card/border (Dex). Placeholders keep
+   their base gradient + padding so "no image yet" reads as an intentional box. */
+.page-project .project-media:not(.project-media--placeholder) {
+	border: 0;
+	background: transparent;
+	padding: 0;
 }
 
-.page-project.work-tasks .project-media--flush {
-	background: #f9f7f2;
+.page-project .project-media--flush {
+	background: transparent;
 }
 
-/* Section chrome: tight outer gap; air lives on the text columns only so
-   full-bleed media stay ~20px from neighbors (Figma stack). */
-.page-project.work-tasks .project-section {
-	padding-block: 0;
-	gap: var(--pc-section-gap);
+/* Section chrome: generous outer rhythm (Dex py-20), tighter grid gap for
+   media stacking (Dex gap-10). */
+.page-project .project-section {
+	padding-block: var(--pc-section-gap);
+	gap: var(--pc-gutter);
 }
 
-.page-project.work-tasks .project-section > h2 {
-	font-size: clamp(1.75rem, 1.2rem + 1.8vw, 3rem); /* ~28 → 48px */
-	font-weight: 700;
-	letter-spacing: -0.02em;
-	color: #818181;
-	padding-top: var(--pc-section-inset);
-	padding-bottom: 0;
+.page-project .project-section > h2 {
+	font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem); /* 24 → 30px — Dex */
+	font-weight: 400;
+	letter-spacing: -0.03em;
+	color: var(--pc-ink);
 }
 
-.page-project.work-tasks .project-section__body {
-	gap: clamp(1rem, 2vw, 2rem); /* ~32px Figma paragraph gap */
+.page-project .project-section__body {
+	gap: clamp(1rem, 2vw, 2rem); /* ~32px paragraph gap */
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-/* Only the last text block before media (or end of section) gets bottom inset */
-.page-project.work-tasks .project-section__body:last-child,
-.page-project.work-tasks .project-section__body:has(+ .project-section__bleed) {
-	padding-bottom: var(--pc-section-inset);
-}
-
-/* Deck = medium weight + darker ink at body size (Figma 18–20px Medium). */
-.page-project.work-tasks .project-deck {
+/* Deck = medium weight + darker ink at body size (18–20px Medium). */
+.page-project .project-deck {
 	margin: 0;
 	max-width: none;
 	font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem); /* 18 → 20px */
 	font-weight: 500;
 	line-height: 1.55;
 	letter-spacing: -0.01em;
-	color: #080a0c;
+	color: var(--ink);
 }
 
-.page-project.work-tasks .project-section__body p,
-.page-project.work-tasks .project-section__body .project-list,
-.page-project.work-tasks .project-finding p {
+.page-project .project-section__body p,
+.page-project .project-section__body .project-list,
+.page-project .project-finding p {
 	max-width: none;
 	font-size: var(--pc-body);
-	line-height: 1.55; /* ~27.9 / 18 */
+	line-height: 1.4; /* Dex 28 / 20 */
 	color: var(--pc-muted);
 }
 
-.page-project.work-tasks .project-section__body .project-deck {
-	color: #080a0c;
+.page-project .project-section__body .project-deck {
+	color: var(--ink);
 }
 
-.page-project.work-tasks .project-section__body p strong {
+.page-project .project-section__body p strong {
 	font-weight: 600;
 	color: var(--pc-muted);
 }
 
-.page-project.work-tasks .project-findings {
+.page-project .project-findings {
 	gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.page-project.work-tasks .project-finding {
+.page-project .project-finding {
 	gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.page-project.work-tasks .project-finding__icon {
+.page-project .project-finding__icon {
 	inline-size: clamp(2rem, 1.75rem + 0.8vw, 3.375rem); /* ~32 → 54px */
 	block-size: clamp(2rem, 1.75rem + 0.8vw, 3.375rem);
 }
 
-.page-project.work-tasks .project-related {
+.page-project .project-related {
 	margin-top: clamp(2rem, 4vw, 3rem);
 	padding-top: clamp(1.5rem, 3vw, 2rem);
 }
 
-/* Figma design-doc + testing pairs keep a 2-up embed gallery; the global
-   rule collapses every video gallery to one column. Panel size matches the
-   Figma half-frames (685×804) so image + video cells share one height. */
+@media (min-width: 768px) {
+	/* Dex 6-col grid: label rail spans 2, body spans 4 → 2fr / 4fr. */
+	.page-project .project-section {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 4fr);
+		column-gap: var(--pc-gutter);
+		row-gap: var(--pc-gutter);
+	}
+
+	.page-project .project-section > h2 {
+		max-width: none;
+	}
+}
+
+/* ---- Tasks-only: 685×804 half-frame galleries ----------------------------
+   The design-doc + testing pairs keep a 2-up embed gallery (the global rule
+   collapses every video gallery to one column). Panel size matches the Figma
+   half-frames so image + video cells share one height. Scoped to .work-tasks
+   because the aspect ratio is specific to those clips. */
 .page-project.work-tasks .project-gallery--2 {
 	gap: var(--pc-gallery-gap);
 }
@@ -1018,26 +1029,5 @@
 	.page-project.work-tasks .project-gallery--2:has(.project-media--embed) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: stretch;
-	}
-}
-
-@media (min-width: 768px) {
-	.page-project.work-tasks .project-section {
-		grid-template-columns: 1fr 1fr;
-		column-gap: var(--pc-gutter);
-		row-gap: var(--pc-section-gap);
-	}
-
-	/* Match Figma: title + body share one top inset; stacked bodies don't
-	   re-apply it between deck and paragraphs. */
-	.page-project.work-tasks .project-section > h2 {
-		padding-block: var(--pc-section-inset) 0;
-		max-width: none;
-		/* 100 / 685 ≈ 14.6% of the left rail — keeps indent ratio */
-		padding-left: clamp(1rem, 14.6%, 6.25rem);
-	}
-
-	.page-project.work-tasks .project-section__body:first-of-type {
-		padding-top: var(--pc-section-inset);
 	}
 }

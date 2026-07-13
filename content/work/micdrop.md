@@ -8,7 +8,7 @@ tools: InDesign, Illustrator, Photoshop
 year: 2025
 order: 3
 tags: ["Editorial", "Print"]
-hero: ../assets/media/covers/Micdrop cover.png
+hero: ../assets/media/covers/micdrop-cover.png
 heroType: image
 caption: Micdrop Magazine — 2025
 ---

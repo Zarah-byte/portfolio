@@ -25,10 +25,14 @@
 		'<path d="M7 7h10v10"/>' +
 		'<path d="M7 17 17 7"/>' +
 		'</svg>' +
+		'<span class="cursor-label" aria-hidden="true">View<br>Project</span>' +
 		'</div>';
 
 	document.body.append(cursor);
 	document.body.classList.add('has-custom-cursor');
+
+	const labelEl = cursor.querySelector('.cursor-label');
+	const DEFAULT_CARD_LABEL = 'View<br>Project';
 
 	let targetX = window.innerWidth / 2;
 	let targetY = window.innerHeight / 2;
@@ -85,8 +89,14 @@
 	document.addEventListener('mousemove', (event) => {
 		const el = event.target;
 		const target = el && el.closest ? el.closest(INTERACTIVE) : null;
+		const variant = target ? classify(target) : '';
 
-		setVariant(target ? classify(target) : '');
+		setVariant(variant);
+
+		if (variant === 'card' && labelEl) {
+			const custom = target.getAttribute('data-cursor-label');
+			labelEl.innerHTML = custom || DEFAULT_CARD_LABEL;
+		}
 
 		let x = event.clientX;
 		let y = event.clientY;

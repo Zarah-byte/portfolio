@@ -1,5 +1,5 @@
-/* Shared site menu — dimmed wordmark + dark circular "+" toggle that opens a
-   compact dark dropdown panel. Injected by js/site-menu.js on every page. */
+/* Shared site menu — purple star mark + circular "+" toggle that opens a
+   compact dark dropdown. Injected by js/site-menu.js on every page. */
 
 .site-menu {
 	display: flex;
@@ -10,6 +10,8 @@
 	max-width: var(--frame-width);
 	margin-inline: auto;
 	padding-block: clamp(1.25rem, 2vw, 2.5rem);
+	background: transparent;
+	color: var(--ink, #0a0a0a);
 }
 
 /* Compact variant — toggle only (used where a sidebar already shows branding). */
@@ -19,7 +21,7 @@
 	padding-inline: 0;
 }
 
-/* Wordmark — dimmed to ~50% per the reference. */
+/* Wordmark — purple star only; name is visually hidden (kept for a11y). */
 .site-menu__wordmark {
 	display: inline-flex;
 	align-items: center;
@@ -31,39 +33,39 @@
 	letter-spacing: -0.02em;
 	color: var(--ink, #0a0a0a);
 	text-decoration: none;
-	opacity: 0.5;
+	opacity: 1;
 	transition: opacity var(--duration-fast, 0.15s) var(--ease-base, ease);
 }
 
 .site-menu__wordmark:hover,
 .site-menu__wordmark:focus-visible {
-	opacity: 0.8;
+	opacity: 0.85;
+}
+
+.site-menu__wordmark .wordmark-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }
 
 .site-menu__wordmark .wordmark-star {
 	display: inline-flex;
-	width: 1.6em;
-	height: 1.6em;
+	width: clamp(3.25rem, 2.5rem + 2vw, 4.5rem); /* match "+" toggle */
+	height: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
 	flex-shrink: 0;
+	color: #c79bff;
 }
 
 .site-menu__wordmark .wordmark-star svg {
 	width: 100%;
 	height: 100%;
 	display: block;
-}
-
-/* Updated nav (Figma ref): purple star mark only, no wordmark text.
-   Star sized to match the "+" toggle; wordmark keeps its 50% opacity so the
-   #9036FF renders as the lilac in the reference. */
-.site-menu__wordmark .wordmark-text {
-	display: none;
-}
-
-.site-menu__wordmark .wordmark-star {
-	width: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
-	height: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
-	color: #9036ff;
 }
 
 /* Trigger anchors the dropdown panel to the toggle's top-right corner. */
@@ -101,10 +103,10 @@
 	position: absolute;
 	right: 100%;
 	top: 50%;
-	transform: translateY(-50%);
 	margin-right: 0.75rem;
 	font-family: var(--font-sans);
 	font-size: var(--text-md);
+	font-weight: 400;
 	color: var(--ink, #0a0a0a);
 	white-space: nowrap;
 	pointer-events: none;
@@ -331,20 +333,6 @@
 
 	.site-menu__toggle {
 		z-index: 201;
-	}
-}
-
-@media (max-width: 359px) {
-	.site-menu__wordmark .wordmark-text {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border: 0;
 	}
 }
 
