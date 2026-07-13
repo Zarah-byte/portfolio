@@ -439,3 +439,76 @@ body.play-modal-open {
 		display: none;
 	}
 }
+
+/* Archive password gate — client-side obscuring only, not real security */
+.archive-gate {
+	display: none;
+}
+
+.archive-locked main {
+	display: none;
+}
+
+.archive-locked .archive-gate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 60vh;
+	padding: var(--space-lg) var(--space-md);
+}
+
+.archive-gate__form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	width: 100%;
+	max-width: 26rem;
+}
+
+.archive-gate__label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--ink-muted);
+}
+
+.archive-gate__row {
+	display: flex;
+	gap: var(--space-xs);
+}
+
+.archive-gate__input {
+	flex: 1;
+	padding: 0.75rem 1rem;
+	font-size: var(--text-base);
+	color: var(--ink);
+	background: var(--surface);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius-md);
+}
+
+.archive-gate__input:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+.archive-gate__submit {
+	padding: 0.75rem 1.25rem;
+	font-size: var(--text-base);
+	color: var(--bg);
+	background: var(--ink);
+	border: 0;
+	border-radius: var(--radius-md);
+	cursor: pointer;
+	transition: opacity var(--duration-base) var(--ease-base);
+}
+
+.archive-gate__submit:hover {
+	opacity: 0.85;
+}
+
+.archive-gate__error {
+	font-size: var(--text-sm);
+	color: #b00020;
+}

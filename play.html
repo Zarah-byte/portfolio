@@ -26,6 +26,13 @@
 	<link href="css/site-menu.css" rel="stylesheet">
 	<link href="css/play.css" rel="stylesheet">
 
+	<!-- Gate the archive before render to avoid a flash of content. Client-side only; obscures, not secures. -->
+	<script>
+		if (localStorage.getItem('archive-unlocked') !== '1') {
+			document.documentElement.classList.add('archive-locked');
+		}
+	</script>
+
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -34,6 +41,7 @@
 	<script src="js/site-menu.js" defer></script>
 	<script src="js/cursor.js" defer></script>
 	<script src="js/play-gallery.js" defer></script>
+	<script src="js/play-gate.js" defer></script>
 </head>
 <body class="page-play">
 	<div class="shell">
@@ -43,6 +51,17 @@
 			<h1 class="visually-hidden">Archive</h1>
 			<div class="play-gallery" id="play-gallery"></div>
 		</main>
+
+		<div class="archive-gate">
+			<form class="archive-gate__form" id="archive-gate-form">
+				<label class="archive-gate__label" for="archive-gate-input">This archive is private</label>
+				<div class="archive-gate__row">
+					<input class="archive-gate__input" id="archive-gate-input" name="password" type="password" autocomplete="off" autofocus placeholder="Password">
+					<button class="archive-gate__submit" type="submit">Enter</button>
+				</div>
+				<p class="archive-gate__error" id="archive-gate-error" role="alert" hidden>Incorrect password.</p>
+			</form>
+		</div>
 
 		<div data-site-footer></div>
 	</div>
