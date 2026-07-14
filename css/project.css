@@ -135,6 +135,17 @@
 	content: "↗";
 }
 
+.page-project .project-lead__link--icon::after {
+	content: none;
+}
+
+.page-project .project-lead__link-icon {
+	display: block;
+	inline-size: 1.5rem; /* 24px — Figma arrow */
+	block-size: 1.5rem;
+	flex-shrink: 0;
+}
+
 .page-project .project-lead__link:hover {
 	color: var(--pc-fg, #0a0a0a);
 }
@@ -1029,5 +1040,96 @@
 	.page-project.work-tasks .project-gallery--2:has(.project-media--embed) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: stretch;
+	}
+}
+
+/* ---- MicDrop — magazine frames matching Portfolio Final Figma ----------
+   Bold masthead, star team mark, then a 20px stack of rounded boards.
+   Hero + magazine assets are full framed Figma exports (2×). */
+
+.page-project.work-micdrop {
+	--pc-gallery-gap: 1.25rem; /* 20px Figma stack */
+	--pc-section-gap: 1.25rem;
+	--micdrop-frame-radius: 1.4375rem; /* 23px */
+	--micdrop-hero-radius: 2.875rem; /* 46px */
+}
+
+.page-project.work-micdrop .project-title {
+	font-size: clamp(3rem, 0.5rem + 12vw, 12.025rem); /* → ~192px at frame */
+	font-weight: 700;
+	line-height: 0.9;
+	letter-spacing: -0.04em;
+}
+
+/* CTA — Figma pill: 18px / #666 / 13.6×6.4 pad / 24px arrow */
+.page-project.work-micdrop .project-lead__link {
+	gap: 0.39375rem; /* 6.3px */
+	margin-top: 1.5rem; /* 24px */
+	padding: 0.4rem 0.85rem; /* 6.4px 13.6px */
+	border-color: #666;
+	font-size: 1.125rem; /* 18px */
+	letter-spacing: -0.01em;
+	line-height: 1.55;
+	color: #666;
+}
+
+.page-project.work-micdrop .project-lead__link:hover {
+	color: #0a0a0a;
+	border-color: #0a0a0a;
+}
+
+.page-project.work-micdrop .project-hero {
+	margin-bottom: var(--pc-section-gap);
+}
+
+.page-project.work-micdrop .project-hero .project-media {
+	border-radius: var(--micdrop-hero-radius);
+	overflow: hidden;
+	background: #fff1d6;
+}
+
+.page-project.work-micdrop .project-hero .project-media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: var(--micdrop-hero-radius);
+}
+
+.page-project.work-micdrop .project-section {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pc-gallery-gap);
+	padding-block: 0;
+}
+
+.page-project.work-micdrop .project-section__bleed {
+	margin: 0;
+}
+
+.page-project.work-micdrop .project-section__bleed .project-media--flush {
+	border-radius: var(--micdrop-frame-radius);
+	overflow: hidden;
+	background: #000;
+}
+
+.page-project.work-micdrop .project-section__bleed:first-of-type .project-media--flush {
+	background: #f9f7f2;
+}
+
+.page-project.work-micdrop .project-section__bleed .project-media--flush img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: var(--micdrop-frame-radius);
+}
+
+@media (max-width: 639px) {
+	.page-project.work-micdrop .project-title {
+		font-size: clamp(2.75rem, 14vw, 4.5rem);
+	}
+
+	.page-project.work-micdrop .project-hero .project-media,
+	.page-project.work-micdrop .project-hero .project-media img {
+		border-radius: var(--micdrop-frame-radius);
 	}
 }

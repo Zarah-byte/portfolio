@@ -1,14 +1,20 @@
 ---
-eyebrow: Micdrop Magazine
+eyebrow: Micdrop Mag
 title: A celebration of South Asian music and culture
-team: Solo
+team: |
+  Zarah Yaqub — Solo — ../assets/icons/logo-star.svg
 duration: 4 Months
 context: Habib University
 tools: Adobe Creative Cloud, ChatGPT
 year: 2025
+presentation: https://heyzine.com/flip-book/1355490501.html
+presentationLabel: See the Magzine
+presentationIcon: ../assets/icons/arrow-up-right.svg
 order: 3
 tags: ["Editorial", "Print"]
 cover: ../assets/media/covers/micdrop-cover.png
+hero: ../assets/media/micdrop/micdrop-hero.png
+heroType: image
 ---
 
 ## About the Project
@@ -17,7 +23,7 @@ MicDrop is a conceptual editorial design project that captures the evolving musi
 
 (disclaimer this was a conceptual project all text is AI generated, advertisements not designed by me)
 
-## The Magazine
+##
 
 [image:../assets/media/micdrop/micdrop-spreads.png The full first issue laid out — cover and feature spreads shown together flush]
 

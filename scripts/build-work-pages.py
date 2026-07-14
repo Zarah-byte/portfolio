@@ -514,11 +514,11 @@ def split_sections(body: str) -> list[tuple[str, str]]:
     current_lines: list[str] = []
 
     for line in body.splitlines():
-        heading = re.match(r"^##\s+(.+)$", line.strip())
+        heading = re.match(r"^##(?:\s+(.*\S))?\s*$", line.strip())
         if heading:
             if current_title is not None:
                 sections.append((current_title, "\n".join(current_lines).strip()))
-            current_title = heading.group(1).strip()
+            current_title = (heading.group(1) or "").strip()  # bare `##` = untitled section
             current_lines = []
             continue
         current_lines.append(line)
@@ -657,10 +657,9 @@ def render_section(title: str, body: str) -> str:
     if not blocks:
         return ""
 
-    parts: list[str] = [
-        '\t\t\t<section class="project-section">',
-        f"\t\t\t\t<h2>{html.escape(title)}</h2>",
-    ]
+    parts: list[str] = ['\t\t\t<section class="project-section">']
+    if title:
+        parts.append(f"\t\t\t\t<h2>{html.escape(title)}</h2>")
     prose_run: list[str] = []
 
     def flush_prose() -> None:
@@ -775,9 +774,21 @@ def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: s
 
     presentation = meta.get("presentation", "").strip()
     if presentation:
+        label = meta.get("presentationLabel", "").strip() or "See the Presentation"
+        icon = meta.get("presentationIcon", "").strip()
+        if icon:
+            icon_html = (
+                f'<img class="project-lead__link-icon" src="{html.escape(icon)}" '
+                f'alt="" width="24" height="24" aria-hidden="true">'
+            )
+        else:
+            icon_html = ""
+        link_class = "project-lead__link"
+        if icon:
+            link_class += " project-lead__link--icon"
         lines.append(
-            f'\t\t\t\t\t\t<a class="project-lead__link" href="{html.escape(presentation)}"'
-            f' target="_blank" rel="noopener">See the Presentation</a>'
+            f'\t\t\t\t\t\t<a class="{link_class}" href="{html.escape(presentation)}"'
+            f' target="_blank" rel="noopener">{html.escape(label)}{icon_html}</a>'
         )
 
     lines.append("\t\t\t\t\t</div>")
