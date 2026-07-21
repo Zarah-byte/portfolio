@@ -60,6 +60,13 @@
 	height: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
 	flex-shrink: 0;
 	color: #c79bff;
+	/* Bouncy overshoot easing for a playful spin. */
+	transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.site-menu__wordmark:hover .wordmark-star,
+.site-menu__wordmark:focus-visible .wordmark-star {
+	transform: rotate(72deg);
 }
 
 .site-menu__wordmark .wordmark-star svg {
@@ -350,6 +357,15 @@
 	.site-menu__panel .site-menu__link-sub,
 	.site-menu__panel .site-menu__socials {
 		opacity: 1;
+		transform: none;
+	}
+
+	.site-menu__wordmark .wordmark-star {
+		transition: none;
+	}
+
+	.site-menu__wordmark:hover .wordmark-star,
+	.site-menu__wordmark:focus-visible .wordmark-star {
 		transform: none;
 	}
 }
