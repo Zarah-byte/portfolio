@@ -21,18 +21,18 @@
 	cursor.setAttribute('aria-hidden', 'true');
 	cursor.innerHTML =
 		'<div class="cursor-inner">' +
+		'<span class="cursor-label" aria-hidden="true">View Project</span>' +
 		'<svg class="cursor-arrow" viewBox="0 0 24 24" aria-hidden="true">' +
-		'<path d="M7 7h10v10"/>' +
-		'<path d="M7 17 17 7"/>' +
+		'<path d="M4 12h16"/>' +
+		'<path d="M14 6l6 6-6 6"/>' +
 		'</svg>' +
-		'<span class="cursor-label" aria-hidden="true">View<br>Project</span>' +
 		'</div>';
 
 	document.body.append(cursor);
 	document.body.classList.add('has-custom-cursor');
 
 	const labelEl = cursor.querySelector('.cursor-label');
-	const DEFAULT_CARD_LABEL = 'View<br>Project';
+	const DEFAULT_CARD_LABEL = 'View Project';
 
 	let targetX = window.innerWidth / 2;
 	let targetY = window.innerHeight / 2;
