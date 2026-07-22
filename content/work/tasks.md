@@ -66,8 +66,6 @@ How do people actually organize their to-dos? Where does Google Tasks stop being
 
 I conducted two stages of user interviews, a competitor audit and employed secondary research to better understand the problem.
 
-[image:../assets/media/tasks/process-board.png Process board flush]
-
 ## Interviews
 
 I interviewed four people aged 22–25 across Google Tasks, Notion, and Apple Reminders — students and early professionals juggling coursework and work tasks. I wanted to understand not just what they clicked, but where the app stopped and their brain took over.
