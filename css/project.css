@@ -574,6 +574,9 @@
 .page-project .project-media--embed {
 	position: relative;
 	padding: 0;
+	/* ponytail: force own layer so overflow:hidden clips the cross-origin iframe
+	   to the rounded corners — border-radius alone doesn't clip a replaced element. */
+	transform: translateZ(0);
 }
 
 .page-project .project-media--embed .project-video {
