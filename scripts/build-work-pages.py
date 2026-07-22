@@ -720,7 +720,7 @@ def render_related(current_slug: str, all_projects: list[tuple[str, dict[str, st
 
         eyebrow = meta.get("eyebrow", slug).strip()
         title = meta.get("title", eyebrow).strip()
-        href = f"{slug}.html"
+        href = slug
         thumb = related_thumb_html(meta, slug)
 
         cards.append(
@@ -884,7 +884,7 @@ def build_page(path: Path, template: str, all_projects: list[tuple[str, dict[str
     return (
         template.replace("{{page_title}}", html.escape(page_title))
         .replace("{{description}}", html.escape(description, quote=True))
-        .replace("{{canonical}}", f"{SITE_URL}/projects/{slug}.html")
+        .replace("{{canonical}}", f"{SITE_URL}/projects/{slug}")
         .replace("{{og_image}}", og_image_url(meta, slug))
         .replace("{{body_class}}", f"work-{slug}")
         .replace("{{content}}", content)

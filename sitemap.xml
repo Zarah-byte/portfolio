@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url><loc>https://zarahyaqub.com/</loc></url>
-	<url><loc>https://zarahyaqub.com/about.html</loc></url>
-	<url><loc>https://zarahyaqub.com/play.html</loc></url>
-	<url><loc>https://zarahyaqub.com/projects/iris.html</loc></url>
-	<url><loc>https://zarahyaqub.com/projects/tasks.html</loc></url>
-	<url><loc>https://zarahyaqub.com/projects/nura.html</loc></url>
-	<url><loc>https://zarahyaqub.com/projects/micdrop.html</loc></url>
+	<url><loc>https://zarahyaqub.com/about</loc></url>
+	<url><loc>https://zarahyaqub.com/play</loc></url>
+	<url><loc>https://zarahyaqub.com/projects/iris</loc></url>
+	<url><loc>https://zarahyaqub.com/projects/tasks</loc></url>
+	<url><loc>https://zarahyaqub.com/projects/nura</loc></url>
+	<url><loc>https://zarahyaqub.com/projects/micdrop</loc></url>
 </urlset>
