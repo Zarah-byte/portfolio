@@ -900,7 +900,7 @@
 }
 
 .page-project .project-title {
-	font-size: clamp(2.5rem, 0.75rem + 8vw, 6.5rem); /* Dex ~100px */
+	font-size: clamp(3rem, 1rem + 10vw, 8.5rem);
 	font-weight: 700;
 	line-height: 1.1;
 	letter-spacing: -0.04em;
