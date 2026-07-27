@@ -15,6 +15,15 @@
 	--accent: #0A0A0A;    /* links resolve to ink in this design */
 	--thumb-bg: #F2F2F2;  /* card frame behind gallery media */
 
+	/* Case-study card tints — soft pastels derived from the brand purple
+	   (#c79bff), assigned by position in [card:] grids / [panel:] blocks. The one
+	   place content carries background colour; see design.md "Allowed exceptions".
+	   Near-black --ink clears AA on all four. */
+	--tint-1: #EFE6FB;    /* lilac */
+	--tint-2: #FBE7EE;    /* blush */
+	--tint-3: #E7F3EA;    /* mint */
+	--tint-4: #FBF3DE;    /* butter */
+
 	/* Fonts — Manrope + Fira Code are the site default */
 	--font-display: "Manrope", system-ui, sans-serif;
 	--font-body: "Manrope", system-ui, sans-serif;
@@ -135,7 +144,6 @@ a {
 :focus-visible {
 	outline: 2px solid var(--ink);
 	outline-offset: 3px;
-	border-radius: var(--radius-sm);
 }
 
 .visually-hidden {
@@ -148,4 +156,32 @@ a {
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
 	border: 0;
+}
+
+/* Scroll-driven reveal — media settles into place as it enters the viewport.
+   Media only; the type scale stays the loud thing. Browsers without
+   `animation-timeline` ignore all of this and render at rest (scale 1). */
+@keyframes reveal-scale-in {
+	from { transform: scale(0.875); transform-origin: 50% 0%; }
+	to   { transform: scale(1);     transform-origin: 50% 0%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.project-media,
+	.about-figure,
+	.page-play .play-card,
+	.page-home .work-rail > li {
+		animation: reveal-scale-in linear;
+		animation-timeline: view();
+		/* Ends early on purpose: default `animation-fill-mode: none` then stops
+		   applying, handing transform back to the hover rules on these same
+		   elements. End state is scale(1), so the handoff is invisible. Also
+		   keeps full-bleed case-study images from scaling over a long scroll. */
+		animation-range: entry 0% entry 50%;
+	}
+
+	/* Home's rail scrolls sideways, so its timeline is the inline axis. */
+	.page-home .work-rail > li {
+		animation-timeline: view(inline);
+	}
 }

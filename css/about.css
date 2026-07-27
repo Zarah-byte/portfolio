@@ -1,35 +1,69 @@
-/* About page — two-column bio (prose + colophon left, portrait right) with
-   cursor-following image reveals on the highlighted phrases. */
+/* About page — title + bio on the left, portrait and a compact CV rail on the
+   right, colophon closing the left column. Cursor-following image reveals fire
+   on the highlighted phrases in the prose.
+   (Layout ref: chungchristine.com/about — visible page title, narrow measure,
+   experience as a meta rail rather than full-width rows.) */
 
 .page-about {
 	font-family: var(--font-sans);
 	/* One body-copy size for every non-heading paragraph on the page. */
 	--about-body: 1.125rem; /* 18px, flat */
+	/* Right column: portrait + CV rail. Sized so the portrait reads as support,
+	   not as half the first viewport. */
+	--about-rail: clamp(20rem, 30vw, 25.75rem); /* 320 → 412px */
+	/* Manrope's `ch` (the "0" advance) is wider than its average glyph, so this
+	   renders at roughly 65 characters per line — inside the 60–75 guideline.
+	   Measured, not assumed: 62ch rendered at 76. */
+	--about-measure: 53ch;
 }
 
 .page-about .about-content {
 	padding-block: var(--space-lg) 0;
 }
 
-/* Two columns on desktop; aligned to the 1400px header frame. */
+/* Two columns on desktop, aligned to the 1400px header frame. Row 2 exists so
+   the colophon stays under the copy instead of trailing the rail — which also
+   keeps the stacked source order sane once the columns collapse. */
 .page-about .about-layout {
-	display: flex;
-	align-items: flex-start;
-	gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, var(--about-rail));
+	align-items: start;
+	column-gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
 	width: 100%;
 	max-width: var(--frame-width);
 	margin-inline: auto;
 }
 
 .page-about .about-main {
-	flex: 1 1 auto;
+	grid-column: 1;
+	grid-row: 1;
 	min-width: 0;
 	max-width: 45.875rem; /* 684px copy + 50px indent */
 	padding-left: clamp(0px, 3vw, 50px);
 }
 
+.page-about .about-aside {
+	grid-column: 2;
+	grid-row: 1;
+	min-width: 0;
+}
+
+/* Colophon closes the left column, below the copy. */
+.page-about .about-meta {
+	grid-column: 1;
+	grid-row: 2;
+	padding-left: clamp(0px, 3vw, 50px);
+}
+
+/* Page title — a step down from the h1 default (--text-3xl): this is a quiet
+   page label, not a hero. Play keeps the loud title. */
+.page-about .about-title {
+	margin: 0 0 var(--space-lg);
+	font-size: var(--text-2xl); /* 32 → 48px */
+	color: var(--ink);
+}
+
 .page-about .about-figure {
-	flex: 0 1 577px;
 	min-width: 0;
 	margin: 0;
 	border-radius: var(--radius-portrait);
@@ -58,7 +92,7 @@
 	line-height: 1.6; /* 40 / 25 */
 	letter-spacing: -0.026em;
 	color: var(--ink-muted);
-	max-width: none;
+	max-width: var(--about-measure);
 }
 
 .page-about .about-prose strong {
@@ -77,6 +111,63 @@
 	opacity: 0.55;
 }
 
+/* ---- Contact -------------------------------------------------------------
+   The email used to be buried mid-sentence; grouping it with LinkedIn gives the
+   page one obvious way to reach out. Icons reuse the footer's masking recipe
+   (see .site-footer__social) and are decorative — the link text is the label. */
+
+.page-about .about-contact__lead {
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+	max-width: var(--about-measure);
+}
+
+.page-about .about-contact__links {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.4rem;
+	margin-top: 0.75rem;
+}
+
+.page-about .about-contact__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+	transition: color var(--duration-base) var(--ease-base);
+}
+
+.page-about .about-contact__link::before {
+	content: "";
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	background: currentColor;
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
+}
+
+.page-about .about-contact__link--email {
+	--icon: url("../assets/icons/email-rounded.svg");
+}
+
+.page-about .about-contact__link--linkedin {
+	--icon: url("../assets/icons/linkedin-svgrepo-com%201.svg");
+}
+
+.page-about .about-contact__link:hover,
+.page-about .about-contact__link:focus-visible {
+	color: var(--ink);
+}
+
 /* ---- Colophon ------------------------------------------------------------ */
 
 .page-about .about-meta {
@@ -89,7 +180,7 @@
 	font-size: clamp(1rem, 0.9rem + 0.45vw, 1.355rem); /* ~16 → 21.7px */
 	line-height: 1.6;
 	color: var(--ink-muted);
-	max-width: none;
+	max-width: var(--about-measure);
 }
 
 .page-about .about-meta__heading {
@@ -159,6 +250,38 @@
 	}
 }
 
+/* ---- CV rail -------------------------------------------------------------
+   Experience + Awards live beside the bio, in the same column as the portrait.
+   The 140px label column can't work at ~412px wide, so rail sections stack and
+   their headings drop to the mono micro-label used by .stack-group__label. */
+
+.page-about .about-aside .about-section {
+	grid-template-columns: 1fr;
+	row-gap: 0.9rem;
+	margin-top: clamp(2rem, 1.4rem + 2vw, 3.125rem);
+}
+
+.page-about .about-aside .about-section > * {
+	grid-column: 1;
+}
+
+.page-about .about-aside .about-section__heading {
+	grid-row: auto;
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+}
+
+/* Stack each entry (role → dates → summary) rather than pushing the dates to a
+   far right edge that no longer exists at rail width. */
+.page-about .about-aside .experience-item__head {
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
 /* Experience + Awards — title left, mono meta (dates / result) right. */
 
 .page-about .experience-list,
@@ -200,11 +323,11 @@
 
 .page-about .experience-item__summary {
 	margin-top: 0.4rem;
-	font-size: var(--about-body);
-	line-height: 1.6;
-	letter-spacing: -0.026em;
+	font-size: var(--text-base); /* 16px — rail copy sits a step under the bio */
+	line-height: 1.55;
+	letter-spacing: -0.02em;
 	color: var(--ink-muted);
-	max-width: none;
+	max-width: var(--about-measure);
 }
 
 /* Résumé — solid pill button, the one prominent call to action on the page. */
@@ -243,7 +366,7 @@
 	line-height: 1.6;
 	letter-spacing: -0.026em;
 	color: var(--ink-muted);
-	max-width: none;
+	max-width: var(--about-measure);
 }
 
 /* Stack — mono group labels over rows of monochrome, currentColor-masked marks
@@ -270,8 +393,7 @@
 	gap: 0.6rem;
 }
 
-/* Pill chip — same shape as the case-study tools pills (.project-meta__pill):
-   hairline border, fully rounded, white fill. */
+/* Pill chip — hairline border, fully rounded, white fill. */
 .page-about .stack-item {
 	display: inline-flex;
 	align-items: center;
@@ -320,15 +442,23 @@
 	opacity: 1;
 }
 
-/* ---- Responsive: stack the photo under the copy --------------------------
-   The two columns only sit comfortably once there's room for the ~734px copy
-   column plus the ~577px portrait and the gap between them (~1400px total), so
-   stack until then — otherwise the portrait collapses into a thin sliver. */
+/* ---- Responsive: stack the rail under the copy ---------------------------
+   The two columns need room for the copy column plus the ~412px rail and the
+   gap between them; below that the rail squeezes the measure. Stacked order is
+   copy → portrait → experience → awards → colophon, which the layout grid's
+   row 2 placement already gives us from source order. */
 
-@media (max-width: 1100px) {
+@media (max-width: 64rem) { /* 1024px */
 	.page-about .about-layout {
-		flex-direction: column;
-		gap: var(--space-xl);
+		grid-template-columns: 1fr;
+		row-gap: var(--space-xl);
+	}
+
+	.page-about .about-main,
+	.page-about .about-aside,
+	.page-about .about-meta {
+		grid-column: 1;
+		grid-row: auto;
 	}
 
 	.page-about .about-main {
@@ -336,8 +466,11 @@
 		padding-left: 0;
 	}
 
+	.page-about .about-meta {
+		padding-left: 0;
+	}
+
 	.page-about .about-figure {
-		flex: 0 0 auto;
 		width: 100%;
 		max-width: 30rem;
 		margin-inline: auto;

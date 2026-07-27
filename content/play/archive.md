@@ -92,7 +92,7 @@ date: 2024
 tag: Merch
 order: 7
 
-Apparel explorations for Karachi Run Club — front mark and back graphic.
+Apparel explorations for Karachi Run Club: front mark and back graphic.
 
 ---
 
@@ -103,11 +103,11 @@ tag: Speculative
 order: 8
 link: https://devpost.com/software/mirae-pt2s4i
 linkLabel: See submission
-alt: Mirae — speculative bio-adaptive sensing patch and companion interface
+alt: Mirae: speculative bio-adaptive sensing patch and companion interface
 
-A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam — a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.
+A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam: a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.
 
-Most wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge — a prompt to breathe, pause, or notice the loop you're about to repeat.
+Most wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge: a prompt to breathe, pause, or notice the loop you're about to repeat.
 
 ---
 

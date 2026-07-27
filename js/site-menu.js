@@ -25,7 +25,7 @@
 			const wordmark = document.createElement('a');
 			wordmark.className = 'site-menu__wordmark';
 			wordmark.href = prefix + 'index';
-			wordmark.setAttribute('aria-label', 'Zarah Yaqub — home');
+			wordmark.setAttribute('aria-label', 'Zarah Yaqub, home');
 			wordmark.innerHTML = `<span class="wordmark-star" aria-hidden="true">${STAR_SVG}</span><span class="wordmark-text">Zarah Yaqub</span>`;
 			header.append(wordmark);
 		}

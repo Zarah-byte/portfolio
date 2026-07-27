@@ -86,21 +86,21 @@
       "date": "2024",
       "tag": "Merch",
       "order": "7",
-      "description": "Apparel explorations for Karachi Run Club \u2014 front mark and back graphic."
+      "description": "Apparel explorations for Karachi Run Club: front mark and back graphic."
     },
     {
       "id": "Mirae",
       "type": "image",
       "src": "content/play/Mirae.png",
       "modalSrc": "content/play/Mirae.png",
-      "alt": "Mirae \u2014 speculative bio-adaptive sensing patch and companion interface",
+      "alt": "Mirae: speculative bio-adaptive sensing patch and companion interface",
       "title": "Mirae",
       "date": "2026",
       "tag": "Speculative",
       "link": "https://devpost.com/software/mirae-pt2s4i",
       "linkLabel": "See submission",
       "order": "8",
-      "description": "A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam \u2014 a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.\n\nMost wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge \u2014 a prompt to breathe, pause, or notice the loop you're about to repeat."
+      "description": "A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam: a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.\n\nMost wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge: a prompt to breathe, pause, or notice the loop you're about to repeat."
     },
     {
       "id": "Spark",

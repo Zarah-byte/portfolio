@@ -129,9 +129,11 @@
 	transform: translateY(-50%) translateX(0);
 }
 
-.site-menu__toggle:focus-visible {
-	outline: 2px solid #2c2f2e;
-	outline-offset: 3px;
+/* Panel is near-black and the toggle sits on top of it once open, so the
+   default dark ring would be invisible there — flip it to light. */
+.site-menu__toggle.is-open:focus-visible,
+.site-menu__panel :focus-visible {
+	outline-color: #f7f7f7;
 }
 
 .site-menu__toggle-icon {
