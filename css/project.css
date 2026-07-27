@@ -1056,12 +1056,14 @@
 	color: rgb(0 0 0 / 0.35);
 }
 
+/* Values read as body copy — same size, weight, leading, colour as section
+   prose; the uppercase label is what sets them apart. */
 .page-project .project-meta__value {
-	font-size: 1.125rem;
-	font-weight: 600;
-	line-height: 1.4;
-	letter-spacing: -0.02em;
-	color: var(--ink);
+	font-size: var(--pc-body);
+	font-weight: 400;
+	line-height: 1.6;
+	letter-spacing: -0.01em;
+	color: var(--pc-muted);
 }
 
 /* Vertical rhythm comes from the masthead grid gap. */
