@@ -81,15 +81,6 @@
 	color: var(--pc-ink);
 }
 
-.page-project .project-masthead__row {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: var(--space-lg);
-	margin-top: clamp(2.5rem, 5vw, 4.5rem);
-	padding-top: 0;
-	border-top: 0;
-}
-
 .page-project .project-lead {
 	max-width: none;
 }
@@ -184,171 +175,6 @@
 	line-height: 1.5;
 	color: var(--pc-ink);
 	max-width: none;
-}
-
-/* Team roster — overlapping avatar placeholders with pill tooltips */
-
-.page-project .project-meta__people {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.25rem;
-}
-
-.page-project .project-meta__person {
-	position: relative;
-}
-
-.page-project .project-meta__person + .project-meta__person {
-	margin-left: -0.5rem;
-}
-
-.page-project .project-meta__person:nth-child(1) { z-index: 1; }
-.page-project .project-meta__person:nth-child(2) { z-index: 2; }
-.page-project .project-meta__person:nth-child(3) { z-index: 3; }
-.page-project .project-meta__person:nth-child(4) { z-index: 4; }
-.page-project .project-meta__person:nth-child(5) { z-index: 5; }
-.page-project .project-meta__person:nth-child(6) { z-index: 6; }
-
-.page-project .project-meta__person-button {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	inline-size: 2.125rem; /* 34px — matches Figma */
-	block-size: 2.125rem;
-	padding: 0;
-	border: 1px solid #b1b1b1;
-	border-radius: 50%;
-	background-color: var(--bg);
-	overflow: hidden;
-	cursor: default;
-}
-
-/* Logo mark — borderless star avatar (Figma team roster). */
-.page-project .project-meta__person-button--mark {
-	inline-size: 2.1875rem; /* 35px */
-	block-size: 2.125rem; /* 34px */
-	border: 0;
-	border-radius: 0;
-	background: transparent;
-	overflow: visible;
-}
-
-.page-project .project-meta__person-button--mark .project-meta__person-avatar {
-	border-radius: 0;
-	object-fit: contain;
-	background: transparent;
-}
-
-.page-project .project-meta__person-avatar {
-	inline-size: 100%;
-	block-size: 100%;
-	border-radius: inherit;
-	object-fit: cover;
-	background-color: rgb(0 0 0 / 0.04);
-}
-
-/* Placeholder-only avatars (no photo supplied) keep a subtle checker fill. */
-.page-project span.project-meta__person-avatar {
-	background-image:
-		linear-gradient(45deg, rgb(0 0 0 / 0.07) 25%, transparent 25%),
-		linear-gradient(-45deg, rgb(0 0 0 / 0.07) 25%, transparent 25%),
-		linear-gradient(45deg, transparent 75%, rgb(0 0 0 / 0.07) 75%),
-		linear-gradient(-45deg, transparent 75%, rgb(0 0 0 / 0.07) 75%);
-	background-size: 8px 8px;
-	background-position: 0 0, 0 4px, 4px -4px, -4px 0;
-}
-
-.page-project .project-meta__person-tooltip {
-	position: absolute;
-	left: 50%;
-	bottom: calc(100% + 0.65rem);
-	z-index: 6;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.1rem;
-	min-width: max-content;
-	max-width: min(18rem, 72vw);
-	padding: 0.5rem 0.9rem;
-	border: 0;
-	border-radius: var(--radius-full);
-	background: var(--bg);
-	box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
-	text-align: center;
-	transform: translateX(-50%) translateY(0.2rem);
-	opacity: 0;
-	pointer-events: none;
-	transition:
-		opacity var(--duration-fast) var(--ease-base),
-		transform var(--duration-fast) var(--ease-base);
-}
-
-.page-project .project-meta__person-tooltip::before {
-	content: "";
-	position: absolute;
-	left: 50%;
-	top: 100%;
-	transform: translateX(-50%);
-	border: 5px solid transparent;
-	border-top-color: var(--bg);
-}
-
-.page-project .project-meta__person-tooltip-name {
-	font-size: 0.8125rem;
-	font-weight: 500;
-	line-height: 1.25;
-	color: var(--pc-ink);
-}
-
-.page-project .project-meta__person-tooltip-role {
-	font-size: 0.6875rem;
-	font-weight: 400;
-	line-height: 1.25;
-	color: var(--pc-muted);
-}
-
-.page-project .project-meta__person:hover,
-.page-project .project-meta__person:focus-within {
-	z-index: 7;
-}
-
-.page-project .project-meta__person:hover .project-meta__person-tooltip,
-.page-project .project-meta__person:focus-within .project-meta__person-tooltip {
-	opacity: 1;
-	transform: translateX(-50%) translateY(0);
-}
-
-.page-project .project-meta__person-button:focus-visible {
-	outline: 2px solid rgb(0 0 0 / 0.14);
-	outline-offset: 2px;
-}
-
-/* Pills — services / tools */
-
-.page-project .project-meta__pills {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.page-project .project-meta__pill {
-	display: inline-block;
-	padding: 0.4rem 0.85rem;
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	font-weight: 400;
-	letter-spacing: 0.03em;
-	text-transform: uppercase;
-	line-height: 1.2;
-	color: var(--pc-ink);
-	background: var(--bg);
-	border: 1px solid var(--pc-border);
-	border-radius: var(--radius-full);
 }
 
 /* ---- Hero (full viewport bleed) ------------------------------------------ */
@@ -471,40 +297,13 @@
 	list-style: decimal;
 }
 
+/* Bullets for parallel points that aren't an ordered sequence. */
+.page-project .project-section__body ul.project-list {
+	list-style: disc;
+}
+
 .page-project .project-section__body .project-list li + li {
 	margin-top: 0.35em;
-}
-
-/* Key Findings — icon + text rows (Figma) */
-
-.page-project .project-findings {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	display: flex;
-	flex-direction: column;
-	gap: clamp(1.25rem, 2.5vw, 2rem);
-	max-width: var(--pc-text);
-}
-
-.page-project .project-finding {
-	display: flex;
-	align-items: center;
-	gap: clamp(1.25rem, 3vw, 2.5rem);
-}
-
-.page-project .project-finding__icon {
-	flex: 0 0 auto;
-	inline-size: 2.25rem;
-	block-size: 2.25rem;
-	fill: var(--pc-ink);
-}
-
-.page-project .project-finding p {
-	margin: 0;
-	font-size: var(--pc-body);
-	line-height: 1.5;
-	color: var(--pc-muted);
 }
 
 .page-project .project-section__body .project-gallery {
@@ -654,6 +453,191 @@
 	border-radius: 0;
 }
 
+/* ---- Cards & panels ------------------------------------------------------
+   [card:] tiles into a tinted grid (mirrors .project-gallery breakpoints);
+   [panel:] is one full-width tinted block. Both are "bleed" so they span the
+   content column and inherit the section's text↔media spacing tiers. */
+
+.page-project .project-cards {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--pc-gallery-gap);
+}
+
+.page-project .project-card {
+	padding: clamp(1.5rem, 3vw, 2.25rem);
+	border-radius: var(--pc-radius);
+	background: var(--tint-1);
+}
+
+.page-project .project-card--1 { background: var(--tint-1); }
+.page-project .project-card--2 { background: var(--tint-2); }
+.page-project .project-card--3 { background: var(--tint-3); }
+.page-project .project-card--4 { background: var(--tint-4); }
+
+.page-project .project-card__title {
+	margin: 0 0 0.5rem;
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+.page-project .project-card p {
+	margin: 0;
+	max-width: none;
+	font-size: var(--pc-body);
+	line-height: 1.5;
+	color: var(--ink);
+}
+
+.page-project .project-panel {
+	padding: clamp(2rem, 5vw, 3.5rem);
+	border-radius: var(--pc-media-radius);
+	background: var(--tint-1);
+}
+
+.page-project .project-panel__heading {
+	margin: 0 0 0.75rem;
+	max-width: 22ch;
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.125rem);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.03em;
+	color: var(--ink);
+	text-wrap: balance;
+}
+
+.page-project .project-panel p {
+	margin: 0;
+	max-width: 52ch;
+	font-size: var(--pc-body);
+	line-height: 1.55;
+	color: var(--ink);
+}
+
+/* A run of consecutive card grids / panels stacks on the tighter gallery gap
+   (matches the .project-section__bleed + .project-section__bleed rule). */
+@media (min-width: 640px) {
+	.page-project .project-cards--2,
+	.page-project .project-cards--3,
+	.page-project .project-cards--4 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.page-project .project-cards--3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.page-project .project-cards--4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* ---- Pull-quote ----------------------------------------------------------
+   [quote:] — an offset italic statement inside the body column (PokerGPT
+   "How might we…"). Weight/rule carry the emphasis, no accent colour. */
+
+.page-project .project-quote {
+	margin: 0;
+	max-width: 40ch;
+	padding-left: clamp(1rem, 2vw, 1.5rem);
+	border-left: 2px solid var(--pc-rule);
+}
+
+.page-project .project-quote p {
+	margin: 0;
+	max-width: none;
+	font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+	font-style: italic;
+	line-height: 1.4;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+	text-wrap: balance;
+}
+
+/* ---- Figure with side caption -------------------------------------------
+   [figure:] — media wide, a short note beside it (stacks on mobile). */
+
+.page-project .project-figure {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(1rem, 2vw, 1.75rem);
+	margin: 0;
+}
+
+.page-project .project-figure__media {
+	border-radius: var(--pc-media-radius);
+	overflow: hidden;
+}
+
+.page-project .project-figure__media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: var(--pc-media-radius);
+}
+
+.page-project .project-figure__note {
+	margin: 0;
+	max-width: none;
+	font-size: var(--pc-body);
+	line-height: 1.5;
+	color: var(--pc-muted);
+}
+
+@media (min-width: 768px) {
+	.page-project .project-figure {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+		gap: clamp(1.5rem, 3vw, 2.5rem);
+		align-items: start;
+	}
+}
+
+/* ---- FAQ rows ------------------------------------------------------------
+   [faq:] — untinted question/answer cards, always 2-up (vs the tinted stat
+   [card:] grid). Top hairline instead of a fill. */
+
+.page-project .project-faq {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.page-project .project-faq__item {
+	padding-top: clamp(1rem, 2vw, 1.5rem);
+	border-top: 1px solid var(--pc-rule);
+}
+
+.page-project .project-faq__q {
+	margin: 0 0 0.5rem;
+	font-family: var(--font-display);
+	font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+.page-project .project-faq__item p {
+	margin: 0;
+	max-width: none;
+	font-size: var(--pc-body);
+	line-height: 1.5;
+	color: var(--pc-muted);
+}
+
+@media (min-width: 640px) {
+	.page-project .project-faq {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
 /* ---- Related projects ---------------------------------------------------- */
 
 .page-project .project-related {
@@ -801,12 +785,6 @@
 }
 
 @media (min-width: 768px) {
-	.page-project .project-masthead__row {
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: clamp(2rem, 5vw, 5rem);
-		align-items: start;
-	}
-
 	.page-project .project-section {
 		grid-template-columns: var(--pc-label-col) 1fr;
 		gap: var(--pc-gutter);
@@ -860,20 +838,21 @@
 }
 
 /* ---- Case-study treatment — shared structure & pacing --------------------
-   Originally designed to the Google Tasks Figma reference, now the house
-   style for every case study: balanced 50/50 columns with the section title
-   indented into the left half, a ~20px gutter, tightly stacked full-bleed
-   media, cream-framed media cards, and grey section headings. Layered over
-   the base .page-project rules by source order.
+   House style for every case study, modelled on queenie.works/#project/lume:
+   a sticky left rail that names the project and jumps between sections, and a
+   content column where each section reads eyebrow → headline → body → media.
 
-   Spacing is scaled from the older template (~0.65–0.75) while preserving
-   ratios: 1:1 columns, ~20px gutters, and title indent as a fraction of the
-   left rail. The 685×804 gallery frames stay scoped to .work-tasks — those
-   dimensions are specific to the Tasks design-doc/testing clips, and forcing
-   them on other pages' landscape media would crop it into portrait. */
+   The section's `##` title becomes the small uppercase eyebrow; its `[deck]`
+   line becomes the display headline. Sections without a deck still work —
+   they just open on body copy. Layered over the base .page-project rules by
+   source order, so the base 2-column section grid is inert here (the section
+   is flex now) but left in place for any page that opts back into it.
 
-/* Full-bleed media stacks on the section's grid row-gap alone (no extra
-   margin), so the tight ~20px stacking isn't doubled up. */
+   The 685×804 gallery frames stay scoped to .work-tasks — those dimensions
+   are specific to the Tasks design-doc/testing clips, and forcing them on
+   other pages' landscape media would crop it into portrait. */
+
+/* Full-bleed media stacks on the section's row-gap alone (no extra margin). */
 .page-project .project-section__bleed > .project-media,
 .page-project .project-section__bleed > .project-gallery {
 	margin-top: 0;
@@ -881,14 +860,14 @@
 
 .page-project {
 	--pc-media-radius: var(--radius-xl);
-	--pc-body: 1.25rem; /* 20px — Dex */
-	--pc-text: none;
-	--pc-muted: rgb(0 0 0 / 0.6); /* Dex body ink */
-	/* Section rhythm — Dex py-8/12/20 (32 → 80px) */
-	--pc-section-gap: clamp(2rem, 5vw, 5rem);
-	/* Column gutter + media stacking — Dex gap-6 → gap-10 (24 → 40px) */
+	--pc-body: 1.0625rem; /* 17px — sits under the 24–34px section headline */
+	--pc-text: 68ch;
+	--pc-muted: rgb(0 0 0 / 0.58);
+	--pc-section-gap: clamp(2.75rem, 6vw, 6rem);
 	--pc-gutter: clamp(1.5rem, 3vw, 2.5rem);
-	--pc-gallery-gap: clamp(1.5rem, 3vw, 2.5rem);
+	--pc-gallery-gap: clamp(1rem, 2vw, 1.5rem);
+	--pc-rail: 13rem; /* sticky section nav */
+	--pc-rail-gap: clamp(2.5rem, 5vw, 5rem);
 }
 
 .page-project .shell {
@@ -899,36 +878,231 @@
 	padding: clamp(1rem, 2.5vw, 2rem) 0 clamp(1.5rem, 3vw, 2.5rem);
 }
 
+/* ---- Two-column layout: sticky rail + content ---------------------------- */
+
+.page-project .project-body {
+	min-width: 0;
+}
+
+@media (min-width: 1024px) {
+	.page-project .project-layout {
+		display: grid;
+		grid-template-columns: var(--pc-rail) minmax(0, 1fr);
+		column-gap: var(--pc-rail-gap);
+		align-items: start;
+	}
+}
+
+/* ---- Sticky section nav --------------------------------------------------
+   Desktop only: below 1024px the shared site menu already covers navigation
+   and the rail would eat the content column. */
+
+.page-project .project-nav {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	.page-project .project-nav {
+		display: block;
+		position: sticky;
+		top: clamp(1.5rem, 3vw, 2.5rem);
+		align-self: start;
+		max-height: calc(100dvh - 5rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+}
+
+.page-project .project-nav__back {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45em;
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--ink-muted);
+	transition: color var(--duration-fast) var(--ease-base);
+}
+
+.page-project .project-nav__back::before {
+	content: "←";
+}
+
+.page-project .project-nav__back:hover,
+.page-project .project-nav__back:focus-visible {
+	color: var(--ink);
+}
+
+.page-project .project-nav__eyebrow {
+	margin: clamp(2rem, 4vw, 3rem) 0 0;
+	max-width: none;
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: rgb(0 0 0 / 0.35);
+}
+
+.page-project .project-nav__name {
+	margin: 0.35rem 0 0;
+	max-width: none;
+	font-size: var(--text-base);
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+.page-project .project-nav__sections {
+	display: flex;
+	flex-direction: column;
+	margin-top: clamp(1.5rem, 3vw, 2rem);
+	padding-top: clamp(1rem, 2vw, 1.25rem);
+	border-top: 1px solid var(--rule);
+}
+
+.page-project .project-nav__link {
+	position: relative;
+	padding: 0.375rem 0 0.375rem 0.875rem;
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	letter-spacing: -0.01em;
+	color: rgb(0 0 0 / 0.42);
+	transition: color var(--duration-fast) var(--ease-base);
+}
+
+/* Dot marker fills in on the section currently in view. */
+.page-project .project-nav__link::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.85em;
+	inline-size: 5px;
+	block-size: 5px;
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0;
+	transition: opacity var(--duration-fast) var(--ease-base);
+}
+
+.page-project .project-nav__link:hover {
+	color: rgb(0 0 0 / 0.72);
+}
+
+.page-project .project-nav__link[aria-current] {
+	color: var(--ink);
+	font-weight: 500;
+}
+
+.page-project .project-nav__link[aria-current]::before {
+	opacity: 1;
+}
+
+/* ---- Masthead ------------------------------------------------------------ */
+
+/* Title is its own block above the meta row (reference), sized to the
+   reference's proportion rather than running the full frame width. */
 .page-project .project-title {
-	font-size: clamp(3rem, 1rem + 10vw, 8.5rem);
+	font-size: clamp(2.75rem, 1.5rem + 3.5vw, 4.5rem);
 	font-weight: 700;
 	line-height: 1.1;
 	letter-spacing: -0.04em;
 }
 
+/* Generous row gap is what separates title / meta / lead — no rules between. */
 .page-project .project-masthead {
-	margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(2.5rem, 5vw, 4rem);
+	margin-bottom: clamp(1.75rem, 3.5vw, 3rem);
 }
 
-.page-project .project-masthead__row {
-	margin-top: clamp(1.75rem, 3.5vw, 4.5rem); /* 72px after title */
-	gap: clamp(1.5rem, 3vw, 3rem);
+/* Meta is its own band below the title. DETAIL_FIELDS is held to four entries
+   so this is a single line of four columns at every desktop width — an
+   explicit track count, not auto-fit, so the column count never changes. */
+.page-project .project-meta {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	column-gap: clamp(1rem, 2vw, 2rem);
+	row-gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+@media (min-width: 768px) {
+	.page-project .project-meta {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+.page-project .project-meta__row {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.5rem;
+}
+
+.page-project .project-meta__row {
+	gap: 0.75rem;
+}
+
+/* Sans, not mono — the reference sets label and value in one family and
+   separates them by weight and colour instead. */
+.page-project .project-meta__label {
+	font-family: var(--font-sans);
+	font-size: 0.875rem;
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0.03em;
+	color: rgb(0 0 0 / 0.35);
+}
+
+.page-project .project-meta__value {
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+/* Vertical rhythm comes from the masthead grid gap. */
+.page-project .project-lead {
+	margin-top: 0;
+	max-width: 62ch;
 }
 
 .page-project .project-lead,
 .page-project .project-tagline,
 .page-project .project-lead p:not(.project-tagline) {
-	font-size: 1.125rem;
-	line-height: 1.55;
-	color: var(--ink-muted);
+	font-size: 1.0625rem;
+	line-height: 1.6;
+	color: var(--pc-muted);
 }
 
 .page-project .project-hero {
 	margin-bottom: var(--pc-section-gap);
 }
 
-/* Flush media — bare rounded image, no card/border (Dex). Placeholders keep
-   their base gradient + padding so "no image yet" reads as an intentional box. */
+/* Hero graphic — a single centered icon on a tinted card (heroType: icon),
+   vs the default full-bleed hero image/video. */
+.page-project .project-hero__graphic {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 16 / 7;
+	border-radius: var(--pc-media-radius);
+	background: var(--tint-1);
+}
+
+.page-project .project-hero__graphic--tint-2 { background: var(--tint-2); }
+.page-project .project-hero__graphic--tint-3 { background: var(--tint-3); }
+.page-project .project-hero__graphic--tint-4 { background: var(--tint-4); }
+
+.page-project .project-hero__icon {
+	width: clamp(4rem, 10vw, 8rem);
+	height: auto;
+}
+
+/* Flush media — bare rounded image, no card/border. Placeholders keep their
+   base gradient + padding so "no image yet" reads as an intentional box. */
 .page-project .project-media:not(.project-media--placeholder) {
 	border: 0;
 	background: transparent;
@@ -939,66 +1113,82 @@
 	background: transparent;
 }
 
-/* Section chrome: generous outer rhythm (Dex py-20), tighter grid gap for
-   media stacking (Dex gap-10). */
+/* ---- Sections: eyebrow → headline → body → media ------------------------- */
+
+/* Vertical rhythm is tiered so spacing encodes how tightly things belong
+   together: eyebrow hugs its headline (this gap), prose breathes, and media
+   gets real air on both sides. A flat gap everywhere reads as no hierarchy. */
 .page-project .project-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem; /* eyebrow → headline: one unit */
 	padding-block: var(--pc-section-gap);
-	gap: var(--pc-gutter);
+	scroll-margin-top: clamp(1.5rem, 4vw, 3rem);
 }
 
+/* Media is a different modality from the prose above it — the widest gap
+   inside a section, and it applies whichever side the prose sits on. */
+.page-project .project-section__bleed,
+.page-project .project-section__bleed + .project-section__body,
+.page-project .project-section__body + .project-section__body {
+	margin-top: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+/* A run of consecutive media is one exhibit, not a series of transitions —
+   it stacks on the tighter gallery gap. */
+.page-project .project-section__bleed + .project-section__bleed {
+	margin-top: var(--pc-gallery-gap);
+}
+
+/* The section title is the small eyebrow label; the [deck] line is the
+   headline it introduces. */
 .page-project .project-section > h2 {
-	font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem); /* 24 → 30px — Dex */
+	max-width: none;
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
 	font-weight: 400;
-	letter-spacing: -0.03em;
-	color: var(--pc-ink);
+	line-height: 1.4;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgb(0 0 0 / 0.4);
 }
 
 .page-project .project-section__body {
-	gap: clamp(1rem, 2vw, 2rem); /* ~32px paragraph gap */
+	gap: clamp(1rem, 2vw, 1.5rem);
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-/* Deck = medium weight + darker ink at body size (18–20px Medium). */
-.page-project .project-deck {
-	margin: 0;
-	max-width: none;
-	font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem); /* 18 → 20px */
-	font-weight: 500;
-	line-height: 1.55;
-	letter-spacing: -0.01em;
-	color: var(--ink);
-}
-
 .page-project .project-section__body p,
-.page-project .project-section__body .project-list,
-.page-project .project-finding p {
-	max-width: none;
+.page-project .project-section__body .project-list {
+	max-width: var(--pc-text);
 	font-size: var(--pc-body);
-	line-height: 1.4; /* Dex 28 / 20 */
+	line-height: 1.6;
 	color: var(--pc-muted);
 }
 
-.page-project .project-section__body .project-deck {
+/* Deck = the display headline. Needs the p tag in the selector to outrank the
+   body-copy rule above. */
+.page-project .project-section__body p.project-deck {
+	margin: 0 0 0.5rem; /* display type needs more air below than prose does */
+	max-width: 40ch;
+	font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.125rem); /* 24 → 34px */
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.03em;
 	color: var(--ink);
+	text-wrap: balance;
 }
 
 .page-project .project-section__body p strong {
 	font-weight: 600;
-	color: var(--pc-muted);
+	color: var(--ink);
 }
 
-.page-project .project-findings {
-	gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.page-project .project-finding {
-	gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.page-project .project-finding__icon {
-	inline-size: clamp(2rem, 1.75rem + 0.8vw, 3.375rem); /* ~32 → 54px */
-	block-size: clamp(2rem, 1.75rem + 0.8vw, 3.375rem);
+/* Items run 2–3 lines each, so they need more space between them than the
+   27px between lines inside one item — otherwise the list reads as a block. */
+.page-project .project-section__body .project-list li + li {
+	margin-top: 0.65em;
 }
 
 .page-project .project-related {
@@ -1006,17 +1196,13 @@
 	padding-top: clamp(1.5rem, 3vw, 2rem);
 }
 
-@media (min-width: 768px) {
-	/* Dex 6-col grid: label rail spans 2, body spans 4 → 2fr / 4fr. */
-	.page-project .project-section {
-		grid-template-columns: minmax(0, 2fr) minmax(0, 4fr);
-		column-gap: var(--pc-gutter);
-		row-gap: var(--pc-gutter);
-	}
-
-	.page-project .project-section > h2 {
-		max-width: none;
-	}
+.page-project .project-related__title {
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	font-weight: 400;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: rgb(0 0 0 / 0.4);
 }
 
 /* ---- Tasks-only: 685×804 half-frame galleries ----------------------------
@@ -1118,6 +1304,8 @@
 	padding-block: 0;
 }
 
+/* The magazine stack is a deliberate 20px run of boards — it opts out of the
+   shared text/media spacing tier. */
 .page-project.work-micdrop .project-section__bleed {
 	margin: 0;
 }

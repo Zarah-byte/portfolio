@@ -23,12 +23,14 @@ SLUG_MAP = {
     "tasks": "tasks",
 }
 
+# Four, matching the meta grid's explicit four columns — the row stays a
+# single line. `year` and `context` stay in the frontmatter but are not
+# surfaced here.
 DETAIL_FIELDS = [
-    ("team", "Team"),
     ("duration", "Timeline"),
-    ("context", "Context"),
+    ("role", "Role"),
+    ("team", "Team"),
     ("tools", "Tools"),
-    ("year", "Year"),
 ]
 VIMEO_BG_PARAMS = (
     "?background=1&loop=1&autoplay=1&muted=1"
@@ -44,28 +46,16 @@ YOUTUBE_TAG_RE = re.compile(r"^\[youtube:([\w-]{11})(?:\s+(.*))?\]$")
 IMAGE_TAG_RE = re.compile(r"^\[image:([^\]\s]+)(?:\s+(.*))?\]$")
 CALLOUT_TAG_RE = re.compile(r"^\[callout:\s*(.+)\]$")
 PLACEHOLDER_TAG_RE = re.compile(r"^\[placeholder:\s*(.+)\]$")
-FINDING_TAG_RE = re.compile(r"^\[finding:([\w-]+)\s+(.+)\]$")
+CARD_TAG_RE = re.compile(r"^\[card:\s*(.+)\]$")
+FAQ_TAG_RE = re.compile(r"^\[faq:\s*(.+)\]$")
+PANEL_TAG_RE = re.compile(r"^\[panel:\s*(.+)\]$")
+QUOTE_TAG_RE = re.compile(r"^\[quote:\s*(.+)\]$")
+FIGURE_TAG_RE = re.compile(r"^\[figure:([^\]\s]+)\s*\|\s*(.+)\]$")
 DECK_TAG_RE = re.compile(r"^\[deck\]\s+(.+)$")
 ORDERED_ITEM_RE = re.compile(r"^\d+\.\s+")
+# Single "-" or "*" plus a space — "**bold**" and "*emphasis*" don't match.
+UNORDERED_ITEM_RE = re.compile(r"^[-*]\s+")
 BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
-
-# Inline Material Symbols icon paths for the [finding:] rows (24x24 viewBox).
-FINDING_ICONS = {
-    "edit": (
-        "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41"
-        "l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-    ),
-    "low_priority": (
-        "M14 5h8v2h-8zM14 10.5h8v2h-8zM14 16h8v2h-8zM2 11.5C2 15.08 4.92 18 8.5 18H9v2l3-3-3-3v2"
-        "h-.5C6.02 16 4 13.98 4 11.5S6.02 7 8.5 7H12V5H8.5C4.92 5 2 7.92 2 11.5z"
-    ),
-    "sentiment_dissatisfied": (
-        "M15.5 11c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0"
-        " 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 1.5c-2.33 0-4.31 1.46-5.11"
-        " 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5zM11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22"
-        " 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-    ),
-}
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -155,34 +145,108 @@ def deck_to_html(text: str, *, indent: str = "\t\t\t\t") -> str:
     return f'{indent}<p class="project-deck">{inline_markdown_to_html(text)}</p>'
 
 
-def ordered_list_to_html(items: list[str], *, indent: str = "\t\t\t\t") -> str:
+def list_to_html(items: list[str], *, tag: str = "ol", indent: str = "\t\t\t\t") -> str:
+    """`ol` for numbered steps, `ul` for parallel points that aren't a sequence."""
     if not items:
         return ""
-    lines = [f"{indent}<ol class=\"project-list\">"]
+    marker = ORDERED_ITEM_RE if tag == "ol" else UNORDERED_ITEM_RE
+    lines = [f'{indent}<{tag} class="project-list">']
     for item in items:
-        cleaned = ORDERED_ITEM_RE.sub("", item, count=1).strip()
+        cleaned = marker.sub("", item, count=1).strip()
         lines.append(f"{indent}\t<li>{html.escape(cleaned)}</li>")
-    lines.append(f"{indent}</ol>")
+    lines.append(f"{indent}</{tag}>")
     return "\n".join(lines)
 
 
-def findings_to_html(items: list[tuple[str, str]], *, indent: str = "\t\t\t\t") -> str:
-    """Icon + text rows for the Key Findings section (Figma design)."""
-    if not items:
-        return ""
-    lines = [f'{indent}<ul class="project-findings">']
-    for icon_name, text in items:
-        path = FINDING_ICONS.get(icon_name, "")
-        icon = (
-            f'<svg class="project-finding__icon" viewBox="0 0 24 24" '
-            f'aria-hidden="true" focusable="false"><path d="{path}"/></svg>'
+def split_card(text: str) -> tuple[str, str]:
+    """`Title | Body` → (title, body); no pipe → ("", body)."""
+    if "|" in text:
+        title, body = text.split("|", 1)
+        return title.strip(), body.strip()
+    return "", text.strip()
+
+
+def card_block(title: str, body: str, tint: int, *, indent: str = "\t\t\t\t") -> str:
+    parts = [f'{indent}<div class="project-card project-card--{tint}">']
+    if title:
+        parts.append(
+            f'{indent}\t<h3 class="project-card__title">{inline_markdown_to_html(title)}</h3>'
         )
-        lines.append(
-            f'{indent}\t<li class="project-finding">{icon}'
-            f"<p>{html.escape(text)}</p></li>"
+    if body:
+        parts.append(f'{indent}\t<p>{inline_markdown_to_html(body)}</p>')
+    parts.append(f"{indent}</div>")
+    return "\n".join(parts)
+
+
+def wrap_cards(cards: list[tuple[str, str]], *, indent: str = "\t\t\t\t") -> str:
+    """Consecutive [card:] tags tile into a grid, tinted by position (mirrors
+    wrap_gallery). Palette cycles every four so runs stay balanced."""
+    count = min(len(cards), 4)
+    inner = "\n".join(
+        card_block(title, body, i % 4 + 1, indent=indent + "\t")
+        for i, (title, body) in enumerate(cards)
+    )
+    return (
+        f'{indent}<div class="project-cards project-cards--{count}">\n'
+        f"{inner}\n"
+        f"{indent}</div>"
+    )
+
+
+def panel_block(heading: str, body: str, *, indent: str = "\t\t\t\t") -> str:
+    """Full-width tinted panel with a heading (generalises [callout:])."""
+    parts = [f'{indent}<aside class="project-panel">']
+    if heading:
+        parts.append(
+            f'{indent}\t<h3 class="project-panel__heading">{inline_markdown_to_html(heading)}</h3>'
         )
-    lines.append(f"{indent}</ul>")
-    return "\n".join(lines)
+    if body:
+        parts.append(f'{indent}\t<p>{inline_markdown_to_html(body)}</p>')
+    parts.append(f"{indent}</aside>")
+    return "\n".join(parts)
+
+
+def quote_block(text: str, *, indent: str = "\t\t\t\t") -> str:
+    """Offset italic pull-quote inside the body column (PokerGPT "How might we…")."""
+    return (
+        f'{indent}<blockquote class="project-quote">\n'
+        f'{indent}\t<p>{inline_markdown_to_html(text)}</p>\n'
+        f"{indent}</blockquote>"
+    )
+
+
+def wrap_faq(items: list[tuple[str, str]], *, indent: str = "\t\t\t\t") -> str:
+    """Consecutive [faq:] tags tile into an untinted 2-up Q&A grid (mirrors
+    wrap_cards). Question | Answer via split_card."""
+    rows = []
+    for question, answer in items:
+        row = [f'{indent}\t<div class="project-faq__item">']
+        if question:
+            row.append(
+                f'{indent}\t\t<h3 class="project-faq__q">{inline_markdown_to_html(question)}</h3>'
+            )
+        if answer:
+            row.append(f'{indent}\t\t<p>{inline_markdown_to_html(answer)}</p>')
+        row.append(f"{indent}\t</div>")
+        rows.append("\n".join(row))
+    return (
+        f'{indent}<div class="project-faq">\n'
+        + "\n".join(rows)
+        + f"\n{indent}</div>"
+    )
+
+
+def figure_block(src: str, caption: str, *, indent: str = "\t\t\t\t") -> str:
+    """Media with a caption beside it (2-col ≥768, stacks on mobile)."""
+    size = image_size_attrs(src)
+    return (
+        f'{indent}<figure class="project-figure">\n'
+        f'{indent}\t<div class="project-figure__media">\n'
+        f'{indent}\t\t<img src="{html.escape(src)}" alt="{html.escape(caption)}"{size} loading="lazy">\n'
+        f'{indent}\t</div>\n'
+        f'{indent}\t<figcaption class="project-figure__note">{inline_markdown_to_html(caption)}</figcaption>\n'
+        f"{indent}</figure>"
+    )
 
 
 def vimeo_embed_block(
@@ -294,6 +358,27 @@ def parse_youtube_tag(stripped: str, section_title: str) -> tuple[str, str, str,
     return video_id, title, ratio, background
 
 
+def image_size_attrs(src: str) -> str:
+    """`width`/`height` so the browser reserves the box before a lazy image loads.
+
+    Without them the figure is 0px tall until the image decodes: the page jumps, and
+    the scroll-reveal in common.css gets a zero-length range so the image pops in
+    instead of scaling. CSS keeps `width: 100%; height: auto`, so these attributes
+    only supply the aspect ratio. Returns "" if the size can't be read — the build
+    should not die over a missing image or a machine without Pillow.
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        return ""
+
+    try:
+        with Image.open(ROOT / site_asset_path(src)) as im:
+            return f' width="{im.width}" height="{im.height}"'
+    except (OSError, ValueError):
+        return ""
+
+
 def image_embed_block(
     src: str,
     alt: str,
@@ -310,7 +395,8 @@ def image_embed_block(
     modifier_text = f' {" ".join(modifiers)}' if modifiers else ""
     return (
         f'{indent}<figure class="project-media{modifier_text}">\n'
-        f'{indent}\t<img src="{html.escape(src)}" alt="{html.escape(alt)}" loading="lazy">\n'
+        f'{indent}\t<img src="{html.escape(src)}" alt="{html.escape(alt)}"'
+        f'{image_size_attrs(src)} loading="lazy">\n'
         f"{indent}</figure>"
     )
 
@@ -369,8 +455,10 @@ def wrap_gallery(media: list[str], *, indent: str = "\t\t\t\t") -> str:
 def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, str]]:
     blocks: list[tuple[str, str]] = []
     paragraph_lines: list[str] = []
-    ordered_lines: list[str] = []
-    finding_lines: list[tuple[str, str]] = []
+    list_lines: list[str] = []
+    list_tag = "ol"
+    card_run: list[tuple[str, str]] = []
+    faq_run: list[tuple[str, str]] = []
     media_run: list[str] = []
 
     def flush_media() -> None:
@@ -380,32 +468,37 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         blocks.append(("bleed", wrap_gallery(media_run)))
         media_run = []
 
-    def flush_ordered_list() -> None:
-        nonlocal ordered_lines
-        if not ordered_lines:
+    def flush_cards() -> None:
+        nonlocal card_run
+        if not card_run:
             return
-        flush_media()
-        html_block = ordered_list_to_html(ordered_lines)
-        if html_block:
-            blocks.append(("prose", html_block))
-        ordered_lines = []
+        blocks.append(("bleed", wrap_cards(card_run)))
+        card_run = []
 
-    def flush_findings() -> None:
-        nonlocal finding_lines
-        if not finding_lines:
+    def flush_faq() -> None:
+        nonlocal faq_run
+        if not faq_run:
+            return
+        blocks.append(("bleed", wrap_faq(faq_run)))
+        faq_run = []
+
+    def flush_list() -> None:
+        nonlocal list_lines
+        if not list_lines:
             return
         flush_media()
-        html_block = findings_to_html(finding_lines)
+        html_block = list_to_html(list_lines, tag=list_tag)
         if html_block:
             blocks.append(("prose", html_block))
-        finding_lines = []
+        list_lines = []
 
     def flush_paragraphs() -> None:
         nonlocal paragraph_lines
         if not paragraph_lines:
             return
-        flush_ordered_list()
-        flush_findings()
+        flush_list()
+        flush_cards()
+        flush_faq()
         flush_media()
         html_block = paragraphs_to_html("\n".join(paragraph_lines))
         if html_block:
@@ -417,20 +510,20 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         if not stripped:
             if paragraph_lines:
                 paragraph_lines.append("")
-            flush_ordered_list()
-            flush_findings()
+            flush_list()
+            flush_cards()
+            flush_faq()
             flush_media()
             continue
 
-        if ORDERED_ITEM_RE.match(stripped):
+        is_ordered = bool(ORDERED_ITEM_RE.match(stripped))
+        if is_ordered or UNORDERED_ITEM_RE.match(stripped):
             flush_paragraphs()
-            ordered_lines.append(stripped)
-            continue
-
-        finding = FINDING_TAG_RE.match(stripped)
-        if finding:
-            flush_paragraphs()
-            finding_lines.append((finding.group(1), finding.group(2).strip()))
+            tag = "ol" if is_ordered else "ul"
+            if tag != list_tag:
+                flush_list()  # close the open list before switching marker type
+                list_tag = tag
+            list_lines.append(stripped)
             continue
 
         deck = DECK_TAG_RE.match(stripped)
@@ -440,8 +533,45 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
             blocks.append(("prose", deck_to_html(deck.group(1).strip())))
             continue
 
-        flush_ordered_list()
-        flush_findings()
+        # Cards / FAQ buffer like media: consecutive tags accumulate
+        # (flush_paragraphs early-returns between them) and tile into a grid.
+        card = CARD_TAG_RE.match(stripped)
+        if card:
+            flush_paragraphs()
+            card_run.append(split_card(card.group(1).strip()))
+            continue
+
+        faq = FAQ_TAG_RE.match(stripped)
+        if faq:
+            flush_paragraphs()
+            faq_run.append(split_card(faq.group(1).strip()))
+            continue
+
+        flush_list()
+        flush_cards()
+        flush_faq()
+
+        panel = PANEL_TAG_RE.match(stripped)
+        if panel:
+            flush_paragraphs()
+            flush_media()
+            heading, body = split_card(panel.group(1).strip())
+            blocks.append(("bleed", panel_block(heading, body)))
+            continue
+
+        quote = QUOTE_TAG_RE.match(stripped)
+        if quote:
+            flush_paragraphs()
+            flush_media()
+            blocks.append(("prose", quote_block(quote.group(1).strip())))
+            continue
+
+        figure = FIGURE_TAG_RE.match(stripped)
+        if figure:
+            flush_paragraphs()
+            flush_media()
+            blocks.append(("bleed", figure_block(figure.group(1).strip(), figure.group(2).strip())))
+            continue
 
         callout = CALLOUT_TAG_RE.match(stripped)
         if callout:
@@ -497,8 +627,9 @@ def section_content_to_blocks(text: str, section_title: str) -> list[tuple[str, 
         paragraph_lines.append(stripped)
 
     flush_paragraphs()
-    flush_ordered_list()
-    flush_findings()
+    flush_list()
+    flush_cards()
+    flush_faq()
     flush_media()
     return blocks
 
@@ -550,64 +681,36 @@ def render_hero(meta: dict[str, str], eyebrow: str) -> str:
         use_controls = meta.get("heroControls", "").lower() in ("true", "1", "yes")
         return vimeo_iframe(hero, f"{eyebrow} cover", background=not use_controls)
 
+    if hero_type == "icon":
+        # A single centered icon on a tinted card (PokerGPT-style), not a
+        # full-bleed image. `heroTint` picks --tint-1..4 (default 1).
+        tint = meta.get("heroTint", "1").strip() or "1"
+        size = image_size_attrs(hero)
+        return (
+            f'\t\t\t<div class="project-hero__graphic project-hero__graphic--tint-{tint}">\n'
+            f'\t\t\t\t<img class="project-hero__icon" src="{html.escape(hero)}" '
+            f'alt="{html.escape(eyebrow)}"{size}>\n'
+            f"\t\t\t</div>"
+        )
+
     return image_figure(hero, f"{eyebrow} cover")
 
 
 def format_meta_value(key: str, value: str) -> str:
-    if key == "tools":
-        tools = [part.strip() for part in value.split(",") if part.strip()]
-        if not tools:
-            return ""
-        pills = "".join(
-            f'<li class="project-meta__pill">{html.escape(tool)}</li>' for tool in tools
-        )
-        return f'<ul class="project-meta__pills">{pills}</ul>'
+    if key in ("tools", "role"):
+        # Comma-separated in frontmatter, one per line in the meta column.
+        parts = [part.strip() for part in value.split(",") if part.strip()]
+        return "<br>".join(html.escape(part) for part in parts)
 
     if key == "team":
+        # Frontmatter is "Name — Role — photo" per line; only the name is
+        # rendered. Role and photo stay in the source for reference.
         members = [line.strip() for line in value.split("\n") if line.strip()]
-        if len(members) > 1 or any(re.search(r"\s[—–-]\s", m) for m in members):
-            people: list[str] = []
-            for member in members:
-                parts = re.split(r"\s+[—–-]\s+", member, maxsplit=2)
-                raw_name = parts[0].strip()
-                raw_role = parts[1].strip() if len(parts) > 1 else ""
-                raw_photo = parts[2].strip() if len(parts) > 2 else ""
-                name = html.escape(raw_name)
-                role = html.escape(raw_role)
-                tooltip_text = f"{raw_name} — {raw_role}" if raw_role else raw_name
-                role_html = (
-                    f'<span class="project-meta__person-tooltip-role">{role}</span>'
-                    if role
-                    else ""
-                )
-                is_mark = "logo-star" in raw_photo or raw_photo.endswith("/Z.png")
-                button_class = (
-                    "project-meta__person-button project-meta__person-button--mark"
-                    if is_mark
-                    else "project-meta__person-button"
-                )
-                if raw_photo:
-                    avatar_html = (
-                        f'<img class="project-meta__person-avatar" '
-                        f'src="{html.escape(raw_photo)}" alt="" '
-                        f'loading="lazy" aria-hidden="true">'
-                    )
-                else:
-                    avatar_html = (
-                        '<span class="project-meta__person-avatar" aria-hidden="true"></span>'
-                    )
-                people.append(
-                    '<span class="project-meta__person">'
-                    f'<button class="{button_class}" type="button" '
-                    f'aria-label="{html.escape(tooltip_text)}">'
-                    f"{avatar_html}"
-                    f"</button>"
-                    f'<span class="project-meta__person-tooltip" role="tooltip">'
-                    f'<span class="project-meta__person-tooltip-name">{name}</span>'
-                    f"{role_html}"
-                    f"</span></span>"
-                )
-            return '<span class="project-meta__people">' + "".join(people) + "</span>"
+        names = [
+            re.split(r"\s+[—–-]\s+", member, maxsplit=1)[0].strip()
+            for member in members
+        ]
+        return "<br>".join(html.escape(name) for name in names if name)
 
     return html.escape(value).replace("\n", "<br>")
 
@@ -652,12 +755,29 @@ def section_has_media(body: str) -> bool:
     return False
 
 
-def render_section(title: str, body: str) -> str:
+def section_id(title: str, seen: set[str]) -> str:
+    """Anchor slug for the sticky section nav. Untitled sections get no id."""
+    base = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    if not base:
+        return ""
+    slug = base
+    suffix = 2
+    while slug in seen:
+        slug = f"{base}-{suffix}"
+        suffix += 1
+    seen.add(slug)
+    return slug
+
+
+def render_section(title: str, body: str, anchor: str = "") -> str:
     blocks = section_content_to_blocks(body, title)
     if not blocks:
         return ""
 
-    parts: list[str] = ['\t\t\t<section class="project-section">']
+    open_tag = '<section class="project-section"'
+    if anchor:
+        open_tag += f' id="{anchor}"'
+    parts: list[str] = [f"\t\t\t{open_tag}>"]
     if title:
         parts.append(f"\t\t\t\t<h2>{html.escape(title)}</h2>")
     prose_run: list[str] = []
@@ -762,8 +882,11 @@ def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: s
     lines: list[str] = ['\t\t\t<header class="project-masthead">']
     lines.append(f'\t\t\t\t<h1 class="project-title">{html.escape(name)}</h1>')
 
-    lines.append('\t\t\t\t<div class="project-masthead__row">')
-    lines.append('\t\t\t\t\t<div class="project-lead">')
+    details = render_details(meta, indent="\t\t\t\t")
+    if details:
+        lines.append(details)
+
+    lines.append('\t\t\t\t<div class="project-lead">')
     if tagline:
         lines.append(
             f'\t\t\t\t\t\t<p class="project-tagline">{html.escape(tagline)}</p>'
@@ -791,15 +914,33 @@ def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: s
             f' target="_blank" rel="noopener">{html.escape(label)}{icon_html}</a>'
         )
 
-    lines.append("\t\t\t\t\t</div>")
-
-    details = render_details(meta, indent="\t\t\t\t\t")
-    if details:
-        lines.append(details)
-
     lines.append("\t\t\t\t</div>")
     lines.append("\t\t\t</header>")
     return "\n".join(lines)
+
+
+def render_nav(eyebrow: str, items: list[tuple[str, str]]) -> str:
+    """Sticky rail: back link, current project, and jump links to each section."""
+    if not items:
+        return ""
+
+    links = "\n".join(
+        f'\t\t\t\t\t<a class="project-nav__link" href="#{anchor}">'
+        f"{html.escape(title)}</a>"
+        for anchor, title in items
+    )
+    return (
+        '\t\t\t<aside class="project-nav">\n'
+        '\t\t\t\t<div class="project-nav__inner">\n'
+        '\t\t\t\t\t<a class="project-nav__back" href="../index">Back to work</a>\n'
+        '\t\t\t\t\t<p class="project-nav__eyebrow">You are viewing</p>\n'
+        f'\t\t\t\t\t<p class="project-nav__name">{html.escape(eyebrow)}</p>\n'
+        '\t\t\t\t\t<nav class="project-nav__sections" aria-label="Case study sections">\n'
+        f"{links}\n"
+        "\t\t\t\t\t</nav>\n"
+        "\t\t\t\t</div>\n"
+        "\t\t\t</aside>"
+    )
 
 
 def render_page(
@@ -828,9 +969,18 @@ def render_page(
     if hero:
         parts.append('\t\t\t<div class="project-hero">\n' + hero + "\n\t\t\t</div>")
 
+    nav_items: list[tuple[str, str]] = []
     if follow_on:
-        section_blocks = [render_section(name, content) for name, content in follow_on]
-        section_blocks = [block for block in section_blocks if block]
+        seen: set[str] = set()
+        section_blocks: list[str] = []
+        for name, content in follow_on:
+            anchor = section_id(name, seen)
+            block = render_section(name, content, anchor)
+            if not block:
+                continue
+            section_blocks.append(block)
+            if anchor:
+                nav_items.append((anchor, name))
         if section_blocks:
             parts.append("\n".join(section_blocks))
 
@@ -838,7 +988,19 @@ def render_page(
     if related:
         parts.append(related)
 
-    return "\n".join(part for part in parts if part)
+    body_html = "\n".join(part for part in parts if part)
+    nav = render_nav(eyebrow, nav_items)
+    if not nav:
+        return body_html
+
+    return (
+        '\t\t\t<div class="project-layout">\n'
+        f"{nav}\n"
+        '\t\t\t<div class="project-body">\n'
+        f"{body_html}\n"
+        "\t\t\t</div>\n"
+        "\t\t\t</div>"
+    )
 
 
 def load_all_projects() -> list[tuple[str, dict[str, str]]]:

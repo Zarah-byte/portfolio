@@ -1,39 +1,45 @@
 ---
 eyebrow: Nura
 title: Designing to ease the burden of dementia caregiving
+role: Product Designer, UX Researcher
 team: Solo project
 duration: 12 weeks
-context: Parsons School of Design
 tools: Figma
 year: 2024
 order: 2
 tags: ["Healthcare", "Thesis"]
 hero: ../assets/media/covers/nura-cover.png
 heroType: image
-caption: Nura — 2024
+caption: Nura, 2024
 ---
 
 ## About the Project
 
-Nura is a calm companion for families navigating dementia caregiving at home. The daily work of supporting a loved one — tracking routines, managing medications, coordinating with clinicians, and holding space for grief — often falls on one person with tools that were never designed for this kind of care.
+Nura is a calm companion for families navigating dementia caregiving at home. The daily work of supporting a loved one, tracking routines, managing medications, coordinating with clinicians, and holding space for grief, often falls on one person with tools that were never designed for this kind of care.
 
-I designed Nura to reduce the cognitive load of caregiving without reducing the humanity of it. The interface favors gentle prompts over alerts, shared visibility over solo responsibility, and plain language over clinical jargon — so caregivers can stay present with the person in front of them, not buried in the app.
+I designed Nura to reduce the cognitive load of caregiving without reducing the humanity of it. The interface favors gentle prompts over alerts, shared visibility over solo responsibility, and plain language over clinical jargon, so caregivers can stay present with the person in front of them, not buried in the app.
 
 ## Problem Space
 
-Care between appointments falls through the cracks. The hardest part of dementia caregiving isn't the clinic visit — it's the everyday rhythm of monitoring, remembering, and adapting as needs change. Existing tools treated caregivers like data-entry clerks for someone else's health.
+[deck] Care between appointments falls through the cracks.
+
+The hardest part of dementia caregiving isn't the clinic visit, it's the everyday rhythm of monitoring, remembering, and adapting as needs change. Existing tools treated caregivers like data-entry clerks for someone else's health.
 
 [image:../assets/media/nura/problem.jpg Problem context flush]
 
 ## The Insight
 
-Design for the person behind the person. Every existing tool pointed its attention at the patient — medications taken, symptoms logged — and treated the caregiver as the unpaid clerk entering it all. But the one quietly breaking under the weight wasn't the patient. It was the one keeping track.
+[deck] Design for the person behind the person.
 
-The reframe was simple and it changed everything: design for the caregiver's load first, and let the patient's data fall out of a gentler routine — not the other way around.
+Every existing tool pointed its attention at the patient, medications taken, symptoms logged, and treated the caregiver as the unpaid clerk entering it all. But the one quietly breaking under the weight wasn't the patient. It was the one keeping track.
+
+The reframe was simple and it changed everything: design for the caregiver's load first, and let the patient's data fall out of a gentler routine, not the other way around.
 
 ## Solution
 
-Soft edges, honest data. Nura asks for less, more kindly: one tap to log how the day went, a routine that adapts instead of nagging, and a tone that never scolds a missed task. Underneath the calm surface, the data is rigorous — clean enough to bring to a doctor, gentle enough to keep up with.
+[deck] Soft edges, honest data.
+
+Nura asks for less, more kindly: one tap to log how the day went, a routine that adapts instead of nagging, and a tone that never scolds a missed task. Underneath the calm surface, the data is rigorous: clean enough to bring to a doctor, gentle enough to keep up with.
 
 [image:../assets/media/nura/solution-01.jpg Solution overview flush]
 
@@ -41,9 +47,9 @@ Soft edges, honest data. Nura asks for less, more kindly: one tap to log how the
 
 ## Living With Nura
 
-To make this real, I followed one caregiver through an ordinary day.
+[deck] To make this real, I followed one caregiver through an ordinary day.
 
-Morning starts before anyone is ready. Nura surfaces the day's routine as a single gentle prompt — what to remember, not everything at once — so the first hour isn't spent bracing for what might be forgotten.
+Morning starts before anyone is ready. Nura surfaces the day's routine as a single gentle prompt, what to remember, not everything at once, so the first hour isn't spent bracing for what might be forgotten.
 
 [image:../assets/media/nura/day-01.jpg Morning routine flush]
 
@@ -55,9 +61,11 @@ By evening the work is emotional as much as logistical. One tap logs how the day
 
 ## The Design System
 
-The system is built to lower the temperature. Rounded forms, generous space, and warm neutrals keep the interface from ever feeling clinical or urgent.
+[deck] The system is built to lower the temperature.
 
-Language does as much work as layout. Nura speaks in plain, non-judgmental terms — no red badges, no streaks to break, no scolding for a missed task.
+Rounded forms, generous space, and warm neutrals keep the interface from ever feeling clinical or urgent.
+
+Language does as much work as layout. Nura speaks in plain, non-judgmental terms: no red badges, no streaks to break, no scolding for a missed task.
 
 Underneath, the data stays rigorous and structured, so what feels gentle to a caregiver is still clean enough to hand to a clinician.
 
@@ -67,11 +75,15 @@ Underneath, the data stays rigorous and structured, so what feels gentle to a ca
 
 ## Impact
 
-In testing, caregivers described Nura as a companion rather than a tracker — the exact shift the project set out to prove.
+[deck] Caregivers called it a companion, not a tracker.
+
+That was the exact shift the project set out to prove.
 
 ## Reflection
 
-Designing for care meant designing for the person behind the person — the caregiver whose needs are usually invisible in health tools. The hardest choices were about what to leave out.
+[deck] The hardest choices were about what to leave out.
+
+Designing for care meant designing for the person behind the person, the caregiver whose needs are usually invisible in health tools.
 
 [image:../assets/media/nura/reflection-01.jpg Designing for the caregiver behind the patient flush]
 
@@ -79,10 +91,12 @@ Designing for care meant designing for the person behind the person — the care
 
 ## Outcome
 
-Consistency without pressure. The design made space for the emotional weight of the work, not just the logistics.
+[deck] Consistency without pressure.
 
-Nura became a thesis about care as a design constraint — proof that rigor and gentleness don't have to trade off against each other.
+The design made space for the emotional weight of the work, not just the logistics.
 
-[image:../assets/media/nura/close-01.jpg Final Nura screens — calm surface over rigorous data flush]
+Nura became a thesis about care as a design constraint, proof that rigor and gentleness don't have to trade off against each other.
 
-[image:../assets/media/nura/close-02.jpg Final Nura screens — care as a design constraint flush]
+[image:../assets/media/nura/close-01.jpg Final Nura screens: calm surface over rigorous data flush]
+
+[image:../assets/media/nura/close-02.jpg Final Nura screens: care as a design constraint flush]

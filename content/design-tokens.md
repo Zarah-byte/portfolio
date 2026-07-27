@@ -15,7 +15,7 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 | `--bg` | `#FFFFFF` | Page background |
 | `--surface` | `#F2F2F2` | Project card fill and media placeholder |
 | `--ink` | `#0A0A0A` | Primary text |
-| `--ink-muted` | `#666666` | Secondary text — descriptions, inactive nav |
+| `--ink-muted` | `#666666` | Secondary text: descriptions, inactive nav |
 | `--rule` | `#E5E5E5` | Vertical divider, hairlines |
 | `--chip-bg` | `#FFFFFF` | Tag chip background |
 | `--chip-ink` | `#0A0A0A` | Tag chip text |
@@ -35,6 +35,31 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 	--chip-rule: #D8D8D8;
 	--accent: #0A0A0A;
 	--thumb-bg: #F2F2F2;
+}
+```
+
+### Case-study card tints
+
+Soft pastels for `[card:]` grids and `[panel:]` blocks in case studies, assigned
+by position (`--tint-1..4`, cycling every four). Derived from the brand purple
+(`#c79bff`), not an external palette. This is the one place content
+carries background colour — an **intentional exception** to "avoid accent colors
+on content" (see `design.md`). All four are light enough that near-black `--ink`
+clears WCAG AA (4.5:1) on them; keep any future tint just as light.
+
+| Token | Value | Use |
+|---|---|---|
+| `--tint-1` | `#EFE6FB` | Lilac — card position 1, panel default |
+| `--tint-2` | `#FBE7EE` | Blush — card position 2 |
+| `--tint-3` | `#E7F3EA` | Mint — card position 3 |
+| `--tint-4` | `#FBF3DE` | Butter — card position 4 |
+
+```css
+:root {
+	--tint-1: #EFE6FB;
+	--tint-2: #FBE7EE;
+	--tint-3: #E7F3EA;
+	--tint-4: #FBF3DE;
 }
 ```
 
@@ -90,7 +115,7 @@ Base font size `16px`. Comprehensive named scale on a ~1.25 ratio; larger steps 
 | `--text-4xl` | `clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem)` | 52–88 | Hero statement | tight | tighter |
 | `--text-display` | `clamp(3.5rem, 1rem + 12vw, 11rem)` | 56–176 | Oversized editorial titles (project mastheads) | tight | tighter |
 
-The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body contrast** so a page's title reads as the clear focal point. As type grows, **tracking tightens** (large display needs negative tracking to stop looking loose) and **leading shrinks** (big lines don't need 1.5); small text does the opposite — normal tracking, generous leading for legibility.
+The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body contrast** so a page's title reads as the clear focal point. As type grows, **tracking tightens** (large display needs negative tracking to stop looking loose) and **leading shrinks** (big lines don't need 1.5); small text does the opposite: normal tracking, generous leading for legibility.
 
 ```css
 :root {
@@ -183,7 +208,7 @@ Base spacing unit: `8px`. Larger steps use `clamp()` so sections breathe more on
 
 The `--bp-*` values document the breakpoints; `@media` cannot read custom properties, so the queries repeat the literals. They are not mirrored into `common.css`.
 
-Home is a horizontal portrait-card rail under a two-line editorial intro — not a centered vertical feed. The old `53.625rem` column description is obsolete.
+Home is a horizontal portrait-card rail under a two-line editorial intro, not a centered vertical feed. The old `53.625rem` column description is obsolete.
 
 Unused-but-kept type tokens (available for future roles): `--text-2xs`, `--text-4xl`, `--text-display`. Prefer them over new literals when a role needs that step.
 
@@ -247,7 +272,7 @@ h4 { font-size: var(--text-lg); }
 }
 ```
 
-Use tokens instead of hardcoded values everywhere — e.g. `padding: var(--space-lg);` rather than `padding: 32px;`.
+Use tokens instead of hardcoded values everywhere, e.g. `padding: var(--space-lg);` rather than `padding: 32px;`.
 
 ---
 

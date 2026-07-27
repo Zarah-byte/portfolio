@@ -1,10 +1,10 @@
 ---
 eyebrow: Micdrop Mag
 title: A celebration of South Asian music and culture
+role: Editorial Designer
 team: |
   Zarah Yaqub — Solo — ../assets/icons/logo-star.svg
 duration: 4 Months
-context: Habib University
 tools: Adobe Creative Cloud, ChatGPT
 year: 2025
 presentation: https://heyzine.com/flip-book/1355490501.html
@@ -25,11 +25,11 @@ MicDrop is a conceptual editorial design project that captures the evolving musi
 
 ##
 
-[image:../assets/media/micdrop/micdrop-spreads.png The full first issue laid out — cover and feature spreads shown together flush]
+[image:../assets/media/micdrop/micdrop-spreads.png The full first issue laid out: cover and feature spreads shown together flush]
 
-[image:../assets/media/micdrop/micdrop-issue-cover.png MicDrop issue cover — "Echoes of a Nation" flush]
+[image:../assets/media/micdrop/micdrop-issue-cover.png MicDrop issue cover: "Echoes of a Nation" flush]
 
-[image:../assets/media/micdrop/micdrop-spread-maybelline.png Opening spread — a full-page advertisement facing the "Fall Blissfully Into Berry" editorial flush]
+[image:../assets/media/micdrop/micdrop-spread-maybelline.png Opening spread: a full-page advertisement facing the "Fall Blissfully Into Berry" editorial flush]
 
 [image:../assets/media/micdrop/micdrop-spread-echoes.png "Echoes of a Nation" feature spread with a full-bleed band portrait flush]
 
