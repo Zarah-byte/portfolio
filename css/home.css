@@ -222,6 +222,9 @@
 	list-style: none;
 }
 
+/* Rail variant: deliberately larger/lighter than the base .tag chip
+   (--text-2xs / weight 500) — sized to the portrait cards, part of the home
+   rail's own ×0.735 scale. Intentional divergence; don't snap to the base chip. */
 .page-home .tag {
 	display: inline-flex;
 	align-items: center;

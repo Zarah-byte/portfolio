@@ -15,7 +15,7 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 | `--bg` | `#FFFFFF` | Page background |
 | `--surface` | `#F2F2F2` | Project card fill and media placeholder |
 | `--ink` | `#0A0A0A` | Primary text |
-| `--ink-muted` | `#666666` | Secondary text: descriptions, inactive nav |
+| `--ink-muted` | `var(--ink)` | Secondary text — **collapsed to ink**: the site has no grey text (design direction). Kept as a token so consumers need not change. |
 | `--rule` | `#E5E5E5` | Vertical divider, hairlines |
 | `--chip-bg` | `#FFFFFF` | Tag chip background |
 | `--chip-ink` | `#0A0A0A` | Tag chip text |
@@ -28,7 +28,7 @@ Light editorial theme: white page, soft gray surfaces, near-black primary text, 
 	--bg: #FFFFFF;
 	--surface: #F2F2F2;
 	--ink: #0A0A0A;
-	--ink-muted: #666666;
+	--ink-muted: var(--ink); /* no grey text — secondary text = ink */
 	--rule: #E5E5E5;
 	--chip-bg: #FFFFFF;
 	--chip-ink: #0A0A0A;
@@ -63,37 +63,59 @@ clears WCAG AA (4.5:1) on them; keep any future tint just as light.
 }
 ```
 
+### Project-page identity (scoped override)
+
+Case-study pages (`.page-project`, `css/project.css`, layered last) carry a distinct
+look — an **intentional exception** documented in `design.md`. They re-point the core
+tokens rather than inventing new names, so shared components inherit the new palette:
+
+| Token | House value | `.page-project` value | Use |
+|---|---|---|---|
+| `--bg` | `#FFFFFF` | `#fafcfd` | off-white page |
+| `--ink` | `#0A0A0A` | `#32404f` | slate primary text (10.3:1 on the off-white) |
+| `--ink-muted` | `var(--ink)` | `var(--ink)` | secondary text = ink (no grey) |
+| `--accent` | `#0A0A0A` | `#7c3aed` | brand-purple accent, sparingly (link/nav hover, in-view marker); 5.5:1 as text |
+| `--font-mono` | Fira Code stack | Geist Mono stack | structural labels |
+
 ---
 
 ## Fonts
 
-Loaded from **Google Fonts** via `<link>` tags in each page's `<head>`.
+The house sans is **General Sans**, **self-hosted** via `@font-face` in `common.css`
+(one variable `.woff2` covers weights 200–700, plus an italic file). Mono is loaded
+from **Google Fonts** per page.
 
 | Role | Font | Token |
 |---|---|---|
-| Display (wordmark, headings, project titles) | Manrope (200–800) | `--font-display` |
-| Body (paragraphs, descriptions, UI) | Manrope (200–800) | `--font-body` |
-| Mono (nav, tag chips, labels) | Fira Code (400–600) | `--font-mono` |
-| Editorial sans (alias) | Manrope (200–800) | `--font-sans` |
+| Display (wordmark, headings, project titles) | General Sans (200–700) | `--font-display` |
+| Body (paragraphs, descriptions, UI) | General Sans (200–700) | `--font-body` |
+| Mono (nav, tag chips, labels) | Fira Code — **Geist Mono** on project pages | `--font-mono` |
+| Editorial sans (alias) | General Sans (200–700) | `--font-sans` |
 
 ```css
 :root {
-	--font-display: "Manrope", system-ui, sans-serif;
-	--font-body: "Manrope", system-ui, sans-serif;
+	--font-display: "General Sans", system-ui, sans-serif;
+	--font-body: "General Sans", system-ui, sans-serif;
 	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
-	--font-sans: "Manrope", system-ui, sans-serif;
+	--font-sans: "General Sans", system-ui, sans-serif;
 }
 ```
 
-Font `<link>` tags (place in every page `<head>`):
+General Sans is self-hosted (no `<link>` needed — the `@font-face` lives in `common.css`,
+pointing at `assets/fonts/GeneralSans-Variable.woff2` + the italic file). Each page still
+loads its **mono** face from Google Fonts:
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<!-- home / about / play -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400..600&display=swap" rel="stylesheet">
+<!-- project pages use Geist Mono instead -->
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
-All pages load Manrope + Fira Code (About uses mono for dates, awards, and stack labels).
+Project pages carry their own identity (see the note below the color table): General Sans
+throughout, **Geist Mono** for structural labels, on an off-white page with slate ink.
 
 ---
 
@@ -280,4 +302,4 @@ Use tokens instead of hardcoded values everywhere, e.g. `padding: var(--space-lg
 
 - Border radius preference: `--radius-xl` for media cards, pills via `--radius-full`, soft about portrait via `--radius-portrait`.
 - Cover assets live under `assets/media/covers/` as kebab PNGs (`iris-cover.png`, `micdrop-cover.png`, `nura-cover.png`, `tasks-cover.png`). Use those paths for home, heroes, related thumbs, and `og:image`.
-- Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; Manrope carries the personality; tag chips stay white with subtle borders for contrast on project media.
+- Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; General Sans carries the personality; tag chips stay white with subtle borders for contrast on project media.

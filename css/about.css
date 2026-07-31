@@ -11,9 +11,8 @@
 	/* Right column: portrait + CV rail. Sized so the portrait reads as support,
 	   not as half the first viewport. */
 	--about-rail: clamp(20rem, 30vw, 25.75rem); /* 320 → 412px */
-	/* Manrope's `ch` (the "0" advance) is wider than its average glyph, so this
-	   renders at roughly 65 characters per line — inside the 60–75 guideline.
-	   Measured, not assumed: 62ch rendered at 76. */
+	/* `ch` (the "0" advance) runs wider than the average glyph, so this renders
+	   at roughly 60–70 characters per line — inside the 60–75 guideline. */
 	--about-measure: 53ch;
 }
 
@@ -83,7 +82,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
-	font-family: var(--font-sans); /* Manrope */
+	font-family: var(--font-sans);
 }
 
 .page-about .about-prose p {

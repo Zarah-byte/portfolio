@@ -2,12 +2,28 @@
 
 @import url("cursor.css");
 
+/* Self-hosted General Sans — one variable file per style covers 200–700. */
+@font-face {
+	font-family: "General Sans";
+	src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+	font-weight: 200 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "General Sans";
+	src: url("/assets/fonts/GeneralSans-VariableItalic.woff2") format("woff2");
+	font-weight: 200 700;
+	font-style: italic;
+	font-display: swap;
+}
+
 :root {
 	/* Colors — light editorial theme */
 	--bg: #FFFFFF;        /* page background */
 	--surface: #F2F2F2;   /* project card fill and media placeholder */
 	--ink: #0A0A0A;       /* primary text */
-	--ink-muted: #666666; /* descriptions, inactive nav */
+	--ink-muted: var(--ink); /* secondary text collapsed to ink — no grey text, per design direction */
 	--rule: #E5E5E5;      /* vertical divider, hairlines */
 	--chip-bg: #FFFFFF;   /* tag chip background */
 	--chip-ink: #0A0A0A;  /* tag chip text */
@@ -24,11 +40,11 @@
 	--tint-3: #E7F3EA;    /* mint */
 	--tint-4: #FBF3DE;    /* butter */
 
-	/* Fonts — Manrope + Fira Code are the site default */
-	--font-display: "Manrope", system-ui, sans-serif;
-	--font-body: "Manrope", system-ui, sans-serif;
+	/* Fonts — General Sans + Fira Code are the site default */
+	--font-display: "General Sans", system-ui, sans-serif;
+	--font-body: "General Sans", system-ui, sans-serif;
 	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
-	--font-sans: "Manrope", system-ui, sans-serif;
+	--font-sans: "General Sans", system-ui, sans-serif;
 
 	/* Type scale — 16px base on a ~1.2–1.25 modular ratio; larger steps scale
 	   fluidly via clamp(). Tracking tightens and leading shrinks as size grows

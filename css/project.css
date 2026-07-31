@@ -1,9 +1,9 @@
 /* Project case-study pages — editorial, mobile-first.
    Giant project name, lead + meta row, full-bleed media, and left-rail
-   section labels beside a body column. Manrope inside .project-content. */
+   section labels beside a body column. General Sans inside .project-content. */
 
 .page-project {
-	--font-sans: "Manrope", system-ui, sans-serif;
+	--font-sans: "General Sans", system-ui, sans-serif;
 	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
 	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
@@ -29,7 +29,7 @@
 
 	--pc-max: none;
 	--pc-text: 42rem;
-	--pc-body: var(--text-md);
+	/* --pc-body lives once, in the PokerGPT identity block at the end of this file */
 	--pc-caption: var(--text-sm);
 	--pc-section-gap: clamp(3.5rem, 7vw, 5rem); /* section rhythm — tightened toward the Figma reference */
 	--pc-label-col: clamp(9rem, 20vw, 20rem); /* rail hugs the ≤14ch heading instead of leaving a wide void beside it */
@@ -264,7 +264,7 @@
 .page-project .project-callout {
 	margin-top: clamp(2rem, 4vw, 3.5rem);
 	padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-	background: #1a73e8;
+	background: #1a73e8; /* one-off callout blue — deliberate, not part of the token palette */
 	border-radius: var(--pc-media-radius);
 	text-align: center;
 }
@@ -272,7 +272,7 @@
 .page-project .project-callout p {
 	margin: 0 auto;
 	max-width: 26ch;
-	color: #fff;
+	color: var(--bg);
 	font-size: clamp(1.5rem, 3.2vw, 2.5rem);
 	font-weight: 500;
 	line-height: 1.25;
@@ -359,7 +359,7 @@
 	text-align: center;
 	text-wrap: balance;
 	font-weight: 500;
-	color: #8A8377;
+	color: var(--ink);
 }
 
 .page-project .project-media .project-video {
@@ -860,9 +860,8 @@
 
 .page-project {
 	--pc-media-radius: var(--radius-xl);
-	--pc-body: 1.0625rem; /* 17px — sits under the 24–34px section headline */
 	--pc-text: 68ch;
-	--pc-muted: rgb(0 0 0 / 0.58);
+	--pc-muted: var(--ink); /* no grey text */
 	--pc-section-gap: clamp(2.75rem, 6vw, 6rem);
 	--pc-gutter: clamp(1.5rem, 3vw, 2.5rem);
 	--pc-gallery-gap: clamp(1rem, 2vw, 1.5rem);
@@ -941,7 +940,7 @@
 	font-size: var(--text-2xs);
 	letter-spacing: var(--tracking-wide);
 	text-transform: uppercase;
-	color: rgb(0 0 0 / 0.35);
+	color: var(--ink);
 }
 
 .page-project .project-nav__name {
@@ -968,7 +967,7 @@
 	font-size: 0.8125rem;
 	line-height: 1.4;
 	letter-spacing: -0.01em;
-	color: rgb(0 0 0 / 0.42);
+	color: var(--ink);
 	transition: color var(--duration-fast) var(--ease-base);
 }
 
@@ -987,7 +986,7 @@
 }
 
 .page-project .project-nav__link:hover {
-	color: rgb(0 0 0 / 0.72);
+	color: var(--accent);
 }
 
 .page-project .project-nav__link[aria-current] {
@@ -1038,10 +1037,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 0.5rem;
-}
-
-.page-project .project-meta__row {
 	gap: 0.75rem;
 }
 
@@ -1257,12 +1252,12 @@
 	gap: 0.39375rem; /* 6.3px */
 	margin-top: 1.5rem; /* 24px */
 	padding: 0.4rem 0.85rem; /* 6.4px 13.6px */
-	border-color: #666;
+	border-color: var(--ink);
 	font-size: 1.125rem; /* 18px */
 	letter-spacing: -0.01em;
 	line-height: 1.55;
-	color: #666;
-	transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+	color: var(--ink);
+	transition: color var(--duration-base) var(--ease-base), background var(--duration-base) var(--ease-base), border-color var(--duration-base) var(--ease-base);
 }
 
 .page-project.work-micdrop .project-lead__link-icon {
@@ -1342,33 +1337,33 @@
 
 /* ---- PokerGPT project-page identity --------------------------------------
    Project pages carry their own look (modeled on rachelchen.tech/projects/
-   pokergpt), distinct from the site's Manrope-on-white house style — an
-   intentional exception documented in design.md. Off-white page, slate ink,
-   a Tiempos-like serif (Newsreader) for headings, Geist for body/labels, and
-   a sparingly-used orange accent. Scoped to .page-project; layered last so it
-   wins over the shared rules by source order. */
+   pokergpt), distinct from the site's white house style — an intentional
+   exception documented in design.md. Off-white page, slate ink, General Sans
+   throughout (Geist Mono for structural labels), and a sparingly-used orange
+   accent. Scoped to .page-project; layered last so it wins over the shared
+   rules by source order. */
 
 .page-project {
-	--font-sans: "Geist", system-ui, sans-serif;
-	--font-display: "Newsreader", Georgia, "Times New Roman", serif;
-	--font-body: "Geist", system-ui, sans-serif;
+	--font-sans: "General Sans", system-ui, sans-serif;
+	--font-display: "General Sans", system-ui, sans-serif;
+	--font-body: "General Sans", system-ui, sans-serif;
 	/* Mono for structural labels only — matches the reference's Geist Mono
 	   eyebrows/meta labels (and the site's own "mono for labels" principle). */
 	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
 	--bg: #fafcfd;
 	--ink: #32404f;
-	--ink-muted: rgb(50 64 79 / 0.58);
-	--accent: #e65f2e;
+	--ink-muted: var(--ink); /* secondary text collapsed to ink — no grey text, per design direction */
+	--accent: #7c3aed; /* brand purple (#c79bff family), darkened for text-legible contrast on the off-white */
 	--pc-body: 0.9375rem; /* 15px — reference body size */
 }
 
 .page-project .project-content {
-	--font-display: "Newsreader", Georgia, "Times New Roman", serif;
-	--font-body: "Geist", system-ui, sans-serif;
+	--font-display: "General Sans", system-ui, sans-serif;
+	--font-body: "General Sans", system-ui, sans-serif;
 	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 	--pc-ink: #32404f;
-	--pc-muted: rgb(50 64 79 / 0.58);
+	--pc-muted: var(--pc-ink); /* body/caption text = ink, no grey */
 	color: var(--pc-ink);
 }
 
@@ -1377,9 +1372,9 @@
 	font-family: var(--font-mono);
 }
 
-/* Serif headings sit a touch heavier than the site's 400 so they hold at
-   large sizes; Newsreader reads best around 400–500. The section headline
-   ([deck]) doesn't inherit --font-display, so name the serif explicitly. */
+/* Headings sit a touch heavier than the body so they hold at large sizes.
+   The section headline ([deck]) doesn't inherit --font-display, so name the
+   display face explicitly. */
 .page-project .project-title,
 .page-project .project-section__body p.project-deck,
 .page-project .project-card__title,
@@ -1389,21 +1384,20 @@
 	font-weight: 500;
 }
 
-/* Small grey labels: retint from black-alpha to slate-alpha so nothing reads
-   as pure grey on the off-white. */
+/* Structural labels: full ink — no grey text on the off-white. */
 .page-project .project-section > h2,
 .page-project .project-related__title,
 .page-project .project-meta__label,
 .page-project .project-nav__eyebrow {
-	color: rgb(50 64 79 / 0.45);
+	color: var(--ink);
 }
 
 .page-project .project-nav__link {
-	color: rgb(50 64 79 / 0.5);
+	color: var(--ink);
 }
 
 .page-project .project-nav__link:hover {
-	color: rgb(50 64 79 / 0.8);
+	color: var(--accent);
 }
 
 /* Accent used sparingly: the in-view section marker and link hovers. */

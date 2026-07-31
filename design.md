@@ -13,16 +13,17 @@ token values here; link to them. Tokens live in the doc first, then mirror into
 ## Voice & feel
 
 Light editorial. White page, soft-gray surfaces, near-black type, a monospace
-used only for structural labels. Manrope carries the personality; nothing is
-loud except the type scale.
+used only for structural labels. General Sans carries the personality; nothing is
+loud except the type scale. **No grey text** — secondary copy resolves to ink
+(`--ink-muted` is aliased to `--ink`); hierarchy comes from weight, size, and space.
 
 **Project pages are the exception** — they carry a distinct identity (modeled on
 rachelchen.tech/projects/pokergpt): off-white page `#fafcfd`, slate ink
-`#32404f`, a Tiempos-like **serif** (Newsreader) for headings, **Geist** for
-body and labels, and an orange accent `#e65f2e` used sparingly (in-view section
-marker, link hovers). This is deliberate and scoped to `.page-project` in
-`css/project.css` (the "PokerGPT project-page identity" block, loaded last).
-Home / about / play keep the Manrope-on-white house style below.
+`#32404f`, **General Sans** throughout (headings a touch heavier at weight 500),
+**Geist Mono** for structural labels, and a brand-**purple** accent `#7c3aed` used
+sparingly (in-view section marker, link/nav hovers). This is deliberate and scoped
+to `.page-project` in `css/project.css` (the "PokerGPT project-page identity" block,
+loaded last). Home / about / play keep the General-Sans-on-white house style below.
 
 - **Warm and first-person.** Copy talks like a person, "Hi there!", "say hey,
   or just talk design!", not like a brand.
@@ -89,8 +90,10 @@ Every page is the same skeleton inside a shared 1400px frame (`--frame-width`):
 <link href="css/<page>.css" rel="stylesheet">     <!-- page-specific, last -->
 ```
 
-Fonts: preconnect + one Google Fonts link for **Manrope 200–800 + Fira Code
-400–600** on every page (About uses mono for dates, awards, and stack labels).
+Fonts: **General Sans is self-hosted** (`@font-face` in `common.css`; no `<link>`).
+Each page adds a preconnect + one Google Fonts link for its **mono** face —
+**Fira Code 400–600** on home / about / play, **Geist Mono 400;500** on project pages
+(About uses mono for dates, awards, and stack labels).
 
 Scripts (all `defer`): `site-base.js`, `site-footer.js`, `site-menu.js`,
 `cursor.js`, plus any page-specific script.
