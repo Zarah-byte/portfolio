@@ -16,6 +16,14 @@ Light editorial. White page, soft-gray surfaces, near-black type, a monospace
 used only for structural labels. Manrope carries the personality; nothing is
 loud except the type scale.
 
+**Project pages are the exception** — they carry a distinct identity (modeled on
+rachelchen.tech/projects/pokergpt): off-white page `#fafcfd`, slate ink
+`#32404f`, a Tiempos-like **serif** (Newsreader) for headings, **Geist** for
+body and labels, and an orange accent `#e65f2e` used sparingly (in-view section
+marker, link hovers). This is deliberate and scoped to `.page-project` in
+`css/project.css` (the "PokerGPT project-page identity" block, loaded last).
+Home / about / play keep the Manrope-on-white house style below.
+
 - **Warm and first-person.** Copy talks like a person, "Hi there!", "say hey,
   or just talk design!", not like a brand.
 - **Bold marks the point.** Key phrases go `<strong>` inline (roles, places,
