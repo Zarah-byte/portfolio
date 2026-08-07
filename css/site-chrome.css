@@ -96,7 +96,7 @@
 	--icon: url("../assets/icons/linkedin-svgrepo-com%201.svg");
 }
 
-@media (max-width: 599px) {
+@media (max-width: 639px) {
 	.site-footer {
 		grid-template-columns: 1fr;
 		justify-items: center;

@@ -1,18 +1,17 @@
-/* About page — title + bio on the left, portrait and a compact CV rail on the
-   right, colophon closing the left column. Cursor-following image reveals fire
-   on the highlighted phrases in the prose.
-   (Layout ref: chungchristine.com/about — visible page title, narrow measure,
-   experience as a meta rail rather than full-width rows.) */
+/* About page — a single centered column: portrait leads, then bio, then the
+   sections (Experience, Awards, Approach, Stack) stacked down one narrow
+   measure, closing with the colophon. Cursor-following image reveals fire on the
+   highlighted phrases in the prose.
+   (Layout ref: danielamuntyan.com/about — portrait-led, everything stacked in
+   one centered column, section meta as a small eyebrow above each title.) */
 
 .page-about {
 	font-family: var(--font-sans);
 	/* One body-copy size for every non-heading paragraph on the page. */
 	--about-body: 1.125rem; /* 18px, flat */
-	/* Right column: portrait + CV rail. Sized so the portrait reads as support,
-	   not as half the first viewport. */
-	--about-rail: clamp(20rem, 30vw, 25.75rem); /* 320 → 412px */
-	/* `ch` (the "0" advance) runs wider than the average glyph, so this renders
-	   at roughly 60–70 characters per line — inside the 60–75 guideline. */
+	/* The single centered column. `ch` (the "0" advance) runs wider than the
+	   average glyph, so 40rem holds the measure near the 60–75 char guideline. */
+	--about-column: 40rem; /* 640px */
 	--about-measure: 53ch;
 }
 
@@ -20,51 +19,21 @@
 	padding-block: var(--space-lg) 0;
 }
 
-/* Two columns on desktop, aligned to the 1400px header frame. Row 2 exists so
-   the colophon stays under the copy instead of trailing the rail — which also
-   keeps the stacked source order sane once the columns collapse. */
-.page-about .about-layout {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, var(--about-rail));
-	align-items: start;
-	column-gap: clamp(2.5rem, 5vw, 6.25rem); /* → 100px */
+/* One centered column for the whole page. Text is left-aligned within it; the
+   portrait centers itself (see .about-figure). */
+.page-about .about-column {
 	width: 100%;
-	max-width: var(--frame-width);
+	max-width: var(--about-column);
 	margin-inline: auto;
+	padding-inline: var(--space-xs);
 }
 
-.page-about .about-main {
-	grid-column: 1;
-	grid-row: 1;
-	min-width: 0;
-	max-width: 45.875rem; /* 684px copy + 50px indent */
-	padding-left: clamp(0px, 3vw, 50px);
-}
-
-.page-about .about-aside {
-	grid-column: 2;
-	grid-row: 1;
-	min-width: 0;
-}
-
-/* Colophon closes the left column, below the copy. */
-.page-about .about-meta {
-	grid-column: 1;
-	grid-row: 2;
-	padding-left: clamp(0px, 3vw, 50px);
-}
-
-/* Page title — a step down from the h1 default (--text-3xl): this is a quiet
-   page label, not a hero. Play keeps the loud title. */
-.page-about .about-title {
-	margin: 0 0 var(--space-lg);
-	font-size: var(--text-2xl); /* 32 → 48px */
-	color: var(--ink);
-}
-
+/* Portrait leads the page, centered and sized as a focal image rather than a
+   full-bleed hero. */
 .page-about .about-figure {
 	min-width: 0;
-	margin: 0;
+	max-width: 22rem; /* 352px */
+	margin: 0 auto var(--space-xl);
 	border-radius: var(--radius-portrait);
 	overflow: hidden;
 }
@@ -167,121 +136,39 @@
 	color: var(--ink);
 }
 
-/* ---- Colophon ------------------------------------------------------------ */
-
-.page-about .about-meta {
-	margin-top: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
-	font-family: var(--font-sans);
-}
-
-.page-about .about-meta__heading,
-.page-about .about-meta p {
-	font-size: clamp(1rem, 0.9rem + 0.45vw, 1.355rem); /* ~16 → 21.7px */
-	line-height: 1.6;
-	color: var(--ink-muted);
-	max-width: var(--about-measure);
-}
-
-.page-about .about-meta__heading {
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	margin-bottom: 0;
-}
-
-.page-about .about-meta p {
-	font-size: var(--about-body);
-	font-weight: 400;
-}
-
-/* ---- Experience + Stack sections ---------------------------------------- */
+/* ---- Sections ------------------------------------------------------------
+   Every block (Experience, Awards, Approach, Stack, colophon) is a stacked unit:
+   a heading on its own line, then its content below. */
 
 .page-about .about-section {
 	margin-top: clamp(3rem, 2rem + 3vw, 5rem);
 	font-family: var(--font-sans);
 }
 
-/* Label-left / content-right — the section heading sits in a narrow left column
-   beside its content. (Layout ref: gabrielvaldivia.com/about) */
-.page-about .about-section,
-.page-about .about-meta {
-	display: grid;
-	grid-template-columns: 8.75rem minmax(0, 1fr); /* fixed 140px label so content aligns across all sections */
-	column-gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
-	align-items: start;
-}
-
 .page-about .about-section__heading,
 .page-about .about-meta__heading {
-	grid-column: 1;
-	grid-row: 1;
-	font-size: var(--about-body); /* 18px — a label, not a display heading */
+	margin: 0 0 var(--space-md);
+	font-size: var(--text-lg); /* 20 → 24px */
 	font-weight: 600;
-	letter-spacing: var(--tracking-snug);
-	line-height: 1.6;
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-heading);
 	color: var(--ink);
-	margin: 0;
 }
 
-.page-about .about-section > :not(.about-section__heading),
-.page-about .about-meta > :not(.about-meta__heading) {
-	grid-column: 2;
-}
+/* ---- Colophon ------------------------------------------------------------ */
 
-/* Collapse to a single stacked column on narrow screens.
-   Match :not() specificity so grid-column: 2 from the desktop rule loses. */
-@media (max-width: 40rem) {
-	.page-about .about-section,
-	.page-about .about-meta {
-		grid-template-columns: 1fr;
-		row-gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
-	}
-
-	.page-about .about-section > :not(.about-section__heading),
-	.page-about .about-meta > :not(.about-meta__heading),
-	.page-about .about-section > *,
-	.page-about .about-meta > * {
-		grid-column: 1;
-	}
-
-	.page-about .about-section__heading,
-	.page-about .about-meta__heading {
-		grid-row: auto;
-	}
-}
-
-/* ---- CV rail -------------------------------------------------------------
-   Experience + Awards live beside the bio, in the same column as the portrait.
-   The 140px label column can't work at ~412px wide, so rail sections stack and
-   their headings drop to the mono micro-label used by .stack-group__label. */
-
-.page-about .about-aside .about-section {
-	grid-template-columns: 1fr;
-	row-gap: 0.9rem;
-	margin-top: clamp(2rem, 1.4rem + 2vw, 3.125rem);
-}
-
-.page-about .about-aside .about-section > * {
-	grid-column: 1;
-}
-
-.page-about .about-aside .about-section__heading {
-	grid-row: auto;
-	font-family: var(--font-mono);
-	font-size: var(--text-xs);
+.page-about .about-meta__body p {
+	font-size: var(--about-body);
 	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: var(--tracking-wide);
+	line-height: 1.6;
 	color: var(--ink-muted);
+	max-width: var(--about-measure);
 }
 
-/* Stack each entry (role → dates → summary) rather than pushing the dates to a
-   far right edge that no longer exists at rail width. */
-.page-about .about-aside .experience-item__head {
-	flex-direction: column;
-	gap: 0.15rem;
-}
-
-/* Experience + Awards — title left, mono meta (dates / result) right. */
+/* ---- Experience + Awards -------------------------------------------------
+   Each entry stacks: the mono meta (dates / result) reads as a small eyebrow
+   above the bold title, then the summary. `order: -1` lifts the meta above the
+   title without reordering the DOM (title stays first for semantics). */
 
 .page-about .experience-list,
 .page-about .awards-list {
@@ -297,10 +184,8 @@
 .page-about .experience-item__head,
 .page-about .award-item__head {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	justify-content: space-between;
-	gap: 0.25rem 1rem;
+	flex-direction: column;
+	gap: 0.25rem;
 }
 
 .page-about .experience-item__role,
@@ -313,16 +198,16 @@
 
 .page-about .experience-item__dates,
 .page-about .award-item__result {
+	order: -1; /* eyebrow above the title */
 	font-family: var(--font-mono);
 	font-size: var(--text-xs);
 	letter-spacing: var(--tracking-wide);
 	color: var(--ink-muted);
-	white-space: nowrap;
 }
 
 .page-about .experience-item__summary {
 	margin-top: 0.4rem;
-	font-size: var(--text-base); /* 16px — rail copy sits a step under the bio */
+	font-size: var(--text-base); /* 16px — summary sits a step under the bio */
 	line-height: 1.55;
 	letter-spacing: -0.02em;
 	color: var(--ink-muted);
@@ -439,39 +324,4 @@
 
 .about-hover-media.is-visible {
 	opacity: 1;
-}
-
-/* ---- Responsive: stack the rail under the copy ---------------------------
-   The two columns need room for the copy column plus the ~412px rail and the
-   gap between them; below that the rail squeezes the measure. Stacked order is
-   copy → portrait → experience → awards → colophon, which the layout grid's
-   row 2 placement already gives us from source order. */
-
-@media (max-width: 64rem) { /* 1024px */
-	.page-about .about-layout {
-		grid-template-columns: 1fr;
-		row-gap: var(--space-xl);
-	}
-
-	.page-about .about-main,
-	.page-about .about-aside,
-	.page-about .about-meta {
-		grid-column: 1;
-		grid-row: auto;
-	}
-
-	.page-about .about-main {
-		max-width: none;
-		padding-left: 0;
-	}
-
-	.page-about .about-meta {
-		padding-left: 0;
-	}
-
-	.page-about .about-figure {
-		width: 100%;
-		max-width: 30rem;
-		margin-inline: auto;
-	}
 }

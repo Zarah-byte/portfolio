@@ -4,7 +4,7 @@
 
 .page-project {
 	--font-sans: "General Sans", system-ui, sans-serif;
-	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+	/* --font-mono is set once, to Geist Mono, in the identity block at the end. */
 	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
 
@@ -36,6 +36,7 @@
 	--pc-gutter: clamp(1.25rem, 2.5vw, 2rem);
 	--pc-gallery-gap: clamp(0.375rem, 1vw, 0.5rem);
 	--pc-media-pad: clamp(1.5rem, 4vw, 3rem);
+	--pc-media-gap: clamp(2rem, 4vw, 3.5rem); /* space above media/galleries within a section */
 }
 
 /* Cap the shell to the Figma frame so the header and content share one
@@ -49,7 +50,6 @@
 .page-project .project-content {
 	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
-	--font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 
 	box-sizing: border-box;
 	width: 100%;
@@ -240,7 +240,7 @@
 
 .page-project .project-section__body > p + .project-gallery,
 .page-project .project-section__body > p + .project-media {
-	margin-top: clamp(2rem, 4vw, 3.5rem);
+	margin-top: var(--pc-media-gap);
 }
 
 .page-project .project-section__body > .project-media.project-media--contained {
@@ -251,7 +251,7 @@
 
 .page-project .project-section__bleed > .project-media,
 .page-project .project-section__bleed > .project-gallery {
-	margin-top: clamp(2rem, 4vw, 3.5rem);
+	margin-top: var(--pc-media-gap);
 }
 
 .page-project .project-section__bleed .project-media,
@@ -262,7 +262,7 @@
 }
 
 .page-project .project-callout {
-	margin-top: clamp(2rem, 4vw, 3.5rem);
+	margin-top: var(--pc-media-gap);
 	padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
 	background: #1a73e8; /* one-off callout blue — deliberate, not part of the token palette */
 	border-radius: var(--pc-media-radius);
@@ -307,7 +307,7 @@
 }
 
 .page-project .project-section__body .project-gallery {
-	margin-top: clamp(2rem, 4vw, 3.5rem);
+	margin-top: var(--pc-media-gap);
 	border-radius: 0;
 }
 
@@ -957,8 +957,6 @@
 	display: flex;
 	flex-direction: column;
 	margin-top: clamp(1.5rem, 3vw, 2rem);
-	padding-top: clamp(1rem, 2vw, 1.25rem);
-	border-top: 1px solid var(--rule);
 }
 
 .page-project .project-nav__link {
@@ -1339,7 +1337,7 @@
    Project pages carry their own look (modeled on rachelchen.tech/projects/
    pokergpt), distinct from the site's white house style — an intentional
    exception documented in design.md. Off-white page, slate ink, General Sans
-   throughout (Geist Mono for structural labels), and a sparingly-used orange
+   throughout (Geist Mono for structural labels), and a sparingly-used purple
    accent. Scoped to .page-project; layered last so it wins over the shared
    rules by source order. */
 
