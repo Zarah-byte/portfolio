@@ -260,8 +260,12 @@ def vimeo_embed_block(
     params = VIMEO_BG_PARAMS if background else VIMEO_CTRL_PARAMS
     src = f"https://player.vimeo.com/video/{video_id}{params}"
     media_class = f"project-media project-media--embed project-media--flush project-media--ratio-{ratio}"
+    # Arbitrary WxH ratios have no CSS class — pin the aspect inline so any
+    # video crop works without a bespoke class per ratio.
+    w, h = ratio.split("x")
+    style = f' style="aspect-ratio: {w} / {h}"'
     return (
-        f'{indent}<figure class="{media_class}">\n'
+        f'{indent}<figure class="{media_class}"{style}>\n'
         f'{indent}\t<iframe class="project-video" src="{src}" '
         f'allow="{IFRAME_ALLOW}" '
         f'referrerpolicy="strict-origin-when-cross-origin" '
@@ -285,7 +289,7 @@ def parse_vimeo_tag(stripped: str, section_title: str) -> tuple[str, str, str, b
         tokens = rest.split()
         while tokens:
             last = tokens[-1].lower()
-            if last in ("16x9", "3x2", "4x5", "685x804"):
+            if last in ("16x9", "3x2", "4x5", "685x804") or re.fullmatch(r"\d+x\d+", last):
                 ratio = last
                 tokens.pop()
             elif last == "controls":

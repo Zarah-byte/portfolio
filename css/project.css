@@ -1135,6 +1135,14 @@
 	margin-top: var(--pc-gallery-gap);
 }
 
+/* The section is a flex column with align-items:start (inherited from the 768
+   grid base), so the bleed must opt back into full width. Images survive on
+   their intrinsic size, but an embed's absolutely-positioned iframe gives the
+   shrink-to-fit item no width and it collapses to 0. */
+.page-project .project-section__bleed {
+	align-self: stretch;
+}
+
 /* The section title is the small eyebrow label; the [deck] line is the
    headline it introduces. */
 .page-project .project-section > h2 {

@@ -58,7 +58,7 @@ He's at the airport, moving fast, already mentally checked out. Iris finds the g
 
 [vimeo:1182454088 Airport 01]
 
-[vimeo:1182454079 Airport 02]
+[vimeo:1182454079 Airport 02 10000x5299]
 
 At the gym, Iris shifts with him. It tracks his reps, sets, and progress in real time, and when he's ready for the next movement, it points him to the right machine. No app to open, no screen to check. Iris just keeps up.
 
@@ -95,7 +95,7 @@ The best ideas we had didn't come from refining the interface, they came from st
 
 ## Outcome
 
-[deck] First place, out of 24 hours.
+[deck] Iris took 1st Place!
 
 Iris took first place at the AI & Startup Design Hackathon hosted by Designpreneurs, a 24-hour sprint bringing together students from Parsons School of Design and the University of Arizona. What started as a single question about the future became a product we're genuinely proud of.
 
