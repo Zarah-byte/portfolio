@@ -15,13 +15,13 @@ hero: "1184451152"
 heroType: vimeo
 ---
 
-## About the Project
+## Overview
 
 Google Tasks is the simplest task app Google makes, and the first one people outgrow. This project asked how it could hold more of real life without losing the lightness that makes people reach for it in the first place.
 
 The answer wasn't more features. It was organization that bends to the day you're having, built entirely from patterns Google users already know. Over seven weeks I ran interviews, competitor and app audits, and two rounds of testing to design a way to group, sort, and move tasks that feels discovered rather than learned.
 
-## Problem Space
+## The Challenge
 
 [deck] People capture tasks in Tasks quickly, but the app offers almost no way to organize them afterward.
 
@@ -49,19 +49,7 @@ The core change is that organization became a lens, not a commitment. Users can 
 
 [image:../assets/media/tasks/tasks-solution-4.png The same tasks organized by list, then by due date flush]
 
-## Design Documentation
-
-[deck] Beyond the screens, I documented how the organization actually behaves.
-
-The interaction specs cover the moments a static mockup can't show:
-
-- Moving a Task from one list to another
-- Swiping to complete a task
-
-[vimeo:1209358148 tasks-design doc 2 685x804 background]
-[vimeo:1209354864 tasks-design doc 1 685x804 background]
-
-## Process
+## Research Process
 
 [deck] What I needed to know
 
@@ -69,21 +57,15 @@ How do people actually organize their to-dos? Where does Google Tasks stop being
 
 I conducted two stages of user interviews, a competitor audit and employed secondary research to better understand the problem.
 
-## Interviews
-
 [deck] I wanted to know where the app stopped and their brain took over.
 
 I interviewed four people aged 22–25 across Google Tasks, Notion, and Apple Reminders, students and early professionals juggling coursework and work tasks. Not just what they clicked, but what they were holding in their head while they clicked it.
-
-## Key Findings
 
 [deck] Capture is solved. Deciding what to do next isn't.
 
 [card: Capture is instant | Users reach for the app to get a task out of their head, fast.]
 [card: Planning is mental | Prioritizing and sequencing happens in their head, not in the app.]
 [card: No next step | No participant felt the app actively helped them decide what to do next.]
-
-## Competitor Audit
 
 [deck] One app buries organization. The other front-loads it.
 
@@ -101,7 +83,17 @@ I audited two apps to see how each solved for organization:
 
 [image:../assets/media/tasks/tasks-audit-3.png Competitor audit: TickTick grouping and sorting options flush]
 
-## Ideation & Testing
+## Design Process
+
+[deck] Beyond the screens, I documented how the organization actually behaves.
+
+The interaction specs cover the moments a static mockup can't show:
+
+- Moving a Task from one list to another
+- Swiping to complete a task
+
+[vimeo:1209358148 tasks-design doc 2 685x804 background]
+[vimeo:1209354864 tasks-design doc 1 685x804 background]
 
 [deck] My first direction asked users to decide up front. It failed immediately.
 
@@ -111,15 +103,11 @@ Organization can't be a one-time decision. It has to be an ongoing, low-friction
 
 [image:../assets/media/tasks/tasks-ideation.png The onboarding-first direction, with tester feedback that it felt unnatural flush]
 
-## Auditing Existing Apps
-
 [deck] If the feature had to feel native, I needed to know what "native" meant.
 
 I audited Gmail, Google Calendar, and Google Keep and found consistent patterns: a top-left menu, a bottom-right add button, and a sort panel that behaves the same way everywhere.
 
 [image:../assets/media/tasks/tasks-auditing-apps.png Auditing Gmail and Google Calendar for shared organizational patterns flush]
-
-## Testing
 
 [deck] Does the pattern hold for people who aren't students?
 

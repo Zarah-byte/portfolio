@@ -14,33 +14,23 @@
 
 	function update() {
 		queued = false;
-		const viewBottom = window.innerHeight;
-		const line = viewBottom / 3;
+		const line = window.innerHeight / 3;
 		let current = sections[0];
-		let anyInView = false;
 
-		// A section is in view while its block (this heading → next heading)
-		// overlaps the viewport. Several can be lit at once, matching the
-		// reference track. aria-current stays on one link for SRs.
-		sections.forEach((pair, i) => {
-			const top = pair.el.getBoundingClientRect().top;
-			const next = sections[i + 1];
-			const bottom = next
-				? next.el.getBoundingClientRect().top
-				: pair.el.getBoundingClientRect().bottom;
-			const inView = top < viewBottom && bottom > 0;
-			pair.link.classList.toggle('is-in-view', inView);
-			if (inView) anyInView = true;
-			if (top <= line) current = pair;
-		});
+		// Last section whose top has crossed the upper third of the viewport.
+		for (let i = 0; i < sections.length; i++) {
+			if (sections[i].el.getBoundingClientRect().top <= line) {
+				current = sections[i];
+			}
+		}
 
-		if (!anyInView) {
-			const fallback =
-				sections[0].el.getBoundingClientRect().top > 0
-					? sections[0]
-					: sections[sections.length - 1];
-			fallback.link.classList.add('is-in-view');
-			current = fallback;
+		// Before the first section → first link; past the last → last link.
+		const firstTop = sections[0].el.getBoundingClientRect().top;
+		const lastBottom = sections[sections.length - 1].el.getBoundingClientRect().bottom;
+		if (firstTop > line) {
+			current = sections[0];
+		} else if (lastBottom < 0) {
+			current = sections[sections.length - 1];
 		}
 
 		if (current === active) return;

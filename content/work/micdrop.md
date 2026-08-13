@@ -18,13 +18,13 @@ hero: ../assets/media/micdrop/micdrop-hero.png
 heroType: image
 ---
 
-## About the Project
+## Overview
 
 MicDrop is a conceptual editorial design project that captures the evolving music industry through bold layouts and immersive visuals. Balancing dynamic typography and high-energy photography with clean grid-based structures, the magazine highlights both artists and behind-the-scenes voices. AI-generated text was incorporated experimentally, allowing me to focus on framing and visual hierarchy, resulting in a contemporary publication that emphasizes design innovation over content.
 
 (disclaimer this was a conceptual project all text is AI generated, advertisements not designed by me)
 
-## The Issue
+## The Challenge
 
 [deck] Echoes of a Nation, the debut issue.
 
@@ -32,7 +32,7 @@ MicDrop is a conceptual editorial design project that captures the evolving musi
 
 [image:../assets/media/micdrop/micdrop-issue-cover.png MicDrop issue cover: "Echoes of a Nation" flush]
 
-## Inside the Spreads
+## Design Process
 
 [deck] Bold typography, full-bleed portraits, and a grid that holds it all together.
 

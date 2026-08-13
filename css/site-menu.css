@@ -3,14 +3,15 @@
    (Work / Archive / About / Resume↗). Injected by js/site-menu.js. */
 
 .site-menu {
+	--site-menu-mark: #c79bff; /* brand purple — star + active indicator */
+	--site-menu-link: color-mix(in srgb, var(--ink) 68%, var(--bg)); /* ~#585858 — readable, not ink */
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--space-md);
 	width: 100%;
-	max-width: var(--frame-width);
-	margin-inline: auto;
-	padding-block: clamp(1.25rem, 2vw, 2.5rem);
+	padding-block-start: calc(clamp(1.25rem, 2vw, 2.5rem) + var(--space-xs));
+	padding-block-end: clamp(1.25rem, 2vw, 2.5rem);
 	background: transparent;
 	color: var(--ink, #0a0a0a);
 }
@@ -18,7 +19,6 @@
 /* Compact variant — toggle only (used where a sidebar already shows branding). */
 .site-menu--compact {
 	justify-content: flex-end;
-	max-width: none;
 	padding-inline: 0;
 }
 
@@ -38,9 +38,13 @@
 	transition: opacity var(--duration-fast, 0.15s) var(--ease-base, ease);
 }
 
-.site-menu__wordmark:hover,
-.site-menu__wordmark:focus-visible {
+.site-menu__wordmark:hover {
 	opacity: 0.85;
+}
+
+.site-menu__wordmark:focus-visible {
+	outline: 2px solid var(--site-menu-mark);
+	outline-offset: 4px;
 }
 
 .site-menu__wordmark .wordmark-text {
@@ -57,10 +61,10 @@
 
 .site-menu__wordmark .wordmark-star {
 	display: inline-flex;
-	width: clamp(3.25rem, 2.5rem + 2vw, 4.5rem); /* match "+" toggle */
-	height: clamp(3.25rem, 2.5rem + 2vw, 4.5rem);
+	width: clamp(2.75rem, 2.1rem + 1.65vw, 3.75rem); /* ~16% smaller than the "+" toggle */
+	height: clamp(2.75rem, 2.1rem + 1.65vw, 3.75rem);
 	flex-shrink: 0;
-	color: #c79bff;
+	color: var(--site-menu-mark);
 	/* Bouncy overshoot easing for a playful spin. */
 	transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -237,7 +241,7 @@
 .site-menu__link {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.35em;
+	gap: 0.4em;
 	padding: 5px 16px;
 	border-radius: 24px;
 	font-family: var(--font-sans);
@@ -247,10 +251,13 @@
 	letter-spacing: -0.01em;
 	color: #fff;
 	text-decoration: none;
-	transition: color var(--duration-fast, 0.15s) var(--ease-base, ease);
+	transition: color var(--duration-base, 0.25s) var(--ease-base, ease);
 }
 
-.site-menu__link:hover,
+.site-menu__link:hover {
+	color: rgb(255 255 255 / 0.6);
+}
+
 .site-menu__link:focus-visible {
 	color: rgb(255 255 255 / 0.6);
 }
@@ -264,7 +271,7 @@
 	inline-size: 0.55em;
 	block-size: 0.55em;
 	flex-shrink: 0;
-	translate: 0 0.02em;
+	translate: 0 -0.08em;
 }
 
 /* Socials */
@@ -353,25 +360,31 @@
 	.site-menu__primary {
 		flex-direction: row;
 		align-items: center;
-		gap: clamp(1.75rem, 3.5vw, 2.75rem);
+		gap: clamp(2.25rem, 2.75vw, 3rem); /* 36 → 48px */
 		padding-top: 0;
 	}
 
 	/* Muted thin strip — quiet until hover / current, per reference. */
 	.site-menu__link {
+		position: relative;
 		padding: 0.25rem 0;
 		border-radius: 0;
 		font-weight: 300;
 		font-size: var(--text-md); /* 18px */
 		letter-spacing: -0.01em;
-		color: #6e6e6e;
+		color: var(--site-menu-link);
 		opacity: 1;
 	}
 
-	.site-menu__link:hover,
-	.site-menu__link:focus-visible {
+	.site-menu__link:hover {
 		color: var(--ink);
 		opacity: 1;
+	}
+
+	.site-menu__link:focus-visible {
+		color: var(--ink);
+		outline: 2px solid var(--site-menu-mark);
+		outline-offset: 4px;
 	}
 
 	.site-menu__link[aria-current="page"] {
@@ -379,19 +392,28 @@
 		text-decoration: none;
 	}
 
+	.site-menu__link[aria-current="page"]::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: -0.35em;
+		width: 0.3125rem; /* 5px */
+		height: 0.3125rem;
+		border-radius: var(--radius-full, 999px);
+		background: var(--site-menu-mark);
+		translate: -50% 0;
+		pointer-events: none;
+	}
+
 	.site-menu__external-icon {
-		inline-size: 0.85rem;
-		block-size: 0.85rem;
+		inline-size: 0.68em;
+		block-size: 0.68em;
+		translate: 0 -0.12em;
 	}
 
 	/* Socials already live in the footer — don't repeat them in the bar. */
 	.site-menu__socials {
 		display: none;
-	}
-
-	/* The light focus ring was for the dark panel; restore a dark ring. */
-	.site-menu__panel :focus-visible {
-		outline-color: var(--ink);
 	}
 }
 

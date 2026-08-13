@@ -175,11 +175,22 @@ Skeleton inside `main.project-content`:
    `title`, 2×2 meta (Timeline / Role / Team / Tools), optional presentation
    CTA, hero media on the right (≥1024).
 2. **Body row** — sticky **On this page** TOC (desktop) beside sections. Hairline
-   track with in-view segments. A hairline separates this row from the masthead.
+   track with a **single** active segment (`aria-current`). A hairline separates
+   this row from the masthead.
 3. **More Projects** — related cards, full width below.
 
-Each `##` heading is a section (including **About the Project**) and appears in
-the TOC. Section rhythm: `h2` eyebrow → `[deck]` statement → body → bleed media.
+Case-study `##` headings follow a shared outline (omit phases that don’t apply):
+
+1. Overview  
+2. The Challenge  
+3. Solution  
+4. Research Process  
+5. Design Process  
+6. Results  
+7. Reflection  
+
+Each `##` is a section and appears in the TOC 1:1. Section rhythm: `h2` eyebrow →
+`[deck]` statement → body → bleed media.
 
 ---
 

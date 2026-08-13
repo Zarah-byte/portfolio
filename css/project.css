@@ -874,7 +874,7 @@
 	margin-top: var(--space-sm);
 }
 
-/* Hairline track; in-view links overlay a 2px ink segment (reference sidenav). */
+/* Hairline track; the active link overlays a 2px ink segment. */
 .page-project .project-nav__list {
 	display: flex;
 	flex-direction: column;
@@ -901,7 +901,6 @@
 
 .page-project .project-nav__link:hover,
 .page-project .project-nav__link:focus-visible,
-.page-project .project-nav__link.is-in-view,
 .page-project .project-nav__link[aria-current] {
 	color: var(--ink);
 	border-left-color: var(--ink);
@@ -1288,7 +1287,6 @@
 
 .page-project .project-nav__link:hover,
 .page-project .project-nav__link:focus-visible,
-.page-project .project-nav__link.is-in-view,
 .page-project .project-nav__link[aria-current] {
 	color: var(--ink);
 	border-left-color: var(--ink);

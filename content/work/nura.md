@@ -15,13 +15,13 @@ heroType: image
 caption: Nura, 2024
 ---
 
-## About the Project
+## Overview
 
 Nura is a calm companion for families navigating dementia caregiving at home. The daily work of supporting a loved one, tracking routines, managing medications, coordinating with clinicians, and holding space for grief, often falls on one person with tools that were never designed for this kind of care.
 
 I designed Nura to reduce the cognitive load of caregiving without reducing the humanity of it. The interface favors gentle prompts over alerts, shared visibility over solo responsibility, and plain language over clinical jargon, so caregivers can stay present with the person in front of them, not buried in the app.
 
-## Problem Space
+## The Challenge
 
 [deck] Care between appointments falls through the cracks.
 
@@ -32,8 +32,6 @@ The hardest part of dementia caregiving isn't the clinic visit, it's the everyda
 [card: The monitoring gap | The clinic sees an hour a month. The caregiver holds every other hour, with no tool built to carry that weight between visits.]
 [card: The caregiver as clerk | Existing apps turned a family member into a data-entry role for someone else's health, logging symptoms instead of living the day.]
 [card: Built for the wrong person | Every tool pointed its attention at the patient. The person quietly breaking under the load was left out of the design entirely.]
-
-## The Insight
 
 [deck] Design for the person behind the person.
 
@@ -55,7 +53,7 @@ Nura asks for less, more kindly: one tap to log how the day went, a routine that
 [card: A routine that adapts | The day's plan flexes with the person instead of nagging. A missed task is met with a next step, never a scold or a broken streak.]
 [card: Rigorous underneath | Every gentle tap still writes clean, structured data, organized enough to hand a clinician without any extra work from the caregiver.]
 
-## Living With Nura
+## Design Process
 
 [deck] To make this real, I followed one caregiver through an ordinary day.
 
@@ -71,8 +69,6 @@ By evening the work is emotional as much as logistical. One tap logs how the day
 
 [placeholder: Evening — one tap to log how the day actually went]
 
-## The Design System
-
 [deck] The system is built to lower the temperature.
 
 Rounded forms, generous space, and warm neutrals keep the interface from ever feeling clinical or urgent. Language does as much work as layout, and underneath the calm the data stays rigorous and structured, so what feels gentle to a caregiver is still clean enough to hand to a clinician.
@@ -82,8 +78,6 @@ Rounded forms, generous space, and warm neutrals keep the interface from ever fe
 [card: Rounded, warm forms | Soft corners, generous spacing, and warm neutrals keep every screen from reading as clinical, urgent, or alarming.]
 [card: Plain, non-judgmental language | No red badges, no streaks to break, no scolding for a missed task. Nura speaks in plain, human terms throughout.]
 [card: Structured data underneath | The gentle surface sits on a rigorous, structured data layer, clean enough to bring straight to a doctor.]
-
-## Decisions
 
 [deck] The concept cohered through what I chose to leave out.
 
@@ -96,7 +90,7 @@ Designing for care meant designing for the person behind the person, and most of
 
 [placeholder: Decision framework — every cut chosen to remove pressure, not information]
 
-## Impact
+## Results
 
 [deck] Caregivers called it a companion, not a tracker.
 
