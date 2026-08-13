@@ -9,7 +9,7 @@ tools: Figma
 year: 2024
 order: 2
 tags: ["Healthcare", "Thesis"]
-hero: ../assets/media/covers/nura-cover.png
+hero: ../assets/media/covers/nura-cover-landscape.jpg
 heroType: image
 caption: Nura, 2024
 ---
