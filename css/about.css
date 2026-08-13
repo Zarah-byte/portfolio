@@ -2,17 +2,16 @@
    sections (Experience, Awards, Approach, Stack) stacked down one narrow
    measure, closing with the colophon. Cursor-following image reveals fire on the
    highlighted phrases in the prose.
-   (Layout ref: danielamuntyan.com/about — portrait-led, everything stacked in
-   one centered column, section meta as a small eyebrow above each title.) */
+   (Layout ref: danielamuntyan.com/about — portrait fills the same centered
+   column as the bio; section titles read as display; date eyebrows above roles.) */
 
 .page-about {
 	font-family: var(--font-sans);
 	/* One body-copy size for every non-heading paragraph on the page. */
 	--about-body: 1.125rem; /* 18px, flat */
-	/* Centered column; measure matches body so text doesn’t sit left of center
-	   inside a wider shell (53ch ≈ 34.7rem at 18px). */
-	--about-column: 36rem; /* 576px */
-	--about-measure: 53ch;
+	/* One shared centered column (~Daniela’s ~680px measure). Portrait, prose,
+	   and sections all fill this width so the stack reads as one band. */
+	--about-column: 42.5rem; /* 680px */
 }
 
 .page-about .about-content {
@@ -25,22 +24,19 @@
 	padding-block: clamp(1.25rem, 0.75rem + 2.5vw, 3rem) 0;
 }
 
-/* One centered column. Children (portrait, prose, sections) are themselves
-   centered so the reading measure stays on the viewport midline. */
+/* One centered column. Children stretch to the column width. */
 .page-about .about-column {
 	width: min(100%, var(--about-column));
 	margin-inline: auto;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: stretch;
 	box-sizing: border-box;
 }
 
-/* Portrait leads the page, centered and sized as a focal image rather than a
-   full-bleed hero. Radius softens on narrow viewports so a phone-width crop
-   doesn't read as a capsule. */
+/* Portrait fills the column — same width band as the bio (ref). */
 .page-about .about-figure {
-	width: min(100%, 22rem); /* 352px */
+	width: 100%;
 	min-width: 0;
 	margin: 0 0 var(--space-xl);
 	border-radius: clamp(1.5rem, 0.75rem + 3.5vw, var(--radius-portrait));
@@ -52,6 +48,7 @@
 	width: 100%;
 	aspect-ratio: 577 / 865;
 	object-fit: cover;
+	object-position: center top;
 }
 
 /* ---- Prose --------------------------------------------------------------- */
@@ -60,7 +57,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
-	width: min(100%, var(--about-measure));
+	width: 100%;
 	font-family: var(--font-sans);
 }
 
@@ -151,7 +148,7 @@
    a heading on its own line, then its content below. */
 
 .page-about .about-section {
-	width: min(100%, var(--about-measure));
+	width: 100%;
 	margin-top: clamp(3rem, 2rem + 3vw, 5rem);
 	font-family: var(--font-sans);
 }
@@ -159,9 +156,9 @@
 .page-about .about-section__heading,
 .page-about .about-meta__heading {
 	margin: 0 0 var(--space-md);
-	font-size: var(--text-lg); /* 20 → 24px */
-	font-weight: 600;
-	letter-spacing: var(--tracking-tight);
+	font-size: var(--text-2xl); /* ~32 → 48 — display section titles like the ref */
+	font-weight: 700;
+	letter-spacing: var(--tracking-tighter);
 	line-height: var(--leading-heading);
 	color: var(--ink);
 }
@@ -169,7 +166,7 @@
 /* ---- Colophon ------------------------------------------------------------ */
 
 .page-about .about-meta {
-	width: min(100%, var(--about-measure));
+	width: 100%;
 }
 
 .page-about .about-meta__body p {
@@ -180,9 +177,8 @@
 }
 
 /* ---- Experience + Awards -------------------------------------------------
-   Each entry stacks: the mono meta (dates / result) reads as a small eyebrow
-   above the bold title, then the summary. `order: -1` lifts the meta above the
-   title without reordering the DOM (title stays first for semantics). */
+   Each entry stacks: muted date eyebrow above the bold title, then the summary.
+   `order: -1` lifts the meta above the title without reordering the DOM. */
 
 .page-about .experience-list,
 .page-about .awards-list {
@@ -204,26 +200,27 @@
 
 .page-about .experience-item__role,
 .page-about .award-item__name {
-	font-size: var(--text-md); /* 18px */
-	font-weight: 600;
-	letter-spacing: var(--tracking-snug);
+	font-size: var(--text-lg); /* 20 → 24px — matches ref role size */
+	font-weight: 700;
+	letter-spacing: var(--tracking-tight);
 	color: var(--ink);
 }
 
 .page-about .experience-item__dates,
 .page-about .award-item__result {
 	order: -1; /* eyebrow above the title */
-	font-family: var(--font-mono);
-	font-size: var(--text-xs);
-	letter-spacing: var(--tracking-wide);
+	font-family: var(--font-sans);
+	font-size: var(--about-body); /* same size band as bio, muted */
+	font-weight: 400;
+	letter-spacing: var(--tracking-snug);
 	color: var(--ink-muted);
 }
 
 .page-about .experience-item__summary {
 	margin-top: 0.4rem;
-	font-size: var(--text-base); /* 16px — summary sits a step under the bio */
-	line-height: 1.55;
-	letter-spacing: -0.02em;
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
 	color: var(--ink-muted);
 }
 
