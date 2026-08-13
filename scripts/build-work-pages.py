@@ -390,6 +390,8 @@ def image_embed_block(
     flush: bool = False,
     contained: bool = False,
     indent: str = "\t\t\t\t",
+    loading: str = "lazy",
+    fetchpriority: str | None = None,
 ) -> str:
     modifiers = []
     if flush:
@@ -397,10 +399,11 @@ def image_embed_block(
     if contained:
         modifiers.append("project-media--contained")
     modifier_text = f' {" ".join(modifiers)}' if modifiers else ""
+    priority = f' fetchpriority="{html.escape(fetchpriority)}"' if fetchpriority else ""
     return (
         f'{indent}<figure class="project-media{modifier_text}">\n'
         f'{indent}\t<img src="{html.escape(src)}" alt="{html.escape(alt)}"'
-        f'{image_size_attrs(src)} loading="lazy">\n'
+        f'{image_size_attrs(src)} loading="{html.escape(loading)}"{priority}>\n'
         f"{indent}</figure>"
     )
 
@@ -670,8 +673,22 @@ def vimeo_iframe(video_id: str, title: str, *, background: bool = True) -> str:
     )
 
 
-def image_figure(src: str, alt: str, *, flush: bool = True) -> str:
-    return image_embed_block(src, alt, flush=flush, indent="\t\t\t")
+def image_figure(
+    src: str,
+    alt: str,
+    *,
+    flush: bool = True,
+    loading: str = "lazy",
+    fetchpriority: str | None = None,
+) -> str:
+    return image_embed_block(
+        src,
+        alt,
+        flush=flush,
+        indent="\t\t\t",
+        loading=loading,
+        fetchpriority=fetchpriority,
+    )
 
 
 def render_hero(meta: dict[str, str], eyebrow: str) -> str:
@@ -697,7 +714,13 @@ def render_hero(meta: dict[str, str], eyebrow: str) -> str:
             f"\t\t\t</div>"
         )
 
-    return image_figure(hero, f"{eyebrow} cover")
+    # Masthead media is above the fold — eager + high fetch priority for LCP.
+    return image_figure(
+        hero,
+        f"{eyebrow} cover",
+        loading="eager",
+        fetchpriority="high",
+    )
 
 
 def format_meta_value(key: str, value: str) -> str:

@@ -301,5 +301,5 @@ Use tokens instead of hardcoded values everywhere, e.g. `padding: var(--space-lg
 ## Other
 
 - Border radius preference: `--radius-xl` for media cards, pills via `--radius-full`, soft about portrait via `--radius-portrait`.
-- Cover assets live under `assets/media/covers/` as kebab PNGs (`iris-cover.png`, `micdrop-cover.png`, `nura-cover.png`, `tasks-cover.png`). Use those paths for home, heroes, related thumbs, and `og:image`.
+- Cover assets live under `assets/media/covers/` as kebab names (`iris-cover.png`, `micdrop-cover.png`, `nura-cover.png`, `nura-cover-landscape.jpg`, `tasks-cover.png`). Portrait covers for the home rail; use a true 16:9 landscape asset for Nura’s masthead / related thumbs / `og:image` (`nura-cover-landscape.jpg`).
 - Notes (tone, references, things to avoid): light editorial layout; monospace for structural labels; General Sans carries the personality; tag chips stay white with subtle borders for contrast on project media.

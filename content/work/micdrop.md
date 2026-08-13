@@ -9,7 +9,7 @@ status: Conceptual · Print
 tools: Adobe Creative Cloud, ChatGPT
 year: 2025
 presentation: https://heyzine.com/flip-book/1355490501.html
-presentationLabel: See the Magzine
+presentationLabel: See the Magazine
 presentationIcon: ../assets/icons/arrow-up-right.svg
 order: 3
 tags: ["Editorial", "Print"]
