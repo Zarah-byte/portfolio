@@ -15,8 +15,7 @@
 }
 
 .page-about .about-content {
-	/* Slightly tighter top pad on small screens — the tall portrait already
-	   pushes bio well below the fold; keep desktop airy. */
+	/* Slightly tighter top pad on small screens; keep desktop airy. */
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -46,9 +45,7 @@
 .page-about .about-photo {
 	display: block;
 	width: 100%;
-	aspect-ratio: 577 / 865;
-	object-fit: cover;
-	object-position: center top;
+	height: auto; /* intrinsic ratio from the asset (732×467 landscape) */
 }
 
 /* ---- Prose --------------------------------------------------------------- */
