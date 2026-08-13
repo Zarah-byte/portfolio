@@ -9,27 +9,30 @@
 	font-family: var(--font-sans);
 	/* One body-copy size for every non-heading paragraph on the page. */
 	--about-body: 1.125rem; /* 18px, flat */
-	/* The single centered column. `ch` (the "0" advance) runs wider than the
-	   average glyph, so 40rem holds the measure near the 60–75 char guideline. */
-	--about-column: 40rem; /* 640px */
+	/* Centered column; measure matches body so text doesn’t sit left of center
+	   inside a wider shell (53ch ≈ 34.7rem at 18px). */
+	--about-column: 36rem; /* 576px */
 	--about-measure: 53ch;
 }
 
 .page-about .about-content {
 	/* Slightly tighter top pad on small screens — the tall portrait already
 	   pushes bio well below the fold; keep desktop airy. */
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* keep the column dead-centered in the viewport */
+	align-items: center;
 	padding-block: clamp(1.25rem, 0.75rem + 2.5vw, 3rem) 0;
 }
 
-/* One centered column for the whole page. Text is left-aligned within it; the
-   portrait centers itself (see .about-figure). Horizontal inset comes from
-   `.shell` (--shell-pad-x) so the column lines up with the header. */
+/* One centered column. Children (portrait, prose, sections) are themselves
+   centered so the reading measure stays on the viewport midline. */
 .page-about .about-column {
-	width: 100%;
-	max-width: var(--about-column);
+	width: min(100%, var(--about-column));
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	box-sizing: border-box;
 }
 
@@ -37,9 +40,9 @@
    full-bleed hero. Radius softens on narrow viewports so a phone-width crop
    doesn't read as a capsule. */
 .page-about .about-figure {
+	width: min(100%, 22rem); /* 352px */
 	min-width: 0;
-	max-width: 22rem; /* 352px */
-	margin: 0 auto var(--space-xl);
+	margin: 0 0 var(--space-xl);
 	border-radius: clamp(1.5rem, 0.75rem + 3.5vw, var(--radius-portrait));
 	overflow: hidden;
 }
@@ -57,6 +60,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
+	width: min(100%, var(--about-measure));
 	font-family: var(--font-sans);
 }
 
@@ -66,7 +70,6 @@
 	line-height: 1.6; /* 40 / 25 */
 	letter-spacing: -0.026em;
 	color: var(--ink-muted);
-	max-width: var(--about-measure);
 }
 
 .page-about .about-prose strong {
@@ -95,7 +98,6 @@
 	line-height: 1.6;
 	letter-spacing: -0.026em;
 	color: var(--ink-muted);
-	max-width: var(--about-measure);
 }
 
 .page-about .about-contact__links {
@@ -149,6 +151,7 @@
    a heading on its own line, then its content below. */
 
 .page-about .about-section {
+	width: min(100%, var(--about-measure));
 	margin-top: clamp(3rem, 2rem + 3vw, 5rem);
 	font-family: var(--font-sans);
 }
@@ -165,12 +168,15 @@
 
 /* ---- Colophon ------------------------------------------------------------ */
 
+.page-about .about-meta {
+	width: min(100%, var(--about-measure));
+}
+
 .page-about .about-meta__body p {
 	font-size: var(--about-body);
 	font-weight: 400;
 	line-height: 1.6;
 	color: var(--ink-muted);
-	max-width: var(--about-measure);
 }
 
 /* ---- Experience + Awards -------------------------------------------------
@@ -219,7 +225,6 @@
 	line-height: 1.55;
 	letter-spacing: -0.02em;
 	color: var(--ink-muted);
-	max-width: var(--about-measure);
 }
 
 /* Résumé — solid pill button, the one prominent call to action on the page.
@@ -267,7 +272,6 @@
 	line-height: 1.6;
 	letter-spacing: -0.026em;
 	color: var(--ink-muted);
-	max-width: var(--about-measure);
 }
 
 /* Stack — mono group labels over rows of monochrome, currentColor-masked marks
