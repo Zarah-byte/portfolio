@@ -18,6 +18,9 @@
 .page-about .about-content {
 	/* Slightly tighter top pad on small screens — the tall portrait already
 	   pushes bio well below the fold; keep desktop airy. */
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* keep the column dead-centered in the viewport */
 	padding-block: clamp(1.25rem, 0.75rem + 2.5vw, 3rem) 0;
 }
 
@@ -27,7 +30,7 @@
 .page-about .about-column {
 	width: 100%;
 	max-width: var(--about-column);
-	margin-inline: auto;
+	box-sizing: border-box;
 }
 
 /* Portrait leads the page, centered and sized as a focal image rather than a
