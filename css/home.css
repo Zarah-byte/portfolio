@@ -33,6 +33,36 @@
 	max-width: 51.5625rem; /* ~825px muted line */
 }
 
+.page-home .hero-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 0.75rem;
+	font-family: var(--font-body);
+	font-size: 0.9rem;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--ink);
+}
+
+.page-home .hero-status__dot {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background: var(--status-blue);
+	box-shadow: 0 0 0 0.1875rem rgb(43 108 255 / 0.18);
+	animation: hero-status-pulse 2.4s var(--ease-base) infinite;
+}
+
+@keyframes hero-status-pulse {
+	0%, 100% { box-shadow: 0 0 0 0.1875rem rgb(43 108 255 / 0.18); }
+	50%      { box-shadow: 0 0 0 0.3125rem rgb(43 108 255 / 0.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-home .hero-status__dot { animation: none; }
+}
+
 .page-home .hero-line {
 	margin: 0;
 	font-family: var(--font-display);
@@ -105,6 +135,8 @@
 	--card-chip-bg: rgba(255, 255, 255, 0.1);
 	width: var(--card-w);
 	height: var(--card-h);
+	container-type: inline-size;
+	container-name: home-card;
 }
 
 .page-home .card--dark {
@@ -173,13 +205,13 @@
 	position: absolute;
 	inset: auto 0 0;
 	z-index: 1;
-	height: 28%;
+	height: 42%;
 	pointer-events: none;
 	border-radius: inherit;
 	background: linear-gradient(
 		to top,
-		rgb(0 0 0 / 0.5) 0%,
-		rgb(0 0 0 / 0.18) 55%,
+		rgb(0 0 0 / 0.58) 0%,
+		rgb(0 0 0 / 0.22) 55%,
 		transparent 100%
 	);
 }
@@ -213,33 +245,56 @@
 	font-weight: 400;
 }
 
+.page-home .card-desc {
+	margin: 0;
+	max-width: 24ch;
+	font-family: var(--font-body);
+	font-size: 0.826875rem; /* ~13.2px, one step under the title */
+	font-weight: 400;
+	line-height: 1.3;
+	color: var(--card-ink);
+}
+
 .page-home .tags {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.68875rem; /* ~11px */
+	align-items: center;
+	gap: var(--space-2xs);
 	margin: 0;
-	padding: 0 0 0.91875rem; /* pb ~14.7 */
+	padding: 0;
 	list-style: none;
 }
 
-/* Rail variant: deliberately larger/lighter than the base .tag chip
-   (--text-2xs / weight 500) — sized to the portrait cards, part of the home
-   rail's own ×0.735 scale. Intentional divergence; don't snap to the base chip. */
+/* Chips size to the card, not the viewport — home cards stay ~264px on
+   phones, so a 768px media query never actually shrinks them. */
 .page-home .tag {
+	flex: 0 0 auto;
 	display: inline-flex;
 	align-items: center;
-	padding: 0.43rem 0.521875rem; /* ~6.88 / 8.35 */
+	padding: var(--space-2xs);
 	font-family: var(--font-mono);
-	font-size: 0.91875rem; /* ~14.7px */
+	font-size: var(--text-2xs);
 	font-weight: 400;
-	line-height: 1;
-	letter-spacing: var(--tracking-wide);
+	line-height: var(--leading-none);
+	letter-spacing: var(--tracking-normal);
 	text-transform: uppercase;
 	color: var(--card-ink);
 	background: var(--card-chip-bg);
 	border: 1px solid var(--card-chip-border);
 	border-radius: var(--radius-full);
 	white-space: nowrap;
+}
+
+@container home-card (min-width: 22rem) {
+	.page-home .tags {
+		gap: var(--space-xs);
+	}
+
+	.page-home .tag {
+		padding: var(--space-2xs) var(--space-xs);
+		font-size: var(--text-xs);
+		letter-spacing: var(--tracking-wide);
+	}
 }
 
 .page-home .card-archive-mark {

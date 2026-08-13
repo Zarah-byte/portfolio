@@ -61,8 +61,37 @@
 	transition: opacity var(--duration-base) var(--ease-base);
 }
 
-.page-play .play-card.is-active .play-card__media {
+.page-play .play-card.is-active .play-card__media,
+.page-play .play-card.is-active .play-card__caption {
 	opacity: 0;
+}
+
+/* Caption beneath each tile — title + category, so the archive scans without a
+   click. Hierarchy is typographic (weight + mono label), per the no-grey rule. */
+.page-play .play-card__caption {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	padding-top: 0.75rem;
+	text-align: left;
+	transition: opacity var(--duration-base) var(--ease-base);
+}
+
+.page-play .play-card__label {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: 500;
+	line-height: 1.3;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+.page-play .play-card__tag {
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--ink-muted);
 }
 
 .page-play .play-card__img {

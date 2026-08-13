@@ -5,6 +5,7 @@ role: Editorial Designer
 team: |
   Zarah Yaqub — Solo — ../assets/icons/logo-star.svg
 duration: 4 Months
+status: Conceptual · Print
 tools: Adobe Creative Cloud, ChatGPT
 year: 2025
 presentation: https://heyzine.com/flip-book/1355490501.html
@@ -23,11 +24,17 @@ MicDrop is a conceptual editorial design project that captures the evolving musi
 
 (disclaimer this was a conceptual project all text is AI generated, advertisements not designed by me)
 
-##
+## The Issue
+
+[deck] Echoes of a Nation, the debut issue.
 
 [image:../assets/media/micdrop/micdrop-spreads.png The full first issue laid out: cover and feature spreads shown together flush]
 
 [image:../assets/media/micdrop/micdrop-issue-cover.png MicDrop issue cover: "Echoes of a Nation" flush]
+
+## Inside the Spreads
+
+[deck] Bold typography, full-bleed portraits, and a grid that holds it all together.
 
 [image:../assets/media/micdrop/micdrop-spread-maybelline.png Opening spread: a full-page advertisement facing the "Fall Blissfully Into Berry" editorial flush]
 

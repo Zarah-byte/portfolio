@@ -30,6 +30,7 @@
 	--chip-rule: #D8D8D8; /* tag chip border — decorative; chip text carries the label */
 	--accent: #0A0A0A;    /* links resolve to ink in this design */
 	--thumb-bg: #F2F2F2;  /* card frame behind gallery media */
+	--status-blue: #2b6cff; /* the one blue: open-to-work availability dot */
 
 	/* Case-study card tints — soft pastels derived from the brand purple
 	   (#c79bff), assigned by position in [card:] grids / [panel:] blocks. The one

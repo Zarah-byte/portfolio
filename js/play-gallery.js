@@ -595,7 +595,21 @@
 			mediaWrap.className = 'play-card__media';
 			mediaWrap.append(createMediaElement(item));
 
-			card.append(mediaWrap);
+			// Visible caption so the grid is scannable without opening each tile.
+			const caption = document.createElement('div');
+			caption.className = 'play-card__caption';
+			const label = document.createElement('span');
+			label.className = 'play-card__label';
+			label.textContent = item.title || item.id;
+			caption.append(label);
+			if (item.tag) {
+				const tag = document.createElement('span');
+				tag.className = 'play-card__tag';
+				tag.textContent = item.tag;
+				caption.append(tag);
+			}
+
+			card.append(mediaWrap, caption);
 			card.addEventListener('click', () => openModal(item, card));
 			cardById.set(item.id, card);
 			fragment.append(card);

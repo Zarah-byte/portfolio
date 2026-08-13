@@ -56,9 +56,31 @@
 	max-width: none;
 }
 
+/* Résumé + socials cluster on the right of the footer. */
+.site-footer__end {
+	display: flex;
+	align-items: center;
+	justify-self: end;
+	gap: var(--space-md);
+}
+
+.site-footer__resume {
+	font-family: var(--font-sans);
+	font-size: var(--text-sm);
+	letter-spacing: -0.043em;
+	color: var(--ink-muted);
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+	transition: color var(--duration-fast) var(--ease-base);
+}
+
+.site-footer__resume:hover,
+.site-footer__resume:focus-visible {
+	color: var(--ink);
+}
+
 .site-footer__socials {
 	display: flex;
-	justify-self: end;
 	gap: 0.625rem;
 	list-style: none;
 	margin: 0;

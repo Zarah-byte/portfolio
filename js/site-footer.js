@@ -47,7 +47,21 @@
 			list.append(li);
 		});
 
-		footer.append(copy, clock, list);
+		// Résumé sits with the socials so "see her résumé / reach out" is one
+		// click from every page, not only the About page.
+		const resume = document.createElement('a');
+		resume.className = 'site-footer__resume';
+		resume.href = '/resume/Zarah_Yaqub_Resume.pdf';
+		resume.target = '_blank';
+		resume.rel = 'noopener noreferrer';
+		resume.setAttribute('data-cursor-magnetic', '');
+		resume.textContent = 'Résumé';
+
+		const end = document.createElement('div');
+		end.className = 'site-footer__end';
+		end.append(resume, list);
+
+		footer.append(copy, clock, end);
 
 		const tick = () => {
 			const now = new Date();

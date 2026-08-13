@@ -55,6 +55,10 @@ These break the defaults on purpose:
   one hero.
 - **Page-specific interactions**: home rail, about hover images, play modal,
   Tasks findings UI.
+- **Case-study labels**: TOC links, meta labels, and section eyebrows use slate
+  ink at reduced opacity (`--pc-label`) so hierarchy is quietness, not a second
+  grey. Values and body stay full ink. In-view TOC links use full ink on a 2px
+  track segment (several sections can be in view at once).
 
 ---
 
@@ -163,7 +167,19 @@ page-only bits behind the `page-<name>` class.
 
 Case studies are authored in `content/work/*.md` and compiled to
 `projects/*.html` by `scripts/build-work-pages.py`. **Edit the markdown, never
-the generated HTML.** (Details: the case-study pipeline note.)
+the generated HTML.**
+
+Skeleton inside `main.project-content`:
+
+1. **Masthead** (full width) — status pill, `h1` from `eyebrow`, short desc from
+   `title`, 2×2 meta (Timeline / Role / Team / Tools), optional presentation
+   CTA, hero media on the right (≥1024).
+2. **Body row** — sticky **On this page** TOC (desktop) beside sections. Hairline
+   track with in-view segments. A hairline separates this row from the masthead.
+3. **More Projects** — related cards, full width below.
+
+Each `##` heading is a section (including **About the Project**) and appears in
+the TOC. Section rhythm: `h2` eyebrow → `[deck]` statement → body → bleed media.
 
 ---
 

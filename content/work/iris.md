@@ -7,6 +7,7 @@ team: |
   Kian Sadat — Business Strategy — ../assets/media/iris/team/K.png
   Safiya Tarazi — Business Strategy — ../assets/media/iris/team/S.png
 duration: 24 Hours
+status: Hackathon · 1st Place
 tools: Figma, Gemini AI, ChatGPT, Claude AI, Kling AI, Unsplash
 year: 2026
 order: 1

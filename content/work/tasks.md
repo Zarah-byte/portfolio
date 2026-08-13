@@ -4,6 +4,7 @@ title: Bringing flexible organization to Google Tasks
 role: Product Designer, UX Researcher
 team: Solo
 duration: 7 Weeks
+status: Self-directed concept
 tools: Figma, Gemini AI, ChatGPT, Claude AI, Google Workspace
 year: 2025
 presentation: https://www.figma.com/deck/ihtL1gaT0U4N2ZBRXdRAOl/Zarah-Yaqub---Project-3?node-id=108-559

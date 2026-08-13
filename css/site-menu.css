@@ -330,6 +330,98 @@
 	filter: brightness(0) invert(0.12);
 }
 
+/* ---- Desktop: persistent inline nav -------------------------------------
+   At ≥768px the toggle + dark dropdown collapse into a normal horizontal nav
+   so the links are one glance away — no click. The dropdown stays the mobile
+   menu below this width. Pure CSS: the JS `hidden`/animation state is
+   overridden here, no behaviour change needed. */
+@media (min-width: 768px) {
+	.site-menu__toggle,
+	.site-menu__toggle-label {
+		display: none;
+	}
+
+	/* Panel stops being an absolute dark card — it lays out inline in the
+	   header and is always visible (overrides the JS `hidden` attribute). */
+	.site-menu__panel,
+	.site-menu__panel[hidden] {
+		position: static;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: clamp(1.25rem, 2.5vw, 2.25rem);
+		width: auto;
+		max-width: none;
+		padding: 0;
+		background: transparent;
+		border-radius: 0;
+		box-shadow: none;
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Cancel the staggered entrance so links don't start invisible/offset. */
+	.site-menu__panel .site-menu__link,
+	.site-menu__panel .site-menu__link-sub,
+	.site-menu__panel .site-menu__socials {
+		opacity: 1;
+		transform: none;
+	}
+
+	.site-menu__primary {
+		flex-direction: row;
+		align-items: center;
+		gap: clamp(0.75rem, 1.5vw, 1.5rem);
+		padding-top: 0;
+	}
+
+	.site-menu__link {
+		padding: 0.25rem 0;
+		font-size: var(--text-md);
+		color: var(--ink);
+	}
+
+	.site-menu__link:hover,
+	.site-menu__link:focus-visible {
+		color: var(--ink);
+		opacity: 0.6;
+	}
+
+	.site-menu__link[aria-current="page"] {
+		color: var(--ink);
+		text-decoration: underline;
+		text-underline-offset: 0.35em;
+		text-decoration-thickness: 1.5px;
+	}
+
+	.site-menu__secondary {
+		padding-inline: 0;
+	}
+
+	.site-menu__link-sub {
+		min-height: 0;
+		padding-block: 0;
+		font-size: var(--text-md);
+		color: var(--ink);
+	}
+
+	.site-menu__link-sub:hover,
+	.site-menu__link-sub:focus-visible {
+		color: var(--ink);
+		opacity: 0.6;
+	}
+
+	/* Socials already live in the footer — don't repeat them in the bar. */
+	.site-menu__socials {
+		display: none;
+	}
+
+	/* The light focus ring was for the dark panel; restore a dark ring. */
+	.site-menu__panel :focus-visible {
+		outline-color: var(--ink);
+	}
+}
+
 @media (max-width: 767px) {
 	.site-menu__panel {
 		position: fixed;

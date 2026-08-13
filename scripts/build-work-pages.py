@@ -882,22 +882,28 @@ def parse_tags(raw: str) -> list[str]:
     return [t.strip() for t in raw.strip("[]").split(",") if t.strip()]
 
 
-def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: str) -> str:
+def render_masthead(meta: dict[str, str], name: str, tagline: str) -> str:
+    """Full-width two-column hero: status, name, tagline, meta | media."""
     lines: list[str] = ['\t\t\t<header class="project-masthead">']
-    lines.append(f'\t\t\t\t<h1 class="project-title">{html.escape(name)}</h1>')
+    lines.append('\t\t\t\t<div class="project-masthead__text">')
+    status = meta.get("status", "").strip()
+    if status:
+        lines.append(
+            f'\t\t\t\t\t<p class="project-status"><span class="project-status__dot"'
+            f' aria-hidden="true"></span>{html.escape(status)}</p>'
+        )
+    lines.append(f'\t\t\t\t\t<h1 class="project-title">{html.escape(name)}</h1>')
 
-    details = render_details(meta, indent="\t\t\t\t")
-    if details:
-        lines.append(details)
-
-    lines.append('\t\t\t\t<div class="project-lead">')
     if tagline:
+        lines.append('\t\t\t\t\t<div class="project-lead">')
         lines.append(
             f'\t\t\t\t\t\t<p class="project-tagline">{html.escape(tagline)}</p>'
         )
-    narrative_html = paragraphs_to_html(about_body, indent="\t\t\t\t\t\t")
-    if narrative_html:
-        lines.append(narrative_html)
+        lines.append("\t\t\t\t\t</div>")
+
+    details = render_details(meta, indent="\t\t\t\t\t")
+    if details:
+        lines.append(details)
 
     presentation = meta.get("presentation", "").strip()
     if presentation:
@@ -914,33 +920,40 @@ def render_masthead(meta: dict[str, str], name: str, tagline: str, about_body: s
         if icon:
             link_class += " project-lead__link--icon"
         lines.append(
-            f'\t\t\t\t\t\t<a class="{link_class}" href="{html.escape(presentation)}"'
+            f'\t\t\t\t\t<a class="{link_class}" href="{html.escape(presentation)}"'
             f' target="_blank" rel="noopener">{html.escape(label)}{icon_html}</a>'
         )
 
-    lines.append("\t\t\t\t</div>")
+    lines.append("\t\t\t\t</div>")  # /.project-masthead__text
+
+    hero = render_hero(meta, name)
+    if hero:
+        lines.append('\t\t\t\t<div class="project-masthead__media">')
+        lines.append(hero)
+        lines.append("\t\t\t\t</div>")
+
     lines.append("\t\t\t</header>")
     return "\n".join(lines)
 
 
-def render_nav(eyebrow: str, items: list[tuple[str, str]]) -> str:
-    """Sticky rail: back link, current project, and jump links to each section."""
+def render_nav(items: list[tuple[str, str]]) -> str:
+    """Sticky 'On this page' rail with jump links to each section."""
     if not items:
         return ""
 
     links = "\n".join(
-        f'\t\t\t\t\t<a class="project-nav__link" href="#{anchor}">'
-        f"{html.escape(title)}</a>"
+        f'\t\t\t\t\t\t<li><a class="project-nav__link" href="#{anchor}">'
+        f"{html.escape(title)}</a></li>"
         for anchor, title in items
     )
     return (
         '\t\t\t<aside class="project-nav">\n'
         '\t\t\t\t<div class="project-nav__inner">\n'
-        '\t\t\t\t\t<a class="project-nav__back" href="../index">Back to work</a>\n'
-        '\t\t\t\t\t<p class="project-nav__eyebrow">You are viewing</p>\n'
-        f'\t\t\t\t\t<p class="project-nav__name">{html.escape(eyebrow)}</p>\n'
-        '\t\t\t\t\t<nav class="project-nav__sections" aria-label="Case study sections">\n'
+        '\t\t\t\t\t<p class="project-nav__eyebrow">On this page</p>\n'
+        '\t\t\t\t\t<nav class="project-nav__sections" aria-label="On this page">\n'
+        '\t\t\t\t\t\t<ul class="project-nav__list" role="list">\n'
         f"{links}\n"
+        "\t\t\t\t\t\t</ul>\n"
         "\t\t\t\t\t</nav>\n"
         "\t\t\t\t</div>\n"
         "\t\t\t</aside>"
@@ -958,53 +971,41 @@ def render_page(
     title = meta.get("title", eyebrow).strip()
 
     sections = split_sections(body)
-    about_body = ""
-    follow_on: list[tuple[str, str]] = []
 
-    for section_title, section_body in sections:
-        if section_title.lower() == "about the project" and not about_body:
-            about_body = section_body
-        else:
-            follow_on.append((section_title, section_body))
-
-    parts: list[str] = [render_masthead(meta, eyebrow, title, about_body)]
-
-    hero = render_hero(meta, eyebrow)
-    if hero:
-        parts.append('\t\t\t<div class="project-hero">\n' + hero + "\n\t\t\t</div>")
+    parts: list[str] = [render_masthead(meta, eyebrow, title)]
 
     nav_items: list[tuple[str, str]] = []
-    if follow_on:
-        seen: set[str] = set()
-        section_blocks: list[str] = []
-        for name, content in follow_on:
-            anchor = section_id(name, seen)
-            block = render_section(name, content, anchor)
-            if not block:
-                continue
-            section_blocks.append(block)
-            if anchor:
-                nav_items.append((anchor, name))
-        if section_blocks:
-            parts.append("\n".join(section_blocks))
+    section_blocks: list[str] = []
+    seen: set[str] = set()
+    for name, content in sections:
+        anchor = section_id(name, seen)
+        block = render_section(name, content, anchor)
+        if not block:
+            continue
+        section_blocks.append(block)
+        if anchor:
+            nav_items.append((anchor, name))
+
+    if section_blocks:
+        body_html = "\n".join(section_blocks)
+        nav = render_nav(nav_items)
+        if nav:
+            parts.append(
+                '\t\t\t<div class="project-layout">\n'
+                f"{nav}\n"
+                '\t\t\t<div class="project-body">\n'
+                f"{body_html}\n"
+                "\t\t\t</div>\n"
+                "\t\t\t</div>"
+            )
+        else:
+            parts.append(body_html)
 
     related = render_related(slug, all_projects)
     if related:
         parts.append(related)
 
-    body_html = "\n".join(part for part in parts if part)
-    nav = render_nav(eyebrow, nav_items)
-    if not nav:
-        return body_html
-
-    return (
-        '\t\t\t<div class="project-layout">\n'
-        f"{nav}\n"
-        '\t\t\t<div class="project-body">\n'
-        f"{body_html}\n"
-        "\t\t\t</div>\n"
-        "\t\t\t</div>"
-    )
+    return "\n".join(part for part in parts if part)
 
 
 def load_all_projects() -> list[tuple[str, dict[str, str]]]:
