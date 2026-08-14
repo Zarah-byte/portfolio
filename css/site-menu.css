@@ -1,10 +1,8 @@
-/* Shared site menu — purple star mark + circular "+" toggle (mobile) that
-   opens a compact dark dropdown; desktop is a muted horizontal strip
-   (Work / Archive / About / Resume↗). Injected by js/site-menu.js. */
+/* Shared site menu — purple star mark + circular "+" toggle that opens a
+   compact dark dropdown. Injected by js/site-menu.js on every page. */
 
 .site-menu {
 	--site-menu-mark: #c79bff; /* brand purple — star + active indicator */
-	--site-menu-link: color-mix(in srgb, var(--ink) 68%, var(--bg)); /* ~#585858 — readable, not ink */
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -209,12 +207,14 @@
 
 /* Staggered, bouncy pop-in for the panel contents. */
 .site-menu__panel .site-menu__link,
+.site-menu__panel .site-menu__link-sub,
 .site-menu__panel .site-menu__socials {
 	opacity: 0;
 	transform: translateY(14px);
 }
 
 .site-menu__panel.is-open .site-menu__link,
+.site-menu__panel.is-open .site-menu__link-sub,
 .site-menu__panel.is-open .site-menu__socials {
 	opacity: 1;
 	transform: none;
@@ -226,10 +226,10 @@
 .site-menu__panel.is-open .site-menu__link:nth-child(1) { transition-delay: 0.08s; }
 .site-menu__panel.is-open .site-menu__link:nth-child(2) { transition-delay: 0.14s; }
 .site-menu__panel.is-open .site-menu__link:nth-child(3) { transition-delay: 0.2s; }
-.site-menu__panel.is-open .site-menu__link:nth-child(4) { transition-delay: 0.26s; }
+.site-menu__panel.is-open .site-menu__link-sub { transition-delay: 0.26s; }
 .site-menu__panel.is-open .site-menu__socials { transition-delay: 0.32s; }
 
-/* Primary strip — Work / Archive / About / Resume↗ */
+/* Primary links (Work / Archive / About) */
 .site-menu__primary {
 	display: flex;
 	flex-direction: column;
@@ -266,12 +266,31 @@
 	color: rgb(255 255 255 / 0.5);
 }
 
-.site-menu__external-icon {
-	display: block;
-	inline-size: 0.55em;
-	block-size: 0.55em;
-	flex-shrink: 0;
-	translate: 0 -0.08em;
+/* Secondary links (Resume) */
+.site-menu__secondary {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding-inline: 16px;
+}
+
+.site-menu__link-sub {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem; /* 44px tap target */
+	padding-block: 0.5rem;
+	font-family: var(--font-sans);
+	font-weight: 400;
+	font-size: var(--text-md);
+	line-height: 1.67;
+	color: #8A8D88; /* 4.5:1 on the #080a0c panel */
+	text-decoration: none;
+	transition: color var(--duration-fast, 0.15s) var(--ease-base, ease);
+}
+
+.site-menu__link-sub:hover,
+.site-menu__link-sub:focus-visible {
+	color: #b6b8b4;
 }
 
 /* Socials */
@@ -320,103 +339,6 @@
 	filter: brightness(0) invert(0.12);
 }
 
-/* ---- Desktop: persistent inline nav -------------------------------------
-   At ≥768px the toggle + dark dropdown collapse into a normal horizontal nav
-   so the links are one glance away — no click. The dropdown stays the mobile
-   menu below this width. Pure CSS: the JS `hidden`/animation state is
-   overridden here, no behaviour change needed. */
-@media (min-width: 768px) {
-	.site-menu__toggle,
-	.site-menu__toggle-label {
-		display: none;
-	}
-
-	/* Panel stops being an absolute dark card — it lays out inline in the
-	   header and is always visible (overrides the JS `hidden` attribute). */
-	.site-menu__panel,
-	.site-menu__panel[hidden] {
-		position: static;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: clamp(1.25rem, 2.5vw, 2.25rem);
-		width: auto;
-		max-width: none;
-		padding: 0;
-		background: transparent;
-		border-radius: 0;
-		box-shadow: none;
-		opacity: 1;
-		transform: none;
-	}
-
-	/* Cancel the staggered entrance so links don't start invisible/offset. */
-	.site-menu__panel .site-menu__link,
-	.site-menu__panel .site-menu__socials {
-		opacity: 1;
-		transform: none;
-	}
-
-	.site-menu__primary {
-		flex-direction: row;
-		align-items: center;
-		gap: clamp(2.25rem, 2.75vw, 3rem); /* 36 → 48px */
-		padding-top: 0;
-	}
-
-	/* Muted thin strip — quiet until hover / current, per reference. */
-	.site-menu__link {
-		position: relative;
-		padding: 0.25rem 0;
-		border-radius: 0;
-		font-weight: 300;
-		font-size: var(--text-md); /* 18px */
-		letter-spacing: -0.01em;
-		color: var(--site-menu-link);
-		opacity: 1;
-	}
-
-	.site-menu__link:hover {
-		color: var(--ink);
-		opacity: 1;
-	}
-
-	.site-menu__link:focus-visible {
-		color: var(--ink);
-		outline: 2px solid var(--site-menu-mark);
-		outline-offset: 4px;
-	}
-
-	.site-menu__link[aria-current="page"] {
-		color: var(--ink);
-		text-decoration: none;
-	}
-
-	.site-menu__link[aria-current="page"]::after {
-		content: "";
-		position: absolute;
-		left: 50%;
-		bottom: -0.35em;
-		width: 0.3125rem; /* 5px */
-		height: 0.3125rem;
-		border-radius: var(--radius-full, 999px);
-		background: var(--site-menu-mark);
-		translate: -50% 0;
-		pointer-events: none;
-	}
-
-	.site-menu__external-icon {
-		inline-size: 0.68em;
-		block-size: 0.68em;
-		translate: 0 -0.12em;
-	}
-
-	/* Socials already live in the footer — don't repeat them in the bar. */
-	.site-menu__socials {
-		display: none;
-	}
-}
-
 @media (max-width: 767px) {
 	.site-menu__panel {
 		position: fixed;
@@ -436,12 +358,14 @@
 	.site-menu__toggle-icon,
 	.site-menu__panel,
 	.site-menu__panel.is-open .site-menu__link,
+	.site-menu__panel.is-open .site-menu__link-sub,
 	.site-menu__panel.is-open .site-menu__socials {
 		transition: none;
 	}
 
 	/* Keep panel contents visible without the entrance animation. */
 	.site-menu__panel .site-menu__link,
+	.site-menu__panel .site-menu__link-sub,
 	.site-menu__panel .site-menu__socials {
 		opacity: 1;
 		transform: none;
