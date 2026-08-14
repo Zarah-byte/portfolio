@@ -2,7 +2,9 @@
    compact dark dropdown. Injected by js/site-menu.js on every page. */
 
 .site-menu {
-	--site-menu-mark: #c79bff; /* brand purple — star + active indicator */
+	--site-menu-mark: #c79bff; /* brand purple — star */
+	position: relative;
+	z-index: 200; /* above page media (about hover 50, play proxy 101); below play modal 300 */
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -245,7 +247,7 @@
 	padding: 5px 16px;
 	border-radius: 24px;
 	font-family: var(--font-sans);
-	font-weight: 300;
+	font-weight: 400;
 	font-size: clamp(2rem, 1.4rem + 2.6vw, 2.75rem); /* → 44px */
 	line-height: 1.2;
 	letter-spacing: -0.01em;
@@ -296,7 +298,7 @@
 /* Socials */
 .site-menu__socials {
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: flex-end;
 	gap: 20px;
 	margin: 0;
@@ -321,22 +323,13 @@
 	opacity: 1;
 }
 
-.site-menu__social--chip {
-	background: rgb(145 148 143 / 0.8);
-	border-radius: 5px;
-}
-
 .site-menu__social img {
 	display: block;
-	width: 28px;
-	height: 28px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 	/* Tint the icons grey so they read on the dark panel. */
 	filter: brightness(0) invert(0.62);
-}
-
-.site-menu__social--chip img {
-	/* Dark glyph on the light chip. */
-	filter: brightness(0) invert(0.12);
 }
 
 @media (max-width: 767px) {

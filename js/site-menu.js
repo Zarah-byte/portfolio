@@ -85,7 +85,7 @@
 		SOCIALS.forEach((social) => {
 			const li = document.createElement('li');
 			const a = document.createElement('a');
-			a.className = social.chip ? 'site-menu__social site-menu__social--chip' : 'site-menu__social';
+			a.className = 'site-menu__social';
 			a.setAttribute('data-cursor-magnetic', '');
 			a.href = social.href;
 			if (social.external) {
@@ -131,7 +131,8 @@
 				document.removeEventListener('click', onDocClick);
 				onDocClick = null;
 			}
-			const onEnd = () => {
+			const onEnd = (event) => {
+				if (event.target !== panel || event.propertyName !== 'transform') return;
 				panel.hidden = true;
 				panel.removeEventListener('transitionend', onEnd);
 			};
