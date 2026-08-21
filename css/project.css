@@ -76,7 +76,7 @@
 
 .page-project .project-tagline {
 	margin: 0;
-	font-size: 1.1875rem; /* 19px — recedes from the name */
+	font-size: var(--pc-tagline); /* recedes from the name */
 	font-weight: 400;
 	line-height: 1.55;
 	letter-spacing: -0.01em;
@@ -215,7 +215,7 @@
 	margin: 0 auto;
 	max-width: 26ch;
 	color: var(--bg);
-	font-size: clamp(1.875rem, 4vw, 3.125rem);
+	font-size: var(--pc-callout);
 	font-weight: 500;
 	line-height: 1.25;
 	text-wrap: balance;
@@ -420,7 +420,7 @@
 .page-project .project-card__title {
 	margin: 0 0 0.5rem;
 	font-family: var(--font-display);
-	font-size: clamp(1.5625rem, 1.375rem + 0.875vw, 2.03125rem);
+	font-size: var(--pc-card-title);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: -0.02em;
@@ -445,7 +445,7 @@
 	margin: 0 0 0.75rem;
 	max-width: 22ch;
 	font-family: var(--font-display);
-	font-size: clamp(1.875rem, 1.375rem + 1.625vw, 2.65625rem);
+	font-size: var(--pc-panel-heading);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: -0.03em;
@@ -495,7 +495,7 @@
 .page-project .project-quote p {
 	margin: 0;
 	max-width: none;
-	font-size: clamp(1.5625rem, 1.375rem + 0.75vw, 1.875rem);
+	font-size: var(--pc-quote);
 	font-style: italic;
 	line-height: 1.4;
 	letter-spacing: -0.02em;
@@ -559,7 +559,7 @@
 .page-project .project-faq__q {
 	margin: 0 0 0.5rem;
 	font-family: var(--font-display);
-	font-size: clamp(1.40625rem, 1.25rem + 0.75vw, 1.71875rem);
+	font-size: var(--pc-faq-q);
 	font-weight: 600;
 	line-height: 1.25;
 	letter-spacing: -0.02em;
@@ -644,7 +644,7 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: 1.375rem;
+	font-size: var(--pc-related-name);
 	line-height: 1.2;
 	letter-spacing: -0.01em;
 	color: var(--pc-ink);
@@ -911,7 +911,7 @@
 /* Title is its own block above the meta row (reference), sized to the
    reference's proportion rather than running the full frame width. */
 .page-project .project-title {
-	font-size: clamp(2.5rem, 2rem + 1.5vw, 3.125rem);
+	font-size: var(--pc-title);
 	font-weight: 500;
 	line-height: 1.1;
 	letter-spacing: -0.04em;
@@ -1024,7 +1024,7 @@
    separates them by weight and colour instead. */
 .page-project .project-meta__label {
 	font-family: var(--font-mono);
-	font-size: 1.0625rem;
+	font-size: var(--pc-meta-label);
 	font-weight: 500;
 	line-height: 1.2;
 	letter-spacing: 0.03em;
@@ -1050,13 +1050,13 @@
 
 .page-project .project-lead,
 .page-project .project-lead p:not(.project-tagline) {
-	font-size: 1.3125rem;
+	font-size: var(--pc-lead);
 	line-height: 1.6;
 	color: var(--pc-muted);
 }
 
 .page-project .project-tagline {
-	font-size: 1.1875rem;
+	font-size: var(--pc-tagline);
 	line-height: 1.55;
 	color: rgb(50 64 79 / 0.7);
 }
@@ -1247,8 +1247,22 @@
 	--ink: #32404f;
 	--ink-muted: var(--ink); /* secondary text collapsed to ink — no grey text, per design direction */
 	--accent: #7c3aed; /* brand purple (#c79bff family), darkened for text-legible contrast on the off-white */
-	--pc-body: 1.1875rem; /* 19px — reference body size */
 	--pc-label: rgb(50 64 79 / 0.45); /* slate ink, quieter — TOC/meta/eyebrows */
+
+	/* Page-local type scale — bespoke sizes tuned to the reference proportions,
+	   not steps of the shared --text-* scale. Centralized here so a rescale edits
+	   this block, not each rule (see design.md, Type scale). ~19px reference body. */
+	--pc-body: 1.1875rem;         /* 19px — reference body size */
+	--pc-tagline: 1.1875rem;      /* masthead / project tagline */
+	--pc-meta-label: 1.0625rem;   /* 17px — mono meta labels */
+	--pc-lead: 1.3125rem;         /* 21px — masthead lead paragraph */
+	--pc-related-name: 1.375rem;  /* 22px — related-project card name */
+	--pc-faq-q: clamp(1.40625rem, 1.25rem + 0.75vw, 1.71875rem);
+	--pc-card-title: clamp(1.5625rem, 1.375rem + 0.875vw, 2.03125rem);
+	--pc-quote: clamp(1.5625rem, 1.375rem + 0.75vw, 1.875rem);
+	--pc-panel-heading: clamp(1.875rem, 1.375rem + 1.625vw, 2.65625rem);
+	--pc-callout: clamp(1.875rem, 4vw, 3.125rem);
+	--pc-title: clamp(2.5rem, 2rem + 1.5vw, 3.125rem);
 }
 
 .page-project .project-content {
