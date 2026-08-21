@@ -76,7 +76,7 @@
 
 .page-project .project-tagline {
 	margin: 0;
-	font-size: 0.9375rem; /* 15px — recedes from the name */
+	font-size: 1.1875rem; /* 19px — recedes from the name */
 	font-weight: 400;
 	line-height: 1.55;
 	letter-spacing: -0.01em;
@@ -215,7 +215,7 @@
 	margin: 0 auto;
 	max-width: 26ch;
 	color: var(--bg);
-	font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+	font-size: clamp(1.875rem, 4vw, 3.125rem);
 	font-weight: 500;
 	line-height: 1.25;
 	text-wrap: balance;
@@ -420,7 +420,7 @@
 .page-project .project-card__title {
 	margin: 0 0 0.5rem;
 	font-family: var(--font-display);
-	font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+	font-size: clamp(1.5625rem, 1.375rem + 0.875vw, 2.03125rem);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: -0.02em;
@@ -445,7 +445,7 @@
 	margin: 0 0 0.75rem;
 	max-width: 22ch;
 	font-family: var(--font-display);
-	font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.125rem);
+	font-size: clamp(1.875rem, 1.375rem + 1.625vw, 2.65625rem);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: -0.03em;
@@ -495,7 +495,7 @@
 .page-project .project-quote p {
 	margin: 0;
 	max-width: none;
-	font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+	font-size: clamp(1.5625rem, 1.375rem + 0.75vw, 1.875rem);
 	font-style: italic;
 	line-height: 1.4;
 	letter-spacing: -0.02em;
@@ -559,7 +559,7 @@
 .page-project .project-faq__q {
 	margin: 0 0 0.5rem;
 	font-family: var(--font-display);
-	font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+	font-size: clamp(1.40625rem, 1.25rem + 0.75vw, 1.71875rem);
 	font-weight: 600;
 	line-height: 1.25;
 	letter-spacing: -0.02em;
@@ -644,7 +644,7 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: 1.125rem;
+	font-size: 1.375rem;
 	line-height: 1.2;
 	letter-spacing: -0.01em;
 	color: var(--pc-ink);
@@ -911,7 +911,7 @@
 /* Title is its own block above the meta row (reference), sized to the
    reference's proportion rather than running the full frame width. */
 .page-project .project-title {
-	font-size: clamp(2rem, 1.6rem + 1.2vw, 2.5rem);
+	font-size: clamp(2.5rem, 2rem + 1.5vw, 3.125rem);
 	font-weight: 500;
 	line-height: 1.1;
 	letter-spacing: -0.04em;
@@ -1024,7 +1024,7 @@
    separates them by weight and colour instead. */
 .page-project .project-meta__label {
 	font-family: var(--font-mono);
-	font-size: 0.875rem;
+	font-size: 1.0625rem;
 	font-weight: 500;
 	line-height: 1.2;
 	letter-spacing: 0.03em;
@@ -1050,13 +1050,13 @@
 
 .page-project .project-lead,
 .page-project .project-lead p:not(.project-tagline) {
-	font-size: 1.0625rem;
+	font-size: 1.3125rem;
 	line-height: 1.6;
 	color: var(--pc-muted);
 }
 
 .page-project .project-tagline {
-	font-size: 0.9375rem;
+	font-size: 1.1875rem;
 	line-height: 1.55;
 	color: rgb(50 64 79 / 0.7);
 }
@@ -1136,7 +1136,7 @@
 .page-project .project-section > h2 {
 	max-width: none;
 	font-family: var(--font-mono);
-	font-size: var(--text-sm); /* 14px — same rank as meta labels */
+	font-size: var(--text-sm); /* 17px — same rank as meta labels */
 	font-weight: 400;
 	line-height: 1.4;
 	letter-spacing: 0.1em;
@@ -1163,7 +1163,7 @@
 .page-project .project-section__body p.project-deck {
 	margin: 0 0 var(--space-xs);
 	max-width: 40ch;
-	font-size: var(--text-lg); /* 20 → 24px — reference statement is ~26px */
+	font-size: var(--text-lg); /* 25 → 30px */
 	font-weight: 500;
 	line-height: var(--leading-snug);
 	letter-spacing: var(--tracking-tight);
@@ -1247,7 +1247,7 @@
 	--ink: #32404f;
 	--ink-muted: var(--ink); /* secondary text collapsed to ink — no grey text, per design direction */
 	--accent: #7c3aed; /* brand purple (#c79bff family), darkened for text-legible contrast on the off-white */
-	--pc-body: 0.9375rem; /* 15px — reference body size */
+	--pc-body: 1.1875rem; /* 19px — reference body size */
 	--pc-label: rgb(50 64 79 / 0.45); /* slate ink, quieter — TOC/meta/eyebrows */
 }
 
