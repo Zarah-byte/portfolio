@@ -47,7 +47,7 @@
 	--font-mono: "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
 	--font-sans: "General Sans", system-ui, sans-serif;
 
-	/* Type scale — 16px base on a ~1.2–1.25 modular ratio; larger steps scale
+	/* Type scale — fluid 18→20px base on a ~1.2–1.25 modular ratio; larger steps scale
 	   fluidly via clamp(). Tracking tightens and leading shrinks as size grows
 	   — see the role map in content/design-tokens.md. */
 	--text-2xs: 0.875rem;  /* 14px — micro labels, chips */

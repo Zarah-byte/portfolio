@@ -73,17 +73,19 @@ them here — reach for a step by *role*:
 - **Emphasis is weight, not a step.** A stressed phrase in body copy stays body
   size and goes `<strong>`; it never climbs the scale.
 - **One display step per view.** A page's largest type is its focal point — keep
-  a **≥5:1 display-to-body** gap so the title clearly wins. Don't stack two
-  near-equal large sizes.
+  a clear step (roughly 3–4×) between it and body so the title wins. Don't stack
+  two near-equal large sizes.
 - **The scale self-corrects as it grows.** Larger steps tighten tracking and
   leading (big lines don't want 1.5 leading or loose letters); the smallest mono
   labels do the opposite — wide tracking, generous leading.
-- **Headings** map `h1 → --text-3xl` down to `h4 → --text-lg`, all display at
-  weight 700. **Mono** (`--font-mono`) is structural labels only — nav, meta
-  labels, tag chips — uppercase on the two smallest steps.
-- **Project mastheads** are the one exception: a page-local clamp larger than
-  `--text-display`, with `--tracking-tighter`. Everywhere else, pick an existing
-  token before inventing a size (Rules of thumb #1).
+- **Headings** map `h1 → --text-3xl` down to `h4 → --text-lg`, display at weight
+  700 in the house style (project mastheads run lighter — see the project-page
+  note under Voice & feel). **Mono** (`--font-mono`) is structural labels only —
+  nav, meta labels, tag chips — uppercase on the two smallest steps.
+- **Project mastheads** are the one exception: a page-local clamp (`.project-title`
+  in `project.css`), sized to the reference proportion rather than a scale step,
+  with `--tracking-tighter`. Everywhere else, pick an existing token before
+  inventing a size (Rules of thumb #1).
 
 ---
 
