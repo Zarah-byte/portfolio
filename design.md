@@ -62,6 +62,31 @@ These break the defaults on purpose:
 
 ---
 
+## Type scale
+
+Hierarchy is carried by **size, weight, and space — never colour** (see Voice &
+feel). One named scale on a ~1.25 ratio does all the work; the values, the full
+role map, and the leading/tracking tokens live in
+[`content/design-tokens.md`](content/design-tokens.md#type-scale). Don't restate
+them here — reach for a step by *role*:
+
+- **Emphasis is weight, not a step.** A stressed phrase in body copy stays body
+  size and goes `<strong>`; it never climbs the scale.
+- **One display step per view.** A page's largest type is its focal point — keep
+  a **≥5:1 display-to-body** gap so the title clearly wins. Don't stack two
+  near-equal large sizes.
+- **The scale self-corrects as it grows.** Larger steps tighten tracking and
+  leading (big lines don't want 1.5 leading or loose letters); the smallest mono
+  labels do the opposite — wide tracking, generous leading.
+- **Headings** map `h1 → --text-3xl` down to `h4 → --text-lg`, all display at
+  weight 700. **Mono** (`--font-mono`) is structural labels only — nav, meta
+  labels, tag chips — uppercase on the two smallest steps.
+- **Project mastheads** are the one exception: a page-local clamp larger than
+  `--text-display`, with `--tracking-tighter`. Everywhere else, pick an existing
+  token before inventing a size (Rules of thumb #1).
+
+---
+
 ## Page anatomy
 
 Every page is the same skeleton inside a shared 1400px frame (`--frame-width`):
