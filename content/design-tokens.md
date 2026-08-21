@@ -121,37 +121,37 @@ throughout, **Geist Mono** for structural labels, on an off-white page with slat
 
 ## Type Scale
 
-Base font size `16px`. Comprehensive named scale on a ~1.25 ratio; larger steps use `clamp()` so type scales smoothly across viewport widths.
+Base font size `20px` on desktop (fluid from `18px` on mobile). Comprehensive named scale on a ~1.25 ratio; larger steps use `clamp()` so type scales smoothly across viewport widths.
 
 | Token | Value | ≈ px | Role | Leading | Tracking |
 |---|---|---|---|---|---|
-| `--text-2xs` | `0.6875rem` | 11 | Micro labels, chips (mono) | 1 | wide |
-| `--text-xs` | `0.75rem` | 12 | Nav, meta labels (mono) | 1 | wide |
-| `--text-sm` | `0.875rem` | 14 | Captions, fine print | body | normal |
-| `--text-base` | `1rem` | 16 | UI body | body | normal |
-| `--text-md` | `1.125rem` | 18 | Lead, card captions | snug | snug |
-| `--text-lg` | `clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem)` | 20–24 | Large body (h4) | snug | snug |
-| `--text-xl` | `clamp(1.5rem, 1.33rem + 0.85vw, 2rem)` | 24–32 | Sub-headings (h3) | heading | tight |
-| `--text-2xl` | `clamp(2rem, 1.65rem + 1.75vw, 3rem)` | 32–48 | Section titles (h2) | heading | tighter |
-| `--text-3xl` | `clamp(2.5rem, 1.95rem + 2.75vw, 4rem)` | 40–64 | Wordmark, page titles (h1) | heading | tighter |
-| `--text-4xl` | `clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem)` | 52–88 | Hero statement | tight | tighter |
-| `--text-display` | `clamp(3.5rem, 1rem + 12vw, 11rem)` | 56–176 | Oversized editorial titles (project mastheads) | tight | tighter |
+| `--text-2xs` | `0.875rem` | 14 | Micro labels, chips (mono) | 1 | wide |
+| `--text-xs` | `0.9375rem` | 15 | Nav, meta labels (mono) | 1 | wide |
+| `--text-sm` | `1.0625rem` | 17 | Captions, fine print | body | normal |
+| `--text-base` | `clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem)` | 18–20 | UI body | body | normal |
+| `--text-md` | `1.375rem` | 22 | Lead, card captions | snug | snug |
+| `--text-lg` | `clamp(1.5625rem, 1.475rem + 0.4375vw, 1.875rem)` | 25–30 | Large body (h4) | snug | snug |
+| `--text-xl` | `clamp(1.875rem, 1.6625rem + 1.0625vw, 2.5rem)` | 30–40 | Sub-headings (h3) | heading | tight |
+| `--text-2xl` | `clamp(2.5rem, 2.0625rem + 2.1875vw, 3.75rem)` | 40–60 | Section titles (h2) | heading | tighter |
+| `--text-3xl` | `clamp(3.125rem, 2.4375rem + 3.4375vw, 5rem)` | 50–80 | Wordmark, page titles (h1) | heading | tighter |
+| `--text-4xl` | `clamp(4.0625rem, 2.875rem + 5.9375vw, 6.875rem)` | 65–110 | Hero statement | tight | tighter |
+| `--text-display` | `clamp(4.375rem, 1.25rem + 15vw, 13.75rem)` | 70–220 | Oversized editorial titles (project mastheads) | tight | tighter |
 
 The scale climbs on a ~1.2–1.25 ratio and keeps a **≥5:1 display-to-body contrast** so a page's title reads as the clear focal point. As type grows, **tracking tightens** (large display needs negative tracking to stop looking loose) and **leading shrinks** (big lines don't need 1.5); small text does the opposite: normal tracking, generous leading for legibility.
 
 ```css
 :root {
-	--text-2xs: 0.6875rem;
-	--text-xs: 0.75rem;
-	--text-sm: 0.875rem;
-	--text-base: 1rem;
-	--text-md: 1.125rem;
-	--text-lg: clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem);
-	--text-xl: clamp(1.5rem, 1.33rem + 0.85vw, 2rem);
-	--text-2xl: clamp(2rem, 1.65rem + 1.75vw, 3rem);
-	--text-3xl: clamp(2.5rem, 1.95rem + 2.75vw, 4rem);
-	--text-4xl: clamp(3.25rem, 2.3rem + 4.75vw, 5.5rem);
-	--text-display: clamp(3.5rem, 1rem + 12vw, 11rem);
+	--text-2xs: 0.875rem;
+	--text-xs: 0.9375rem;
+	--text-sm: 1.0625rem;
+	--text-base: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+	--text-md: 1.375rem;
+	--text-lg: clamp(1.5625rem, 1.475rem + 0.4375vw, 1.875rem);
+	--text-xl: clamp(1.875rem, 1.6625rem + 1.0625vw, 2.5rem);
+	--text-2xl: clamp(2.5rem, 2.0625rem + 2.1875vw, 3.75rem);
+	--text-3xl: clamp(3.125rem, 2.4375rem + 3.4375vw, 5rem);
+	--text-4xl: clamp(4.0625rem, 2.875rem + 5.9375vw, 6.875rem);
+	--text-display: clamp(4.375rem, 1.25rem + 15vw, 13.75rem);
 }
 ```
 
