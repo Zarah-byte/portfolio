@@ -960,6 +960,10 @@
 	aspect-ratio: 16 / 9;
 	border-radius: var(--pc-media-radius);
 	overflow: hidden;
+	/* Keep 16:9 even when the text column is taller than the media — under the
+	   ≥1024 stretch grid, a stretched height would override aspect-ratio and
+	   crop the video. Opt out so the frame stays 16:9; text still fills the row. */
+	align-self: start;
 }
 
 .page-project .project-masthead__media > * {
