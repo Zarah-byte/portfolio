@@ -890,7 +890,7 @@
 	margin-left: -1px;
 	padding: var(--space-xs) 0 var(--space-xs) var(--space-sm);
 	border-left: 2px solid transparent;
-	font-size: var(--text-base);
+	font-size: var(--pc-body);
 	line-height: var(--leading-snug);
 	letter-spacing: var(--tracking-snug);
 	color: var(--pc-label);
@@ -960,9 +960,9 @@
 	aspect-ratio: 16 / 9;
 	border-radius: var(--pc-media-radius);
 	overflow: hidden;
-	/* Keep 16:9 even when the text column is taller than the media — under the
-	   ≥1024 stretch grid, a stretched height would override aspect-ratio and
-	   crop the video. Opt out so the frame stays 16:9; text still fills the row. */
+	/* Keep 16:9 even when the text column is taller than the media: under the
+	   >=1024 stretch grid a definite stretched height overrides aspect-ratio and
+	   crops the video. Opt out so the frame stays 16:9; text still fills the row. */
 	align-self: start;
 }
 
