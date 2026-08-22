@@ -96,10 +96,14 @@
 
 .page-about .about-contact__links {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 0.4rem;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
 	margin-top: 0.75rem;
+}
+
+.page-about .about-prose .about-contact__link {
+	text-decoration: none;
 }
 
 .page-about .about-contact__link {
@@ -107,14 +111,18 @@
 	align-items: center;
 	gap: 0.5rem;
 	max-width: 100%;
+	padding: 0.5rem 0.9rem;
 	font-size: var(--about-body);
-	line-height: 1.6;
+	line-height: 1;
 	letter-spacing: -0.026em;
-	color: var(--ink-muted);
-	text-decoration: underline;
-	text-underline-offset: 0.12em;
+	color: var(--ink);
+	text-decoration: none;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: var(--radius-full);
 	overflow-wrap: anywhere;
-	transition: color var(--duration-base) var(--ease-base);
+	transition: background var(--duration-base) var(--ease-base),
+		border-color var(--duration-base) var(--ease-base),
+		transform var(--duration-fast) var(--ease-base);
 }
 
 .page-about .about-contact__link::before {
@@ -131,13 +139,33 @@
 	--icon: url("../assets/icons/email-rounded.svg");
 }
 
+.page-about .about-contact__link--github {
+	--icon: url("../assets/icons/github-rounded-svgrepo-com%201.svg");
+}
+
 .page-about .about-contact__link--linkedin {
 	--icon: url("../assets/icons/linkedin-svgrepo-com%201.svg");
 }
 
 .page-about .about-contact__link:hover,
 .page-about .about-contact__link:focus-visible {
-	color: var(--ink);
+	background: rgba(0, 0, 0, 0.05);
+	border-color: rgba(0, 0, 0, 0.16);
+}
+
+.page-about .about-contact__link:active {
+	transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-about .about-contact__link {
+		transition: background var(--duration-base) var(--ease-base),
+			border-color var(--duration-base) var(--ease-base);
+	}
+
+	.page-about .about-contact__link:active {
+		transform: none;
+	}
 }
 
 /* ---- Sections ------------------------------------------------------------
@@ -239,7 +267,22 @@
 	background: var(--ink); /* #0A0A0A */
 	border-radius: var(--radius-full);
 	text-decoration: none;
-	transition: opacity var(--duration-fast) var(--ease-base);
+	transition: opacity var(--duration-fast) var(--ease-base),
+		transform var(--duration-fast) var(--ease-base);
+}
+
+.page-about .about-resume a:active {
+	transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-about .about-resume a {
+		transition: opacity var(--duration-fast) var(--ease-base);
+	}
+
+	.page-about .about-resume a:active {
+		transform: none;
+	}
 }
 
 .page-about .about-resume__icon {

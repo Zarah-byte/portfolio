@@ -105,6 +105,7 @@
 	--duration-base: 250ms;
 	--duration-slow: 500ms;
 	--ease-base: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-spring: cubic-bezier(0.16, 1, 0.3, 1); /* snappy settle for hover lifts */
 }
 
 html {

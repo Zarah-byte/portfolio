@@ -185,12 +185,19 @@
 	text-decoration: none;
 	color: var(--card-ink);
 	isolation: isolate;
-	transition: transform var(--duration-base) var(--ease-base);
+	transition: transform var(--duration-base) var(--ease-spring),
+		box-shadow var(--duration-base) var(--ease-spring);
 }
 
-.page-home .card-link:hover,
-.page-home .card-link:focus-visible {
-	transform: translateY(-1vw);
+.page-home .card:not(.card--archive) .card-link:hover,
+.page-home .card:not(.card--archive) .card-link:focus-visible {
+	transform: translateY(-2px) scale(1.015);
+	box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+}
+
+.page-home .card--archive .card-link:hover,
+.page-home .card--archive .card-link:focus-visible {
+	transform: translateY(-2px);
 }
 
 .page-home .card--archive .card-link {
@@ -221,6 +228,36 @@
 .page-home .card-link:hover .card-img,
 .page-home .card-link:focus-visible .card-img {
 	transform: scale(1.03);
+}
+
+/* Contextual role badge — fades in from the top-right corner on hover. */
+.page-home .card-role {
+	position: absolute;
+	top: clamp(0.75rem, 2vw, 1rem);
+	right: clamp(0.75rem, 2vw, 1rem);
+	z-index: 2;
+	padding: var(--space-2xs) var(--space-xs);
+	font-family: var(--font-mono);
+	font-size: var(--text-2xs);
+	font-weight: 400;
+	line-height: var(--leading-none);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.55);
+	backdrop-filter: blur(4px);
+	border-radius: var(--radius-full);
+	opacity: 0;
+	transform: translateY(4px);
+	transition: opacity var(--duration-fast) var(--ease-base),
+		transform var(--duration-fast) var(--ease-base);
+	pointer-events: none;
+}
+
+.page-home .card-link:hover .card-role,
+.page-home .card-link:focus-visible .card-role {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 /* Soft scrim so white title/tags stay legible on light covers (e.g. Iris). */
@@ -360,7 +397,22 @@
 	}
 
 	.page-home .card-link:hover,
-	.page-home .card-link:focus-visible {
+	.page-home .card-link:focus-visible,
+	.page-home .card:not(.card--archive) .card-link:hover,
+	.page-home .card:not(.card--archive) .card-link:focus-visible,
+	.page-home .card--archive .card-link:hover,
+	.page-home .card--archive .card-link:focus-visible {
+		transform: none;
+	}
+
+	/* Role badge still appears — just without the translate. */
+	.page-home .card-role {
+		transition: opacity var(--duration-fast) var(--ease-base);
+		transform: none;
+	}
+
+	.page-home .card-link:hover .card-role,
+	.page-home .card-link:focus-visible .card-role {
 		transform: none;
 	}
 
