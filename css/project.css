@@ -890,7 +890,7 @@
 	margin-left: -1px;
 	padding: var(--space-xs) 0 var(--space-xs) var(--space-sm);
 	border-left: 2px solid transparent;
-	font-size: var(--text-base);
+	font-size: var(--pc-body);
 	line-height: var(--leading-snug);
 	letter-spacing: var(--tracking-snug);
 	color: var(--pc-label);
