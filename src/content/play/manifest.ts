@@ -1,0 +1,48 @@
+/**
+ * Play archive items — typed port of content/play/manifest.json. Image src paths
+ * are root-relative to /content/play/ (served from public/). `sortItems` mirrors
+ * sortArchiveItems() in the old js/play-gallery.js.
+ */
+export interface PlayItem {
+  id: string;
+  type: "image" | "video";
+  kind?: "embed" | "file";
+  src: string;
+  modalSrc?: string;
+  alt?: string;
+  title?: string;
+  date?: string;
+  tag?: string;
+  order?: string;
+  description?: string;
+  link?: string;
+  linkLabel?: string;
+}
+
+export const PLAY_ITEMS: PlayItem[] = [
+  { id: "Karachi-Run-Club", type: "image", src: "/content/play/Karachi-Run-Club.png", modalSrc: "/content/play/Karachi-Run-Club.png", alt: "", title: "Karachi Run Club", date: "2024", tag: "Branding", order: "1", description: "Identity treatment for a community running club rooted in Karachi." },
+  { id: "Mismatch", type: "image", src: "/content/play/Mismatch.png", modalSrc: "/content/play/Mismatch.png", alt: "", title: "Mismatch", date: "2025", tag: "Web", link: "https://zarah-byte.github.io/01_manuscript/", linkLabel: "See it live", order: "2", description: "a seminal design text, Mismatch: How Inclusion shapes design by Kat Holmes and my response to it type set together." },
+  { id: "Homebodies", type: "image", src: "/content/play/Homebodies.png", modalSrc: "/content/play/Homebodies.png", alt: "", title: "Homebodies", date: "2025", tag: "Branding", order: "3", description: "Wordmark exploration for a candle brand centered on warmth and ritual." },
+  { id: "Homebodies-candles", type: "image", src: "/content/play/Homebodies-Candles.png", modalSrc: "/content/play/Homebodies-Candles.png", alt: "", title: "Homebodies candles", date: "2025", tag: "Packaging", order: "4", description: "Product and packaging study for the Homebodies candle line." },
+  { id: "Bear-Witness", type: "image", src: "/content/play/Bear-Witness.png", modalSrc: "/content/play/Bear-Witness.png", alt: "", title: "Bear Witness", date: "2024", tag: "Print", order: "5", description: "Editorial poster exploring cultural discourse through collage and type." },
+  { id: "Raise-Your-Glass", type: "image", src: "/content/play/Links.png", modalSrc: "/content/play/Links.png", alt: "", title: "Raise Your Glass", date: "2025", tag: "Web", link: "https://zarah-byte.github.io/links/", linkLabel: "See it live", order: "6", description: "An Are.na-powered collection site exploring glassware through images, videos, text, links, and audio." },
+  { id: "Karachi-Run-Club-tees", type: "image", src: "/content/play/Karachi-Run-Club-Tees.png", modalSrc: "/content/play/Karachi-Run-Club-Tees.png", alt: "", title: "Karachi Run Club tees", date: "2024", tag: "Merch", order: "7", description: "Apparel explorations for Karachi Run Club: front mark and back graphic." },
+  { id: "Mirae", type: "image", src: "/content/play/Mirae.png", modalSrc: "/content/play/Mirae.png", alt: "Mirae: speculative bio-adaptive sensing patch and companion interface", title: "Mirae", date: "2026", tag: "Speculative", link: "https://devpost.com/software/mirae-pt2s4i", linkLabel: "See submission", order: "8", description: "A speculative bio-adaptive system built for FigBuild 2026 with Chareese Lam: a wearable sensing patch and an AI guide that help you notice stress, avoidance, and habit loops before they surface.\n\nMost wellness tools arrive too late, reporting on a state after it has passed. Mirae meets the moment as it forms: the patch reads quiet signals at the skin, the AI interprets the pattern, and the companion interface surfaces one small, timely nudge: a prompt to breathe, pause, or notice the loop you're about to repeat." },
+  { id: "Spark", type: "image", src: "/content/play/Spark.png", modalSrc: "/content/play/Spark.png", alt: "", title: "Spark", date: "2026", tag: "UI Study", link: "https://www.figma.com/proto/cTVZZJDPQk7Yd44iCH2Ltp/SPARK?p=f&viewport=676%2C438%2C0.02&t=4VXe677iEbLei7mx-1&scaling=scale-down&content-scaling=fixed&show-proto-sidebar=1&node-id=325-3519&starting-point-node-id=346%3A3669&page-id=0%3A1", linkLabel: "View prototype", order: "9", description: "Spark is a fintech app designed to simplify financial transactions for a younger demographic. Created as part of an Advanced UI/UX course." },
+  { id: "Genie", type: "image", src: "/content/play/Genie%20Cover.png", modalSrc: "/content/play/Genie%20Cover.png", alt: "Genie", title: "Genie", date: "2026", tag: "UI Study", order: "10", description: "A live site to achive and memorialize your family history (coming soon)" },
+];
+
+export function sortItems(list: PlayItem[]): PlayItem[] {
+  return [...list].sort((a, b) => {
+    const orderA = Number.parseInt(a.order ?? "", 10);
+    const orderB = Number.parseInt(b.order ?? "", 10);
+    const hasA = Number.isFinite(orderA);
+    const hasB = Number.isFinite(orderB);
+    if (hasA && hasB && orderA !== orderB) return orderA - orderB;
+    if (hasA !== hasB) return hasA ? -1 : 1;
+    const dateA = a.date || "";
+    const dateB = b.date || "";
+    if (dateA !== dateB) return dateB.localeCompare(dateA);
+    return (a.title || a.id).localeCompare(b.title || b.id);
+  });
+}

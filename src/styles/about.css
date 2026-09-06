@@ -1,0 +1,385 @@
+/* About page — a single centered column: portrait leads, then bio, then the
+   sections (Experience, Awards, Approach, Stack) stacked down one narrow
+   measure, closing with the colophon. Cursor-following image reveals fire on the
+   highlighted phrases in the prose.
+   (Layout ref: danielamuntyan.com/about — portrait fills the same centered
+   column as the bio; section titles read as display; date eyebrows above roles.) */
+
+.page-about {
+	font-family: var(--font-sans);
+	/* One body-copy size for every non-heading paragraph on the page. */
+	--about-body: 1.125rem; /* 18px, flat */
+	/* One shared centered column (~Daniela’s ~680px measure). Portrait, prose,
+	   and sections all fill this width so the stack reads as one band. */
+	--about-column: 42.5rem; /* 680px */
+}
+
+.page-about .about-content {
+	/* Slightly tighter top pad on small screens; keep desktop airy. */
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-block: clamp(1.25rem, 0.75rem + 2.5vw, 3rem) 0;
+}
+
+/* One centered column. Children stretch to the column width. */
+.page-about .about-column {
+	width: min(100%, var(--about-column));
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	box-sizing: border-box;
+}
+
+/* Portrait fills the column — same width band as the bio (ref). */
+.page-about .about-figure {
+	width: 100%;
+	min-width: 0;
+	margin: 0 0 var(--space-xl);
+	border-radius: clamp(1.5rem, 0.75rem + 3.5vw, var(--radius-portrait));
+	overflow: hidden;
+}
+
+.page-about .about-photo {
+	display: block;
+	width: 100%;
+	height: auto; /* intrinsic ratio from the asset (732×467 landscape) */
+}
+
+/* ---- Prose --------------------------------------------------------------- */
+
+.page-about .about-prose {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(2rem, 1.4rem + 2vw, 3.125rem); /* ~32 → 50px */
+	width: 100%;
+	font-family: var(--font-sans);
+}
+
+.page-about .about-prose p {
+	font-size: var(--about-body);
+	font-weight: 400;
+	line-height: 1.6; /* 40 / 25 */
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+}
+
+.page-about .about-prose strong {
+	font-weight: 600;
+	color: var(--ink);
+	cursor: default;
+}
+
+.page-about .about-prose a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+}
+
+.page-about .about-prose a:hover {
+	opacity: 0.55;
+}
+
+/* ---- Contact -------------------------------------------------------------
+   The email used to be buried mid-sentence; grouping it with LinkedIn gives the
+   page one obvious way to reach out. Icons reuse the footer's masking recipe
+   (see .site-footer__social) and are decorative — the link text is the label. */
+
+.page-about .about-contact__lead {
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+}
+
+.page-about .about-contact__links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+.page-about .about-prose .about-contact__link {
+	text-decoration: none;
+}
+
+.page-about .about-contact__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	max-width: 100%;
+	padding: 0.5rem 0.9rem;
+	font-size: var(--about-body);
+	line-height: 1;
+	letter-spacing: -0.026em;
+	color: var(--ink);
+	text-decoration: none;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: var(--radius-full);
+	overflow-wrap: anywhere;
+	transition: background var(--duration-base) var(--ease-base),
+		border-color var(--duration-base) var(--ease-base),
+		transform var(--duration-fast) var(--ease-base);
+}
+
+.page-about .about-contact__link::before {
+	content: "";
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	background: currentColor;
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
+}
+
+.page-about .about-contact__link--email {
+	--icon: url("/assets/icons/email-rounded.svg");
+}
+
+.page-about .about-contact__link--github {
+	--icon: url("/assets/icons/github-rounded-svgrepo-com%201.svg");
+}
+
+.page-about .about-contact__link--linkedin {
+	--icon: url("/assets/icons/linkedin-svgrepo-com%201.svg");
+}
+
+.page-about .about-contact__link:hover,
+.page-about .about-contact__link:focus-visible {
+	background: rgba(0, 0, 0, 0.05);
+	border-color: rgba(0, 0, 0, 0.16);
+}
+
+.page-about .about-contact__link:active {
+	transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-about .about-contact__link {
+		transition: background var(--duration-base) var(--ease-base),
+			border-color var(--duration-base) var(--ease-base);
+	}
+
+	.page-about .about-contact__link:active {
+		transform: none;
+	}
+}
+
+/* ---- Sections ------------------------------------------------------------
+   Every block (Experience, Awards, Approach, Stack, colophon) is a stacked unit:
+   a heading on its own line, then its content below. */
+
+.page-about .about-section {
+	width: 100%;
+	margin-top: clamp(3rem, 2rem + 3vw, 5rem);
+	font-family: var(--font-sans);
+}
+
+.page-about .about-section__heading,
+.page-about .about-meta__heading {
+	margin: 0 0 var(--space-md);
+	font-size: var(--text-2xl); /* ~32 → 48 — display section titles like the ref */
+	font-weight: 700;
+	letter-spacing: var(--tracking-tighter);
+	line-height: var(--leading-heading);
+	color: var(--ink);
+}
+
+/* ---- Colophon ------------------------------------------------------------ */
+
+.page-about .about-meta {
+	width: 100%;
+}
+
+.page-about .about-meta__body p {
+	font-size: var(--about-body);
+	font-weight: 400;
+	line-height: 1.6;
+	color: var(--ink-muted);
+}
+
+/* ---- Experience + Awards -------------------------------------------------
+   Each entry stacks: muted date eyebrow above the bold title, then the summary.
+   `order: -1` lifts the meta above the title without reordering the DOM. */
+
+.page-about .experience-list,
+.page-about .awards-list {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .awards-list {
+	gap: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+}
+
+.page-about .experience-item__head,
+.page-about .award-item__head {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.page-about .experience-item__role,
+.page-about .award-item__name {
+	font-size: var(--text-lg); /* 20 → 24px — matches ref role size */
+	font-weight: 700;
+	letter-spacing: var(--tracking-tight);
+	color: var(--ink);
+}
+
+.page-about .experience-item__dates,
+.page-about .award-item__result {
+	order: -1; /* eyebrow above the title */
+	font-family: var(--font-sans);
+	font-size: var(--about-body); /* same size band as bio, muted */
+	font-weight: 400;
+	letter-spacing: var(--tracking-snug);
+	color: var(--ink-muted);
+}
+
+.page-about .experience-item__summary {
+	margin-top: 0.4rem;
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+}
+
+/* Résumé — solid pill button, the one prominent call to action on the page.
+   Figma: 24×11.2 pad, 24px arrow-up-right, hover fades to 80% like other CTAs. */
+.page-about .about-resume {
+	margin-top: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .about-resume a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem; /* 8px between label and arrow */
+	padding: 0.7rem 1.5rem; /* 11.2px × 24px */
+	font-size: var(--text-base); /* 16px */
+	font-weight: 600;
+	line-height: 1.55;
+	color: var(--bg);
+	background: var(--ink); /* #0A0A0A */
+	border-radius: var(--radius-full);
+	text-decoration: none;
+	transition: opacity var(--duration-fast) var(--ease-base),
+		transform var(--duration-fast) var(--ease-base);
+}
+
+.page-about .about-resume a:active {
+	transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-about .about-resume a {
+		transition: opacity var(--duration-fast) var(--ease-base);
+	}
+
+	.page-about .about-resume a:active {
+		transform: none;
+	}
+}
+
+.page-about .about-resume__icon {
+	display: block;
+	inline-size: 1.5rem; /* 24px — Figma arrow */
+	block-size: 1.5rem;
+	flex-shrink: 0;
+}
+
+.page-about .about-resume a:hover,
+.page-about .about-resume a:focus-visible {
+	opacity: 0.8;
+}
+
+/* Approach — short prose in the content column. */
+.page-about .about-approach__body {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+}
+
+.page-about .about-approach__body p {
+	font-size: var(--about-body);
+	line-height: 1.6;
+	letter-spacing: -0.026em;
+	color: var(--ink-muted);
+}
+
+/* Stack — mono group labels over rows of monochrome, currentColor-masked marks
+   (same masking approach as the footer social icons). */
+
+.page-about .stack-groups {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.page-about .stack-group__label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-wide);
+	color: var(--ink-muted);
+	margin-bottom: 0.9rem;
+}
+
+.page-about .stack-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+/* Pill chip — hairline border, fully rounded, white fill. */
+.page-about .stack-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.45rem 0.9rem;
+	font-size: var(--text-sm);
+	font-weight: 500;
+	color: var(--ink);
+	background: var(--chip-bg);
+	border: 1px solid var(--chip-rule);
+	border-radius: var(--radius-full);
+}
+
+.page-about .stack-icon {
+	flex: none;
+	width: 1.125rem;  /* 18px */
+	height: 1.125rem;
+	background: currentColor;
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
+}
+
+/* Footer — shared .site-footer component (see css/site-chrome.css). */
+
+/* ---- Cursor-following image reveal --------------------------------------- */
+
+/* Positioned by js/about-hover.js via translate3d; sits behind the custom cursor. */
+.about-hover-media {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 50;
+	width: clamp(180px, 22vw, 300px);
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	border-radius: var(--radius-md);
+	pointer-events: none;
+	opacity: 0;
+	/* transform (position + reveal scale) is owned by js/about-hover.js */
+	transform: translate3d(-50%, -50%, 0) scale(0.85);
+	transition: opacity var(--duration-base) var(--ease-base);
+	will-change: transform, opacity;
+}
+
+.about-hover-media.is-visible {
+	opacity: 1;
+}

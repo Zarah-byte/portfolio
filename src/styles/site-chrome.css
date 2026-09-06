@@ -1,0 +1,132 @@
+/* Shared site shell + footer — the header itself is built by js/site-menu.js. */
+
+.shell {
+	width: 100%;
+	max-width: var(--frame-width); /* 1400px — header, content, and footer share one frame */
+	margin-inline: auto;
+	padding: var(--space-md) var(--shell-pad-x);
+}
+
+.wordmark-star {
+	display: inline-flex;
+	width: 1.35rem;
+	height: 1.35rem;
+	flex-shrink: 0;
+	color: var(--ink);
+}
+
+.wordmark-star svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+	transform-origin: center;
+	animation: wordmark-star-spin 0.8s var(--ease-base) both;
+}
+
+@keyframes wordmark-star-spin {
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wordmark-star svg {
+		animation: none;
+	}
+}
+
+/* Shared footer — rendered by js/site-footer.js into every [data-site-footer]
+   placeholder, so all page types carry the same closing chrome.
+   Three columns: copyright, NYC clock, socials. The outer 1fr tracks are equal,
+   which keeps the clock optically centered on the page rather than centered in
+   the gap between its neighbours. */
+.site-footer {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: var(--space-md);
+	padding-top: clamp(1.5rem, 3vw, 2.25rem);
+	padding-bottom: var(--space-md);
+}
+
+.site-footer p {
+	font-family: var(--font-sans);
+	font-size: var(--text-sm);
+	letter-spacing: -0.043em;
+	color: var(--ink-muted);
+	max-width: none;
+}
+
+/* Résumé + socials cluster on the right of the footer. */
+.site-footer__end {
+	display: flex;
+	align-items: center;
+	justify-self: end;
+	gap: var(--space-md);
+}
+
+.site-footer__resume {
+	font-family: var(--font-sans);
+	font-size: var(--text-sm);
+	letter-spacing: -0.043em;
+	color: var(--ink-muted);
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+	transition: color var(--duration-fast) var(--ease-base);
+}
+
+.site-footer__resume:hover,
+.site-footer__resume:focus-visible {
+	color: var(--ink);
+}
+
+.site-footer__socials {
+	display: flex;
+	gap: 0.625rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Each icon is a solid square with the glyph as transparent negative space, so
+   masking the asset and painting `currentColor` through it gives us a plain
+   colour transition on hover. */
+.site-footer__social {
+	display: block;
+	width: 29px;
+	height: 29px;
+	color: var(--ink-muted);
+	background: currentColor;
+	transition: color var(--duration-fast) var(--ease-base);
+	-webkit-mask: var(--icon) center / contain no-repeat;
+	mask: var(--icon) center / contain no-repeat;
+}
+
+.site-footer__social:hover,
+.site-footer__social:focus-visible {
+	color: var(--ink);
+}
+
+.site-footer__social--email {
+	--icon: url("/assets/icons/email-rounded.svg");
+}
+
+.site-footer__social--github {
+	--icon: url("/assets/icons/github-rounded-svgrepo-com%201.svg");
+}
+
+.site-footer__social--linkedin {
+	--icon: url("/assets/icons/linkedin-svgrepo-com%201.svg");
+}
+
+@media (max-width: 639px) {
+	.site-footer {
+		grid-template-columns: 1fr;
+		justify-items: center;
+		gap: var(--space-sm);
+		text-align: center;
+	}
+
+	.site-footer__socials {
+		justify-self: center;
+	}
+}
